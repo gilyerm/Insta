@@ -8,6 +8,9 @@ target 'Insta' do
   # Pods for Insta
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
+	pod 'FirebaseUI'
+	pod 'Firebase/Storage'
+	pod 'Firebase/Messaging'
 
   target 'InstaTests' do
     inherit! :search_paths
