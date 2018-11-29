@@ -16,10 +16,18 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        var ref: DatabaseReference!
+        //var ref: DatabaseReference!
         
-        ref = Database.database().reference()
+        //ref = Database.database().reference()
         
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if snapshot.value as? Bool ?? false {
+                print("Connected")
+            } else {
+                print("Not connected")
+            }
+        })
         
     }
 
