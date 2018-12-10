@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         let url : URL = URL(fileURLWithPath: "https://firebasestorage.googleapis.com/v0/b/insta-6d60c.appspot.com/o/firebaselogo.png?alt=media&token=1442a161-eca2-4f83-9b28-e51e40085130");
         let user:User = User(userID: "1", username: "username", password: "password", followers: ["a","b"], posts: ["1","2"], tags: ["Ω","≈"], profilepic: url, details: ["bio":"Hey","age":"no tell"])
         
-        //ref.child("users").child(user.userID).setValue(user.toJson())
+        ref.child("users").child(user.userID).setValue(user.toJson())
         
     }
 }

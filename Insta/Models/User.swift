@@ -16,7 +16,7 @@ class User: NSObject,JsonProtocol {
         self.followers = json["followers"] as! [String];
         self.posts = json["posts"] as! [String];
         self.tags = json["tags"] as! [String];
-        self.profilepic = json["profilepic"] as! URL;
+        self.profilepic = URL(fileURLWithPath: json["profilepic"] as! String);
         self.details = json["details"] as! [String:String];
     }
     
@@ -28,7 +28,7 @@ class User: NSObject,JsonProtocol {
         json["followers"] = followers
         json["posts"] = posts
         json["tags"] = tags
-        json["profilepic"] = profilepic
+        json["profilepic"] = profilepic.path
         json["details"] = details
         return json
     }
