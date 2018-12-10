@@ -9,8 +9,6 @@
 import Foundation
 
 protocol JsonProtocol {
+    init(json: [String:Any]);
     func toJson() -> [String:Any];
-    init(<#parameters#>) {
-    <#statements#>
-    }
 }
