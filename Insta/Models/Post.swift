@@ -18,5 +18,14 @@ class Post: NSObject {
     var commonts : [Comment];
     var tags : [String]; // collection of user ids
     
+    init(postID : String,userID : String,ImageURL : URL,title : String,likes : [String],commonts : [Comment],tags : [String]) {
+        self.postID=postID;
+        self.userID=userID;
+        self.ImageURL=ImageURL;
+        self.title=title;
+        self.likes=likes;
+        self.commonts=commonts;
+        self.tags=tags;
+    }
     
 }

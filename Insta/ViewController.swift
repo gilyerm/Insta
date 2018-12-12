@@ -29,31 +29,31 @@ class ViewController: UIViewController {
                 print("Not connected")
             }
         })
-        var email:String = "fs",password:String="adaw";
-        var userid:String = "";
+        let email:String = "email@gmail.com",password:String="this is a secret";
+        let userref :DatabaseReference = ref.child("users");
+        
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             // ...
             guard let user = authResult?.user else { return }
-            userid = user.providerID
+             let url : URL = URL(fileURLWithPath: "https://firebasestorage.googleapis.com/v0/b/insta-6d60c.appspot.com/o/firebaselogo.png?alt=media&token=1442a161-eca2-4f83-9b28-e51e40085130");
             
+            let myuser:User = User(userID: user.uid, username: "username", email: user.email!, followers: ["a","b"], posts: ["1","2"], tags: ["Ω","≈"], profilepic: url, details: ["bio":"Hey","age":"no tell"])
+            
+            userref.child(myuser.userID).setValue(myuser.toJson())
         }
-        
-        let url : URL = URL(fileURLWithPath: "https://firebasestorage.googleapis.com/v0/b/insta-6d60c.appspot.com/o/firebaselogo.png?alt=media&token=1442a161-eca2-4f83-9b28-e51e40085130");
-        
-        let user:User = User(userID: userid, username: "username", password: "password", followers: ["a","b"], posts: ["1","2"], tags: ["Ω","≈"], profilepic: url, details: ["bio":"Hey","age":"no tell"])
 
-        ref.child("users").child(user.userID).setValue(user.toJson())
-        ref.child("users").observe(.value, with: {
-            (snapshot) in
-            // Get user value
-            var data = [User]()
-            let value = snapshot.value as! [String:Any]
-            for (_, json) in value{
-                let usr :User = User(json: json as! [String : Any])
-                print(usr.userID)
-                data.append(usr)
-            }
-        })
+        
+//        ref.child("users").observe(.value, with: {
+//            (snapshot) in
+//            // Get user value
+//            var data = [User]()
+//            let value = snapshot.value as! [String:Any]
+//            for (_, json) in value{
+//                let usr :User = User(json: json as! [String : Any])
+//                print(usr.userID)
+//                data.append(usr)
+//            }
+//        })
     }
 }
 
