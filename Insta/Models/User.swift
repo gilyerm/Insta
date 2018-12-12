@@ -37,9 +37,9 @@ class User: NSObject,JsonProtocol {
     var userID : String;
     var username : String;
     var password : String;
-    var followers : [String];
-    var posts : [String];
-    var tags : [String];
+    var followers : [String]; // collection of user ids
+    var posts : [String]; // collection of post ids
+    var tags : [String]; // collection of post ids
     var profilepic : URL;
     var details : [String : String];
     
