@@ -10,18 +10,6 @@ import Foundation
 
 extension ModelFirebase{
     func getAllUsers(callback:@escaping ([User])->Void){
-        //        ref.child("students").observeSingleEvent(of: .value, with: { (snapshot) in
-        //            // Get user value
-        //            var data = [Student]()
-        //            let value = snapshot.value as! [String:Any]
-        //            for (_, json) in value{
-        //                data.append(Student(json: json as! [String : Any]))
-        //            }
-        //            callback(data)
-        //        }) { (error) in
-        //            print(error.localizedDescription)
-        //        }
-        
         ref.child("users").observe(.value, with: {
             (snapshot) in
             // Get user value
@@ -39,6 +27,6 @@ extension ModelFirebase{
     }
     
     func getUser(byId:String)->User?{
-        return nil
+        return ref.child("users").value(forKey: byId) as User?
     }
 }

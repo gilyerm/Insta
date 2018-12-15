@@ -16,7 +16,7 @@ class ModelFirebase{
     init() {
         FirebaseApp.configure()
         ref = Database.database().reference()
-        
+
     }
 
 }
