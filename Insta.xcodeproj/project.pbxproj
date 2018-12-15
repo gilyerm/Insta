@@ -175,6 +175,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		84459F5721C5265800E72391 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		846EC05321BEE1DB000F221B /* FireBase */ = {
 			isa = PBXGroup;
 			children = (
@@ -187,10 +195,10 @@
 		84BE0A3921BEC04F006BDA0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				84459F5721C5265800E72391 /* Protocols */,
 				846EC05321BEE1DB000F221B /* FireBase */,
 				84BE0A4921BEC07E006BDA0D /* Chat.swift */,
 				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
-				84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */,
 				84BE0A4B21BEC07E006BDA0D /* Message.swift */,
 				84BE0A4621BEC07D006BDA0D /* Post.swift */,
 				84BE0A4721BEC07E006BDA0D /* User.swift */,
