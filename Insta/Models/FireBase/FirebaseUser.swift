@@ -27,6 +27,6 @@ extension ModelFirebase{
     }
     
     func getUser(byId:String)->User?{
-        return ref.child("users").value(forKey: byId) as User?
+        return ref.child("users").value(forKey: byId) as! User?
     }
 }

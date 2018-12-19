@@ -4,11 +4,10 @@
 //
 
 import Foundation
-import FirebaseAuth
+import Firebase
 
 extension ModelFirebase {
 
-    lazy let auth : Auth = Auth.auth();
 
     func Login(email:String,password :String) ->Bool {
         auth.signIn(withEmail: email, password: password){
@@ -17,7 +16,7 @@ extension ModelFirebase {
                 print(error!);
             }else{
                 let fbuser = authdataresult!.user;
-                userref.child(fbuser.uid).observeSingleEvent(of: .value, with: {
+                self.userref.child(fbuser.uid).observeSingleEvent(of: .value, with: {
                     (snapshot) in
                     let value : [String: Any] = snapshot.value as! [String:Any];
                     let user: User = User(json: value);
@@ -27,19 +26,21 @@ extension ModelFirebase {
         };
     }
 
-    func Register(email:String,password :String){
+    func Register(username:String, email:String,password :String){
         auth.createUser(withEmail: email, password: password) {
             (authdataresult: AuthDataResult?, error: Error?) in
-            if (error! = nil){
+            if (error != nil){
                 print(error!);
             }
             else{
                 let fbUser = authdataresult!.user;
-                let myUser:User = User(userID: fbUser.uid, email: fbUser.email);
+                let myUser:User = User(userID: fbUser.uid, username:username ,email: fbUser.email!);
                 self.addNewUser(user: myUser);
             }
         }
     }
-
-
+    
+    func isLogin() -> Bool {
+        return auth.currentUser != nil
+    }
 }

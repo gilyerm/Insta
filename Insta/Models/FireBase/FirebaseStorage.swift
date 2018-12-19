@@ -4,15 +4,13 @@
 //
 
 import Foundation
-import FirebaseStorage
+import Firebase
 
 extension ModelFirebase {
-
-    lazy var storageRef = Storage.storage()
-
     func saveImage(image:UIImage, name:(String),
                    callback:@escaping (String?)->Void){
-        let data = UIImageJPEGRepresentation(image,0.8)
+        let data = image.jpegData(compressionQuality: 0.8) //new version
+        //let data = UIImageJPEGRepresentation(image,0.8) //old version
         let imageRef = storageRef.child(name)
 
         let metadata = StorageMetadata()

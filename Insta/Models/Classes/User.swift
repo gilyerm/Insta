@@ -9,31 +9,6 @@
 import UIKit
 
 class User: NSObject,JsonProtocol {
-    required init(json: [String : Any]) {
-        self.userID = json["userID"] as! String;
-        self.username = json["username"] as! String;
-        self.email = json["email"] as! String;
-        self.followers = json["followers"] as! [String];
-        self.posts = json["posts"] as! [String];
-        self.tags = json["tags"] as! [String];
-        self.profilepic = URL(fileURLWithPath: json["profilepic"] as! String);
-        self.details = json["details"] as! [String:String];
-    }
-    
-    func toJson() -> [String : Any] {
-        var json = [String:Any]()
-        json["userID"] = userID
-        json["username"] = username
-        json["email"] = email
-        json["followers"] = followers
-        json["posts"] = posts
-        json["tags"] = tags
-        json["profilepic"] = profilepic.path
-        json["details"] = details
-        return json
-    }
-    
-    
     var userID : String; /// from FireBase Auth
     var username : String;
     var email : String;
@@ -63,4 +38,29 @@ class User: NSObject,JsonProtocol {
         self.profilepic = URL(fileURLWithPath: "");
         self.details = [String : String]();
     }
+    
+    required init(json: [String : Any]) {
+        self.userID = json["userID"] as! String;
+        self.username = json["username"] as! String;
+        self.email = json["email"] as! String;
+        self.followers = json["followers"] as! [String];
+        self.posts = json["posts"] as! [String];
+        self.tags = json["tags"] as! [String];
+        self.profilepic = URL(fileURLWithPath: json["profilepic"] as! String);
+        self.details = json["details"] as! [String:String];
+    }
+    
+    func toJson() -> [String : Any] {
+        var json = [String:Any]()
+        json["userID"] = userID
+        json["username"] = username
+        json["email"] = email
+        json["followers"] = followers
+        json["posts"] = posts
+        json["tags"] = tags
+        json["profilepic"] = profilepic.path
+        json["details"] = details
+        return json
+    }
+    
 }

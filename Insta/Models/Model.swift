@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Model {
     static let instance:Model = Model()
@@ -18,25 +19,24 @@ class Model {
 
 
 
-    func getAllStudents() {
-        modelFirebase.getAllStudents(callback: {(data:[Student]) in
-            ModelNotification.studentsListNotification.notify(data: data)
-
+    func getAllUsers() {
+        modelFirebase.getAllUsers(callback: {(data:[User]) in
+            ModelNotification.userListNotification.notify(data: data)
         })
     }
 
-    func getAllStudents(callback:@escaping ([Student])->Void){
-        modelFirebase.getAllStudents(callback: callback);
+    func getAllUsers(callback:@escaping ([User])->Void){
+        modelFirebase.getAllUsers(callback: callback);
         //return Student.getAll(database: modelSql!.database);
     }
 
-    func addNewStudent(student:Student){
-        modelFirebase.addNewStudent(student: student);
+    func addNewUser(user:User){
+        modelFirebase.addNewUser(user: user);
         //Student.addNew(database: modelSql!.database, student: student)
     }
 
-    func getStudent(byId:String)->Student?{
-        return modelFirebase.getStudent(byId:byId)
+    func getUser(byId:String)->User?{
+        return modelFirebase.getUser(byId:byId)
         //return Student.get(database: modelSql!.database, byId: byId);
     }
 

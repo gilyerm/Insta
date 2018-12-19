@@ -17,7 +17,7 @@
 		46F14F1D21A40CAF00FC1CA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */; };
 		4AB4D1173CB82C6DC0C0B5A2 /* Pods_InstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */; };
 		586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */; };
-		586036C7A00767397715AA08 /* MyNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E0943EC9EC1B705F72F /* MyNotification.swift */; };
+		586036C7A00767397715AA08 /* ModelNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E0943EC9EC1B705F72F /* ModelNotification.swift */; };
 		5860373F493C8D76D118F9D6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586039B3CFA70C3D91F7E65F /* Model.swift */; };
 		58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */; };
 		846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EC05421BEE20F000F221B /* ModelFirebase.swift */; };
@@ -52,6 +52,7 @@
 /* Begin PBXFileReference section */
 		252572DBD688E520714814A0 /* Pods-InstaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
 		463EFFC4219EE69A00E13CB0 /* Insta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Insta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		463EFFC9219EE69A00E13CB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +70,7 @@
 		586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
 		5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthUser.swift; sourceTree = "<group>"; };
 		586039B3CFA70C3D91F7E65F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		58603E0943EC9EC1B705F72F /* MyNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNotification.swift; sourceTree = "<group>"; };
+		58603E0943EC9EC1B705F72F /* ModelNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelNotification.swift; sourceTree = "<group>"; };
 		81E5A92D3578F5047CC1A534 /* Pods-InstaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaTests/Pods-InstaTests.debug.xcconfig"; sourceTree = "<group>"; };
 		846EC05421BEE20F000F221B /* ModelFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFirebase.swift; sourceTree = "<group>"; };
 		846EC05621BEE32E000F221B /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
@@ -115,6 +116,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46311D1A21CA846E00CA88AA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84BE0A4921BEC07E006BDA0D /* Chat.swift */,
+				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
+				84BE0A4B21BEC07E006BDA0D /* Message.swift */,
+				84BE0A4621BEC07D006BDA0D /* Post.swift */,
+				84BE0A4721BEC07E006BDA0D /* User.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		463EFFBB219EE69A00E13CB0 = {
 			isa = PBXGroup;
 			children = (
@@ -205,15 +218,12 @@
 		84BE0A3921BEC04F006BDA0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46311D1A21CA846E00CA88AA /* Classes */,
 				84459F5721C5265800E72391 /* Protocols */,
 				846EC05321BEE1DB000F221B /* FireBase */,
-				84BE0A4921BEC07E006BDA0D /* Chat.swift */,
-				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
-				84BE0A4B21BEC07E006BDA0D /* Message.swift */,
-				84BE0A4621BEC07D006BDA0D /* Post.swift */,
-				84BE0A4721BEC07E006BDA0D /* User.swift */,
-				58603E0943EC9EC1B705F72F /* MyNotification.swift */,
+				58603E0943EC9EC1B705F72F /* ModelNotification.swift */,
 				586039B3CFA70C3D91F7E65F /* Model.swift */,
+				46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -301,6 +311,7 @@
 				TargetAttributes = {
 					463EFFC3219EE69A00E13CB0 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					463EFFD7219EE69A00E13CB0 = {
 						CreatedOnToolsVersion = 10.0;
@@ -513,7 +524,7 @@
 				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
 				84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */,
 				58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */,
-				586036C7A00767397715AA08 /* MyNotification.swift in Sources */,
+				586036C7A00767397715AA08 /* ModelNotification.swift in Sources */,
 				5860373F493C8D76D118F9D6 /* Model.swift in Sources */,
 				586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */,
 			);
@@ -691,6 +702,7 @@
 			baseConfigurationReference = A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -699,6 +711,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -709,6 +723,7 @@
 			baseConfigurationReference = C5B4AF57A7D01B070676D812 /* Pods-Insta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -717,6 +732,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
