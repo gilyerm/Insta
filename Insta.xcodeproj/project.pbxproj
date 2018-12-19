@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
 		463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */; };
 		463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC9219EE69A00E13CB0 /* ViewController.swift */; };
 		463EFFCD219EE69A00E13CB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463EFFCB219EE69A00E13CB0 /* Main.storyboard */; };
@@ -53,6 +54,7 @@
 		252572DBD688E520714814A0 /* Pods-InstaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
+		46311D1F21CA894C00CA88AA /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		463EFFC4219EE69A00E13CB0 /* Insta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Insta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		463EFFC9219EE69A00E13CB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				58603E0943EC9EC1B705F72F /* ModelNotification.swift */,
 				586039B3CFA70C3D91F7E65F /* Model.swift */,
 				46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */,
+				46311D1F21CA894C00CA88AA /* MyDate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
 				84BE0A4F21BEC07E006BDA0D /* Chat.swift in Sources */,
 				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
+				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
 				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
 				463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */,
 				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,

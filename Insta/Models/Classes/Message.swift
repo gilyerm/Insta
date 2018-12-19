@@ -26,7 +26,7 @@ class Message: NSObject,JsonProtocol {
         self.messageID = json["messageID"] as! String;
         self.sender = json["sender"] as! String;
         self.text = json["text"] as! String;
-        self.time = json["time"] as! Date;
+        self.time = Date.date(dictionary:(json["time"] as? [String: Any]))!;
     }
     
     func toJson() -> [String : Any] {
@@ -34,7 +34,7 @@ class Message: NSObject,JsonProtocol {
         json["messageID"] = messageID
         json["sender"] = sender
         json["text"] = text
-        json["time"] = time
+        json["time"] = time ///need to fix
         return json
     }
 }
