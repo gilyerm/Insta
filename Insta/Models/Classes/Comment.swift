@@ -8,19 +8,36 @@
 
 import UIKit
 
-class Comment: NSObject {
-    
+class Comment: NSObject,JsonProtocol {
     var commentID: String;
     var postID: String; // post id
     var sender: String; // user id sender
     var messsage:  String;
-    var reply: String?; // comment id that the sender reply on
+    var timeSend: Date;
     
-    init(commentID: String,postID: String,sender: String,messsage:String,reply: String?) {
+    init(commentID: String,postID: String,sender: String,messsage:String,timeSend: Date) {
         self.commentID=commentID;
         self.postID=postID;
         self.sender=sender;
         self.messsage=messsage;
-        self.reply=reply;
+        self.timeSend=timeSend;
+    }
+    
+    required init(json: [String : Any]) {
+        self.commentID = json["commentID"] as! String;
+        self.postID = json["postID"] as! String;
+        self.sender = json["sender"] as! String;
+        self.messsage = json["messsage"] as! String;
+        self.timeSend = json["timeSend"] as! Date;
+    }
+    
+    func toJson() -> [String : Any] {
+        var json = [String:Any]()
+        json["commentID"] = commentID
+        json["postID"] = postID
+        json["sender"] = sender
+        json["messsage"] = messsage
+        json["timeSend"] = timeSend
+        return json
     }
 }

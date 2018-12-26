@@ -26,9 +26,7 @@
 		84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4621BEC07D006BDA0D /* Post.swift */; };
 		84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4721BEC07E006BDA0D /* User.swift */; };
 		84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */; };
-		84BE0A4F21BEC07E006BDA0D /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4921BEC07E006BDA0D /* Chat.swift */; };
 		84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4A21BEC07E006BDA0D /* Comment.swift */; };
-		84BE0A5121BEC07E006BDA0D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4B21BEC07E006BDA0D /* Message.swift */; };
 		CE0D84753934BA3C6B72882D /* Pods_InstaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */; };
 		D1824CC7AF80F68BE7FE04CE /* Pods_Insta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC818AFABE6A5C9493189F59 /* Pods_Insta.framework */; };
 /* End PBXBuildFile section */
@@ -79,9 +77,7 @@
 		84BE0A4621BEC07D006BDA0D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		84BE0A4721BEC07E006BDA0D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonProtocol.swift; sourceTree = "<group>"; };
-		84BE0A4921BEC07E006BDA0D /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		84BE0A4A21BEC07E006BDA0D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
-		84BE0A4B21BEC07E006BDA0D /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta/Pods-Insta.debug.xcconfig"; sourceTree = "<group>"; };
 		B9C0E6CD77F8368873386CA3 /* Pods-InstaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -121,9 +117,7 @@
 		46311D1A21CA846E00CA88AA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				84BE0A4921BEC07E006BDA0D /* Chat.swift */,
 				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
-				84BE0A4B21BEC07E006BDA0D /* Message.swift */,
 				84BE0A4621BEC07D006BDA0D /* Post.swift */,
 				84BE0A4721BEC07E006BDA0D /* User.swift */,
 			);
@@ -517,13 +511,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
-				84BE0A4F21BEC07E006BDA0D /* Chat.swift in Sources */,
 				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
 				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
 				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
 				463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */,
 				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,
-				84BE0A5121BEC07E006BDA0D /* Message.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
 				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
 				84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */,
