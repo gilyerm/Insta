@@ -12,7 +12,7 @@ class User: NSObject,JsonProtocol {
     var userID : String; /// from FireBase Auth
     var username : String;
     var email : String;
-    var followers : [String]; // collection of user ids
+    var followers : [String]; // collection of user ids    need to remove that , create another table that have followers and folling list  (users id)
     var posts : [String]; // collection of post ids
     var tags : [String]; // collection of post ids
     var profilepic : URL;
