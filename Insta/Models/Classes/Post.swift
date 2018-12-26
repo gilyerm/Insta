@@ -34,7 +34,7 @@ class Post: NSObject,JsonProtocol {
         self.ImageURL = json["ImageURL"] as! URL;
         self.title = json["title"] as! String;
         self.likes = json["likes"] as! [String];
-        
+        self.commonts = [Comment]()
         if(json["commonts"] != nil){
             let cms = json["commonts"] as! [[String:Any]]
             for cm in cms{

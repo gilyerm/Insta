@@ -8,8 +8,7 @@ import Firebase
 
 extension ModelFirebase {
 
-
-    func Login(email:String,password :String) ->Bool {
+    func Login(email:String,password :String, callback:@escaping (User?)->Void) {
         auth.signIn(withEmail: email, password: password){
             (authdataresult:AuthDataResult?,error :Error?) in
             if error != nil {
@@ -20,9 +19,11 @@ extension ModelFirebase {
                     (snapshot) in
                     let value : [String: Any] = snapshot.value as! [String:Any];
                     let user: User = User(json: value);
+                    callback(user);
                     print(user.toJson());
                 })
             }
+            callback(nil)
         };
     }
 
