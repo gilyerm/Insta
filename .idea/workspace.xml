@@ -2,17 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cb8b59c-2c85-43e4-b73a-426329b0a683" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseAuthUser.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseStorage.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/Model.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/MyNotification.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Insta/Models/Classes/Following.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/LastUpdateDates.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/ModelSql.swift" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Insta.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Insta.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Insta.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/Insta.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Insta/Models/Classes/User.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Classes/User.swift" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseUser.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseUser.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/Models/FireBase/ModelFirebase.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/FireBase/ModelFirebase.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/ViewController.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/ViewController.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist" beforeDir="false" afterPath="$PROJECT_DIR$/Pods/Pods.xcodeproj/xcuserdata/admin.xcuserdatad/xcschemes/xcschememanagement.plist" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Insta/Models/Insta-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Insta-Bridging-Header.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Insta/Models/Model.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Model.swift" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/Insta-fnduhrersaicdqfblxdzbpblwiaa/" />
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/Build/Products/" />
@@ -23,7 +22,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphonesimulator_DD9F44D5-D378-47A2-84EF-F0AD22906217" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_" />
   <component name="FUSProjectUsageTrigger">
     <session id="188833696">
       <usages-collector id="statistics.lifecycle.project">
@@ -56,13 +55,33 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1937638639">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.open.time.27" value="1" />
+          <entry key="project.opened" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="Project Settings" value="1" />
+          <entry key="swift" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="Swift" value="1" />
+          <entry key="XcodeWorkspace" value="1" />
+        </counts>
+      </usages-collector>
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/ModelFirebase.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
+            <state relative-caret-position="195">
               <caret line="18" selection-start-line="18" selection-end-line="18" />
             </state>
           </provider>
@@ -77,14 +96,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/FirebaseAuthUser.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="24" selection-end-column="18" />
+            <state relative-caret-position="375">
+              <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
               <folding>
                 <element signature="e#99#116#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="219">
+              <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -92,11 +120,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Insta/ViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="542">
-              <caret line="72" column="18" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="72" selection-end-column="18" />
-              <folding>
-                <element signature="e#175#194#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="273">
+              <caret line="54" column="29" lean-forward="true" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -104,8 +129,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/FirebaseStorage.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+            <state relative-caret-position="255">
+              <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
               <folding>
                 <element signature="e#99#116#0" expanded="true" />
               </folding>
@@ -114,18 +139,9 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Insta/Models/MyNotification.swift">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="555">
-              <caret line="37" selection-start-line="37" selection-end-line="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Insta/Models/Model.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
+            <state relative-caret-position="165">
               <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
             </state>
           </provider>
@@ -168,7 +184,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -192,20 +207,14 @@
               <item name="Insta" type="1d218c8b:XcodeProjectNode" />
               <item name="Insta" type="fcab9f18:XcodeViewNode" />
               <item name="Models" type="fcab9f18:XcodeViewNode" />
-              <item name="FireBase" type="fcab9f18:XcodeViewNode" />
-            </path>
-            <path>
-              <item name="" type="efc3779f:XcodeRootNode" />
-              <item name="Insta" type="1d218c8b:XcodeProjectNode" />
-              <item name="Insta" type="fcab9f18:XcodeViewNode" />
-              <item name="Models" type="fcab9f18:XcodeViewNode" />
-              <item name="Protocols" type="fcab9f18:XcodeViewNode" />
+              <item name="SQL" type="fcab9f18:XcodeViewNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Cidr.FilesView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -248,17 +257,18 @@
       <updated>1544454004176</updated>
       <workItem from="1544454019976" duration="216000" />
       <workItem from="1544875995459" duration="4413000" />
+      <workItem from="1545918608580" duration="683000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4629000" />
+    <option name="totallyTimeSpent" value="5312000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25239617" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22044729" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -289,29 +299,14 @@
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch_1.swift" />
     <entry file="file://$APPLICATION_CONFIG_DIR$/scratches/scratch.swift" />
-    <entry file="file://$PROJECT_DIR$/Insta/Models/Chat.swift">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Insta/Models/Chat.swift" />
     <entry file="file://$PROJECT_DIR$/Insta/Info.plist">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Insta/Models/MyNotification.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="555">
-          <caret line="37" selection-start-line="37" selection-end-line="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Insta/Models/Model.swift">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Insta/Models/MyNotification.swift" />
     <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/ModelFirebase.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
+        <state relative-caret-position="195">
           <caret line="18" selection-start-line="18" selection-end-line="18" />
         </state>
       </provider>
@@ -325,31 +320,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/FirebaseStorage.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="43" lean-forward="true" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
+        <state relative-caret-position="255">
+          <caret line="18" column="43" selection-start-line="18" selection-start-column="43" selection-end-line="18" selection-end-column="43" />
           <folding>
             <element signature="e#99#116#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Insta/ViewController.swift">
+    <entry file="file://$PROJECT_DIR$/Insta/Models/Model.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="542">
-          <caret line="72" column="18" lean-forward="true" selection-start-line="64" selection-start-column="16" selection-end-line="72" selection-end-column="18" />
-          <folding>
-            <element signature="e#175#194#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="165">
+          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Insta/Models/FireBase/FirebaseAuthUser.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="24" selection-end-column="18" />
+        <state relative-caret-position="375">
+          <caret line="25" column="27" selection-start-line="25" selection-start-column="27" selection-end-line="25" selection-end-column="27" />
           <folding>
             <element signature="e#99#116#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="appcode.project-settings://997a1d56">
+      <provider selected="true" editor-type-id="AppCode.ProjectSettings" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Insta/ViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="54" column="29" lean-forward="true" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
         </state>
       </provider>
     </entry>

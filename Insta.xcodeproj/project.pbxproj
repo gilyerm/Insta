@@ -21,6 +21,10 @@
 		586036C7A00767397715AA08 /* ModelNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E0943EC9EC1B705F72F /* ModelNotification.swift */; };
 		5860373F493C8D76D118F9D6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586039B3CFA70C3D91F7E65F /* Model.swift */; };
 		58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */; };
+		8443BE9E21D50E7800F883FD /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BE9D21D50E7800F883FD /* Following.swift */; };
+		8443BEA121D510F900F883FD /* ModelSql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA021D510F900F883FD /* ModelSql.swift */; };
+		8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA221D5114F00F883FD /* UserSQL.swift */; };
+		8443BEA521D518A400F883FD /* LastUpdateDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA421D518A400F883FD /* LastUpdateDates.swift */; };
 		846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EC05421BEE20F000F221B /* ModelFirebase.swift */; };
 		846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EC05621BEE32E000F221B /* FirebaseUser.swift */; };
 		84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4621BEC07D006BDA0D /* Post.swift */; };
@@ -72,6 +76,10 @@
 		586039B3CFA70C3D91F7E65F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		58603E0943EC9EC1B705F72F /* ModelNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelNotification.swift; sourceTree = "<group>"; };
 		81E5A92D3578F5047CC1A534 /* Pods-InstaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaTests/Pods-InstaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8443BE9D21D50E7800F883FD /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
+		8443BEA021D510F900F883FD /* ModelSql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSql.swift; sourceTree = "<group>"; };
+		8443BEA221D5114F00F883FD /* UserSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSQL.swift; sourceTree = "<group>"; };
+		8443BEA421D518A400F883FD /* LastUpdateDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateDates.swift; sourceTree = "<group>"; };
 		846EC05421BEE20F000F221B /* ModelFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFirebase.swift; sourceTree = "<group>"; };
 		846EC05621BEE32E000F221B /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
 		84BE0A4621BEC07D006BDA0D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
@@ -120,6 +128,7 @@
 				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
 				84BE0A4621BEC07D006BDA0D /* Post.swift */,
 				84BE0A4721BEC07E006BDA0D /* User.swift */,
+				8443BE9D21D50E7800F883FD /* Following.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -192,6 +201,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8443BE9F21D510CF00F883FD /* SQL */ = {
+			isa = PBXGroup;
+			children = (
+				8443BEA021D510F900F883FD /* ModelSql.swift */,
+				8443BEA221D5114F00F883FD /* UserSQL.swift */,
+				8443BEA421D518A400F883FD /* LastUpdateDates.swift */,
+			);
+			path = SQL;
+			sourceTree = "<group>";
+		};
 		84459F5721C5265800E72391 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +233,7 @@
 		84BE0A3921BEC04F006BDA0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8443BE9F21D510CF00F883FD /* SQL */,
 				46311D1A21CA846E00CA88AA /* Classes */,
 				84459F5721C5265800E72391 /* Protocols */,
 				846EC05321BEE1DB000F221B /* FireBase */,
@@ -511,16 +531,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
+				8443BE9E21D50E7800F883FD /* Following.swift in Sources */,
 				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
 				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
 				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
 				463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */,
 				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,
+				8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */,
+				8443BEA121D510F900F883FD /* ModelSql.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
 				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
 				84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */,
 				58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */,
 				586036C7A00767397715AA08 /* ModelNotification.swift in Sources */,
+				8443BEA521D518A400F883FD /* LastUpdateDates.swift in Sources */,
 				5860373F493C8D76D118F9D6 /* Model.swift in Sources */,
 				586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */,
 			);

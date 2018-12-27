@@ -9,8 +9,24 @@
 import Foundation
 
 extension ModelFirebase{
+    
+    func getAllUsersAndObserve(from:Double, callback:@escaping ([User])->Void){
+        let fbQuery = userref.queryOrdered(byChild: "lastUpdate").queryStarting(atValue: from)
+        fbQuery.observe(.value) { (snapshot) in
+            var data = [User]()
+            if let value = snapshot.value as? [String:Any] {
+                for (_, json) in value{
+                    data.append(User(json: json as! [String : Any]))
+                }
+            }
+            callback(data)
+        }
+    }
+    
+    
+    
     func getAllUsers(callback:@escaping ([User])->Void){
-        ref.child("users").observe(.value, with: {
+        userref.observe(.value, with: {
             (snapshot) in
             // Get user value
             var data = [User]()
@@ -23,10 +39,10 @@ extension ModelFirebase{
     }
     
     func addNewUser(user:User){
-        ref.child("users").child(user.userID).setValue(user.toJson())
+        userref.child(user.userID).setValue(user.toJson())
     }
     
     func getUser(byId:String)->User?{
-        return ref.child("users").value(forKey: byId) as! User?
+        return userref.value(forKey: byId) as! User?
     }
 }

@@ -7,24 +7,21 @@
 //
 
 import UIKit
+import Foundation
+import Firebase
 
 class User: NSObject,JsonProtocol {
     var userID : String; /// from FireBase Auth
     var username : String;
     var email : String;
-    var followers : [String]; // collection of user ids    need to remove that , create another table that have followers and folling list  (users id)
-    var posts : [String]; // collection of post ids
-    var tags : [String]; // collection of post ids
-    var profilepic : URL;
+    var profilepic : String; //path to url
     var details : [String : String];
+    var lastUpdate:Double?
     
-    init(userID:String,username:String,email:String,followers:[String],posts:[String],tags:[String],profilepic: URL ,details:[String:String]) {
+    init(userID:String,username:String,email:String,profilepic: String ,details:[String:String]) {
         self.userID = userID;
         self.username = username;
         self.email = email;
-        self.followers = followers;
-        self.posts = posts;
-        self.tags = tags;
         self.profilepic = profilepic;
         self.details = details;
     }
@@ -32,10 +29,7 @@ class User: NSObject,JsonProtocol {
         self.userID = userID;
         self.username = username;
         self.email = email;
-        self.followers = [String]();
-        self.posts = [String]();
-        self.tags = [String]();
-        self.profilepic = URL(fileURLWithPath: "");
+        self.profilepic = "";
         self.details = [String : String]();
     }
     
@@ -43,11 +37,17 @@ class User: NSObject,JsonProtocol {
         self.userID = json["userID"] as! String;
         self.username = json["username"] as! String;
         self.email = json["email"] as! String;
-        self.followers = json["followers"] as! [String];
-        self.posts = json["posts"] as! [String];
-        self.tags = json["tags"] as! [String];
-        self.profilepic = URL(fileURLWithPath: json["profilepic"] as! String);
+        if json["profilepic"] != nil{
+            self.profilepic = json["profilepic"] as! String
+        }else{
+            self.profilepic = ""
+        }
         self.details = json["details"] as! [String:String];
+        if json["lastUpdate"] != nil {
+            if let lud = json["lastUpdate"] as? Double{
+                lastUpdate = lud
+            }
+        }
     }
     
     func toJson() -> [String : Any] {
@@ -55,11 +55,9 @@ class User: NSObject,JsonProtocol {
         json["userID"] = userID
         json["username"] = username
         json["email"] = email
-        json["followers"] = followers
-        json["posts"] = posts
-        json["tags"] = tags
-        json["profilepic"] = profilepic.path
+        json["profilepic"] = profilepic
         json["details"] = details
+        json["lastUpdate"] = ServerValue.timestamp()
         return json
     }
     
