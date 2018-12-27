@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9cb8b59c-2c85-43e4-b73a-426329b0a683" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Insta/Models/Classes/Following.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/LastUpdateDates.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/ModelSql.swift" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta.xcodeproj/project.pbxproj" beforeDir="false" afterPath="$PROJECT_DIR$/Insta.xcodeproj/project.pbxproj" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Insta.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" beforeDir="false" afterPath="$PROJECT_DIR$/Insta.xcworkspace/xcuserdata/admin.xcuserdatad/UserInterfaceState.xcuserstate" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/Models/Classes/User.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Classes/User.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseUser.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/FireBase/FirebaseUser.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/Models/Insta-Bridging-Header.h" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Insta-Bridging-Header.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Insta/Models/Model.swift" beforeDir="false" afterPath="$PROJECT_DIR$/Insta/Models/Model.swift" afterDir="false" />
     </list>
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/Insta-fnduhrersaicdqfblxdzbpblwiaa/" />
     <ignored path="$USER_HOME$/Library/Developer/Xcode/DerivedData/Build/Products/" />
@@ -22,7 +13,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="iphoneos_088511a3e2242f7929bc72482a8281e9c06d55c8" />
   <component name="FUSProjectUsageTrigger">
     <session id="188833696">
       <usages-collector id="statistics.lifecycle.project">
@@ -111,8 +102,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+            <state relative-caret-position="189">
+              <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
             </state>
           </provider>
         </entry>
@@ -257,12 +248,12 @@
       <updated>1544454004176</updated>
       <workItem from="1544454019976" duration="216000" />
       <workItem from="1544875995459" duration="4413000" />
-      <workItem from="1545918608580" duration="683000" />
+      <workItem from="1545918608580" duration="864000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5312000" />
+    <option name="totallyTimeSpent" value="5493000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
@@ -357,8 +348,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Insta/Models/SQL/UserSQL.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="50" column="26" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="26" />
+        <state relative-caret-position="189">
+          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
         </state>
       </provider>
     </entry>
