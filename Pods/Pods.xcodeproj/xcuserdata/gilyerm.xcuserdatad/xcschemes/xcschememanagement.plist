@@ -56,7 +56,7 @@
 		<key>FirebaseFirestore-gRPCCertificates-Firestore.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>34</integer>
+			<integer>35</integer>
 		</dict>
 		<key>FirebaseFirestore.xcscheme</key>
 		<dict>

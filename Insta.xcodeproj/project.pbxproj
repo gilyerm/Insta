@@ -15,6 +15,7 @@
 		463EFFD2219EE69A00E13CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */; };
 		463EFFDD219EE69A00E13CB0 /* InstaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFDC219EE69A00E13CB0 /* InstaTests.swift */; };
 		463EFFE8219EE69B00E13CB0 /* InstaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */; };
+		465FCFFC21FE0E830014DBC2 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FCFFB21FE0E830014DBC2 /* Like.swift */; };
 		46E9B14621FDEF22004EF77A /* FirebasePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E9B14521FDEF22004EF77A /* FirebasePost.swift */; };
 		46F14F1D21A40CAF00FC1CA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */; };
 		4AB4D1173CB82C6DC0C0B5A2 /* Pods_InstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */; };
@@ -71,6 +72,7 @@
 		463EFFE3219EE69B00E13CB0 /* InstaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaUITests.swift; sourceTree = "<group>"; };
 		463EFFE9219EE69B00E13CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		465FCFFB21FE0E830014DBC2 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
 		46E9B14521FDEF22004EF77A /* FirebasePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePost.swift; sourceTree = "<group>"; };
 		46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				84BE0A4621BEC07D006BDA0D /* Post.swift */,
 				84BE0A4721BEC07E006BDA0D /* User.swift */,
 				8443BE9D21D50E7800F883FD /* Following.swift */,
+				465FCFFB21FE0E830014DBC2 /* Like.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 				46E9B14621FDEF22004EF77A /* FirebasePost.swift in Sources */,
 				58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */,
 				586036C7A00767397715AA08 /* ModelNotification.swift in Sources */,
+				465FCFFC21FE0E830014DBC2 /* Like.swift in Sources */,
 				8443BEA521D518A400F883FD /* LastUpdateDates.swift in Sources */,
 				5860373F493C8D76D118F9D6 /* Model.swift in Sources */,
 				586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */,
