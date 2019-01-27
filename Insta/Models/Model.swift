@@ -54,9 +54,12 @@ class Model {
         //Student.addNew(database: modelSql!.database, student: student)
     }
 
+    func getUser(byId:String,callback:@escaping (User?)->Void){
+        callback(self.getUser(byId: byId));
+    }
+    
     func getUser(byId:String)->User?{
-        return modelFirebase.getUser(byId:byId)
-        //return Student.get(database: modelSql!.database, byId: byId);
+        return User.get(database: self.modelSql.database, byId: byId);
     }
 
 

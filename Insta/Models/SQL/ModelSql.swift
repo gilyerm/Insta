@@ -21,7 +21,7 @@ class ModelSql {
                 print("Failed to open db file: \(path.absoluteString)")
                 return
             }
-            //dropTables()
+            dropTables()
             createTables()
         }
         

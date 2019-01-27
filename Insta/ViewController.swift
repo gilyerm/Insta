@@ -30,6 +30,14 @@ class ViewController: UIViewController {
                 print("userID= \(user.userID)")
             })
             self.activityIndicator.stopAnimating();
+            
+            
+            Model.instance.getUser(byId: "Advyqa4Y17RCUKXeHpNLkKk5Gfq2"){
+                (user:User?)in
+                print("get user%%%%%")
+                let user = user as! User
+                print("username= \(user.username)")
+            }
         }
         
         activityIndicator.center = self.view.center;
@@ -39,6 +47,10 @@ class ViewController: UIViewController {
         
         activityIndicator.startAnimating();
         Model.instance.getAllUsers()
+        
+        
+        
+        
         
         
     }

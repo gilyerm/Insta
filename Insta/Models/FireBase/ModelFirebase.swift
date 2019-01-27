@@ -18,11 +18,13 @@ class ModelFirebase{
     lazy var storageRef :StorageReference = Storage.storage().reference()
     lazy var auth : Auth = Auth.auth();
     var userref : DatabaseReference;
+    var postref : DatabaseReference;
     
     init() {
         FirebaseApp.configure()
         ref = Database.database().reference()
         userref = ref.child("users")
+        postref = ref.child("posts")
 
     }
 
