@@ -35,7 +35,7 @@ class ViewController: UIViewController {
             Model.instance.getUser(byId: "Advyqa4Y17RCUKXeHpNLkKk5Gfq2"){
                 (user:User?)in
                 print("get user%%%%%")
-                let user = user as! User
+                let user : User! = user
                 print("username= \(user.username)")
             }
         }

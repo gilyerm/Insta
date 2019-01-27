@@ -198,6 +198,23 @@
 			path = extensions;
 			sourceTree = "<group>";
 		};
+		46E9B14921FE0392004EF77A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				46E9B14521FDEF22004EF77A /* FirebasePost.swift */,
+				846EC05621BEE32E000F221B /* FirebaseUser.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		46E9B14A21FE03B7004EF77A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8443BEA221D5114F00F883FD /* UserSQL.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		4BE852310A9F00FCEF54159E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,8 +231,8 @@
 		8443BE9F21D510CF00F883FD /* SQL */ = {
 			isa = PBXGroup;
 			children = (
+				46E9B14A21FE03B7004EF77A /* Classes */,
 				8443BEA021D510F900F883FD /* ModelSql.swift */,
-				8443BEA221D5114F00F883FD /* UserSQL.swift */,
 				8443BEA421D518A400F883FD /* LastUpdateDates.swift */,
 			);
 			path = SQL;
@@ -232,11 +249,10 @@
 		846EC05321BEE1DB000F221B /* FireBase */ = {
 			isa = PBXGroup;
 			children = (
+				46E9B14921FE0392004EF77A /* Classes */,
 				846EC05421BEE20F000F221B /* ModelFirebase.swift */,
-				846EC05621BEE32E000F221B /* FirebaseUser.swift */,
 				5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */,
 				586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */,
-				46E9B14521FDEF22004EF77A /* FirebasePost.swift */,
 			);
 			path = FireBase;
 			sourceTree = "<group>";
