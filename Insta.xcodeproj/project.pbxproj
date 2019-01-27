@@ -188,6 +188,14 @@
 			path = InstaUITests;
 			sourceTree = "<group>";
 		};
+		46E9B14421FDE766004EF77A /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				46311D1F21CA894C00CA88AA /* MyDate.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
 		4BE852310A9F00FCEF54159E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +241,7 @@
 		84BE0A3921BEC04F006BDA0D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				46E9B14421FDE766004EF77A /* extensions */,
 				8443BE9F21D510CF00F883FD /* SQL */,
 				46311D1A21CA846E00CA88AA /* Classes */,
 				84459F5721C5265800E72391 /* Protocols */,
@@ -240,7 +249,6 @@
 				58603E0943EC9EC1B705F72F /* ModelNotification.swift */,
 				586039B3CFA70C3D91F7E65F /* Model.swift */,
 				46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */,
-				46311D1F21CA894C00CA88AA /* MyDate.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
