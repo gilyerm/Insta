@@ -14,15 +14,13 @@ class Post: NSObject,JsonProtocol {
     var ImageURL : URL;
     var title : String;
     var commonts : [Comment];
-    var tags : [String]; // collection of user ids
     
-    init(postID : String,userID : String,ImageURL : URL,title : String,commonts : [Comment],tags : [String]) {
+    init(postID : String,userID : String,ImageURL : URL,title : String,commonts : [Comment]) {
         self.postID=postID;
         self.userID=userID;
         self.ImageURL=ImageURL;
         self.title=title;
         self.commonts=commonts;
-        self.tags=tags;
     }
     
     
@@ -38,8 +36,6 @@ class Post: NSObject,JsonProtocol {
                 self.commonts.append(Comment(json: cm))
             }
         }
-        //self.commonts = json["commonts"] as! [Comment];
-        self.tags = json["tags"] as! [String];
     }
     
     func toJson() -> [String : Any] {
@@ -48,13 +44,13 @@ class Post: NSObject,JsonProtocol {
         json["userID"] = userID
         json["ImageURL"] = ImageURL
         json["title"] = title
-        json["tags"] = tags
+        
         var cms = [[String:Any]]();
         for cm in commonts {
             cms.append(cm.toJson())
         }
         json["commonts"] = cms
-        json["tags"] = tags
+        
         return json
     }
     

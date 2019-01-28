@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		460CBFE321FF83F100BEC408 /* FollowingSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE221FF83F100BEC408 /* FollowingSQL.swift */; };
 		460CBFE521FF8AE600BEC408 /* FirebaseFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */; };
+		460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE621FF8E4A00BEC408 /* Tag.swift */; };
 		4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294921FF47F500DAF34E /* PostSQL.swift */; };
 		4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */; };
 		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
@@ -63,6 +64,7 @@
 		3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		460CBFE221FF83F100BEC408 /* FollowingSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingSQL.swift; sourceTree = "<group>"; };
 		460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFollowing.swift; sourceTree = "<group>"; };
+		460CBFE621FF8E4A00BEC408 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		4611294921FF47F500DAF34E /* PostSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
 		4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
 		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				84BE0A4721BEC07E006BDA0D /* User.swift */,
 				8443BE9D21D50E7800F883FD /* Following.swift */,
 				465FCFFB21FE0E830014DBC2 /* Like.swift */,
+				460CBFE621FF8E4A00BEC408 /* Tag.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */,
 				4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */,
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
 				8443BE9E21D50E7800F883FD /* Following.swift in Sources */,

@@ -1,32 +1,32 @@
 //
-//  Like.swift
+//  Tag.swift
 //  Insta
 //
-//  Created by Gil Yermiyah on 27/01/2019.
+//  Created by gil yermiyah on 28/01/2019.
 //  Copyright © 2019 Gil Yermiyah. All rights reserved.
 //
 
 import Foundation
 
-class Like: NSObject,JsonProtocol {
+class Tag: NSObject,JsonProtocol {
     
     var postID: String;
-    var userID: String;
+    var tags: [String]; // userid collection
     
-    init(postID : String, userID: String) {
+    init(postID : String, tags: [String]) {
         self.postID = postID;
-        self.userID = userID;
+        self.tags = tags;
     }
     
     required init(json: [String : Any]) {
         self.postID = json["postID"] as! String;
-        self.userID = json["userID"] as! String;
+        self.tags = json["tags"] as! [String];
     }
     
     func toJson() -> [String : Any] {
         var json = [String:Any]()
         json["postID"] = postID
-        json["userID"] = userID
+        json["tags"] = tags
         return json;
     }
     
