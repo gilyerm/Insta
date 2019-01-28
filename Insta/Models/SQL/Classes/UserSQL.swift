@@ -9,10 +9,10 @@
 import Foundation
 
 extension User : SQLiteProtocol{
-    
     typealias myType = User
     
-    static let USER_TABLE = "USERS";
+    static var TableName: String = "USERS";
+    
     static let USER_ID = "USER_ID"; //TEXT PRIMARY KEY
     static let USER_USERNAME = "USER_USERNAME"; //TEXT
     static let USER_EMAIL = "USER_EMAIL"; //TEXT
@@ -22,7 +22,7 @@ extension User : SQLiteProtocol{
     
     static func createTable(database: OpaquePointer?)  {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
-        let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS \(USER_TABLE) (\(USER_ID) TEXT PRIMARY KEY, \(USER_USERNAME) TEXT, \(USER_EMAIL) TEXT, \(USER_PROFILEPIC) TEXT, \(USERS_DETAILS) TEXT)", nil, nil, &errormsg);
+        let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS \(TableName) (\(USER_ID) TEXT PRIMARY KEY, \(USER_USERNAME) TEXT, \(USER_EMAIL) TEXT, \(USER_PROFILEPIC) TEXT, \(USERS_DETAILS) TEXT)", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return
@@ -31,7 +31,7 @@ extension User : SQLiteProtocol{
     
     static func drop(database: OpaquePointer?)  {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
-        let res = sqlite3_exec(database, "DROP TABLE \(USER_TABLE);", nil, nil, &errormsg);
+        let res = sqlite3_exec(database, "DROP TABLE \(TableName);", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return
@@ -41,7 +41,7 @@ extension User : SQLiteProtocol{
     static func getAll(database: OpaquePointer?)->[User]{
         var sqlite3_stmt: OpaquePointer? = nil
         var data = [User]()
-        if (sqlite3_prepare_v2(database,"SELECT * from \(USER_TABLE);",-1,&sqlite3_stmt,nil)
+        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName);",-1,&sqlite3_stmt,nil)
             == SQLITE_OK){
             while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
                 data.append(getUserByStmt(sqlite3_stmt: sqlite3_stmt))
@@ -53,7 +53,7 @@ extension User : SQLiteProtocol{
     
     static func addNew(database: OpaquePointer?, data user:User){
         var sqlite3_stmt: OpaquePointer? = nil
-        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(USER_TABLE)(\(USER_ID), \(USER_USERNAME), \(USER_EMAIL), \(USER_PROFILEPIC), \(USERS_DETAILS)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(USER_ID), \(USER_USERNAME), \(USER_EMAIL), \(USER_PROFILEPIC), \(USERS_DETAILS)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             let userID = user.userID.cString(using: .utf8)
             let username = user.username.cString(using: .utf8)
             let email = user.email.cString(using: .utf8)
@@ -80,7 +80,7 @@ extension User : SQLiteProtocol{
     static func get(database: OpaquePointer?, byId:String)->User?{
         var sqlite3_stmt: OpaquePointer? = nil
         var data :User? = nil
-        if (sqlite3_prepare_v2(database,"SELECT * from \(USER_TABLE) WHERE \(USER_ID) = ?;",-1,&sqlite3_stmt,nil)
+        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName) WHERE \(USER_ID) = ?;",-1,&sqlite3_stmt,nil)
             == SQLITE_OK){
             
             guard sqlite3_bind_text(sqlite3_stmt, 1, byId,-1,nil) == SQLITE_OK else {
@@ -94,11 +94,11 @@ extension User : SQLiteProtocol{
     }
     
     static func getLastUpdateDate(database: OpaquePointer?)->Double{
-        return LastUpdateDates.get(database: database, tabeName: USER_TABLE)
+        return LastUpdateDates.get(database: database, tabeName: TableName)
     }
     
     static func setLastUpdateDate(database: OpaquePointer?, date:Double){
-        LastUpdateDates.set(database: database, tabeName: USER_TABLE, date: date);
+        LastUpdateDates.set(database: database, tabeName: TableName, date: date);
     }
     
     

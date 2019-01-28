@@ -10,6 +10,10 @@ import Foundation
 
 protocol SQLiteProtocol {
     associatedtype myType
+    
+    static var TableName: String { get }
+    
+    
     static func createTable(database: OpaquePointer?)
     static func drop(database: OpaquePointer?)
     static func getAll(database: OpaquePointer?)->[myType]
