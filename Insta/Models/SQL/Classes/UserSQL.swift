@@ -8,7 +8,10 @@
 
 import Foundation
 
-extension User{
+extension User : SQLiteProtocol{
+    
+    typealias myType = User
+    
     static let USER_TABLE = "USERS";
     static let USER_ID = "USER_ID"; //TEXT PRIMARY KEY
     static let USER_USERNAME = "USER_USERNAME"; //TEXT
@@ -48,7 +51,7 @@ extension User{
         return data
     }
     
-    static func addNew(database: OpaquePointer?, user:User){
+    static func addNew(database: OpaquePointer?, data user:User){
         var sqlite3_stmt: OpaquePointer? = nil
         if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(USER_TABLE)(\(USER_ID), \(USER_USERNAME), \(USER_EMAIL), \(USER_PROFILEPIC), \(USERS_DETAILS)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             let userID = user.userID.cString(using: .utf8)

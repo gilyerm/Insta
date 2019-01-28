@@ -27,7 +27,7 @@ class Model {
         modelFirebase.getAllUsersAndObserve(from:lastUpdated){ (data:[User]) in
             //3. write new records to the local DB
             for us in data{
-                User.addNew(database: self.modelSql.database, user: us)
+                User.addNew(database: self.modelSql.database, data: us)
                 if (us.lastUpdate != nil && us.lastUpdate! > lastUpdated){
                     lastUpdated = us.lastUpdate!
                 }

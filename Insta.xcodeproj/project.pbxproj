@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294921FF47F500DAF34E /* PostSQL.swift */; };
+		4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */; };
 		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
 		463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */; };
 		463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC9219EE69A00E13CB0 /* ViewController.swift */; };
@@ -57,6 +59,8 @@
 /* Begin PBXFileReference section */
 		252572DBD688E520714814A0 /* Pods-InstaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4611294921FF47F500DAF34E /* PostSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
+		4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
 		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
 		46311D1F21CA894C00CA88AA /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		463EFFC4219EE69A00E13CB0 /* Insta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Insta.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -214,6 +218,7 @@
 			isa = PBXGroup;
 			children = (
 				8443BEA221D5114F00F883FD /* UserSQL.swift */,
+				4611294921FF47F500DAF34E /* PostSQL.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -245,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */,
+				4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -560,12 +566,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */,
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
 				8443BE9E21D50E7800F883FD /* Following.swift in Sources */,
 				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
 				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
 				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
 				463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */,
+				4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */,
 				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,
 				8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */,
 				8443BEA121D510F900F883FD /* ModelSql.swift in Sources */,
