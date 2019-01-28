@@ -56,21 +56,7 @@ extension User{
             let email = user.email.cString(using: .utf8)
             let profilepic = user.profilepic.cString(using: .utf8)
             
-            let deailsstst : [String : String] = user.details;
-            var deailsst : [String] = [String]();
-            var deailss : String = String();
-            
-            for dstst in deailsstst {
-                deailsst.append(dstst.key + "^" + dstst.value);
-            }
-            if 0<deailsst.count{
-                deailss.append(deailsst[0])
-            }
-            for i in 1..<deailsst.count {
-                deailss.append(";");
-                deailss.append(deailsst[i]);
-            }
-            let details = deailss.cString(using: .utf8)
+            let details = String(data: (try? JSONSerialization.data(withJSONObject: user.details, options: []))!, encoding: .utf8)
             
             sqlite3_bind_text(sqlite3_stmt, 1, userID,-1,nil);
             sqlite3_bind_text(sqlite3_stmt, 2, username,-1,nil);
@@ -119,14 +105,9 @@ extension User{
         let email = String(cString:sqlite3_column_text(sqlite3_stmt,2)!)
         let profilepic = String(cString:sqlite3_column_text(sqlite3_stmt,3)!)
         let details : String = String(cString:sqlite3_column_text(sqlite3_stmt,4)!)
+        
+        let deailsstst = try? JSONSerialization.jsonObject(with: details.data(using: .utf8)!, options: .mutableLeaves)
     
-        var deailsstst : [String : String] = [String : String]();
-        let split:[Substring] = details.split(separator: ";");
-        split.forEach { (Substring) in
-        var splitsplit:[Substring] = Substring.split(separator: "^");
-            deailsstst.updateValue(String(splitsplit[0]), forKey: String(splitsplit[1]));
-        }
-    
-        return User(userID: userID, username: username, email: email, profilepic: profilepic, details: deailsstst)
+        return User(userID: userID, username: username, email: email, profilepic: profilepic, details: deailsstst as! [String : String])
     }
 }
