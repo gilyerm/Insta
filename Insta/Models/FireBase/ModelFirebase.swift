@@ -14,17 +14,19 @@ import FirebaseAuth
 import UIKit
 
 class ModelFirebase{
-    var ref: DatabaseReference!
+    let ref: DatabaseReference!
     lazy var storageRef :StorageReference = Storage.storage().reference()
     lazy var auth : Auth = Auth.auth();
-    var userref : DatabaseReference;
-    var postref : DatabaseReference;
+    let userref : DatabaseReference;
+    let postref : DatabaseReference;
+    let followingref : DatabaseReference;
     
     init() {
         FirebaseApp.configure()
         ref = Database.database().reference()
         userref = ref.child("users")
         postref = ref.child("posts")
+        followingref = ref.child("followings")
 
     }
 

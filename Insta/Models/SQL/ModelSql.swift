@@ -30,12 +30,14 @@ class ModelSql {
     func createTables() {
         User.createTable(database: database);
         Post.createTable(database: database)
+        Following.createTable(database: database)
         LastUpdateDates.createTable(database: database);
     }
     
     func dropTables(){
         User.drop(database: database)
         Post.drop(database: database)
+        Following.drop(database: database)
         LastUpdateDates.drop(database: database)
     }
     

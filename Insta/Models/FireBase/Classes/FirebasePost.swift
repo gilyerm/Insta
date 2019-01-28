@@ -11,7 +11,7 @@ import Foundation
 extension ModelFirebase{
     
     func getAllPostsAndObserve(from:Double, callback:@escaping ([Post])->Void){
-        let fbQuery = userref.queryOrdered(byChild: "lastUpdate").queryStarting(atValue: from)
+        let fbQuery = postref.queryOrdered(byChild: "lastUpdate").queryStarting(atValue: from)
         fbQuery.observe(.value) { (snapshot) in
             var data = [Post]()
             if let value = snapshot.value as? [String:Any] {
@@ -22,8 +22,6 @@ extension ModelFirebase{
             callback(data)
         }
     }
-    
-    
     
     func getAllPosts(callback:@escaping ([Post])->Void){
         postref.observe(.value, with: {

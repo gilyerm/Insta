@@ -11,13 +11,13 @@ import Foundation
 extension User : SQLiteProtocol{
     typealias myType = User
     
-    static var TableName: String = "USERS";
+    static var TableName: String = "Users";
     
-    static let USER_ID = "USER_ID"; //TEXT PRIMARY KEY
-    static let USER_USERNAME = "USER_USERNAME"; //TEXT
-    static let USER_EMAIL = "USER_EMAIL"; //TEXT
-    static let USER_PROFILEPIC = "USER_PROFILEPIC"; //TEXT
-    static let USERS_DETAILS = "USERS_DETAILS"; //TEXT //ARRAY
+    static let USER_ID = "User_ID"; //TEXT PRIMARY KEY
+    static let USER_USERNAME = "User_Username"; //TEXT
+    static let USER_EMAIL = "User_Email"; //TEXT
+    static let USER_PROFILEPIC = "User_ProfilePic"; //TEXT
+    static let USERS_DETAILS = "User_Details"; //TEXT //ARRAY
     
     
     static func createTable(database: OpaquePointer?)  {

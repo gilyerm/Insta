@@ -13,16 +13,14 @@ class Post: NSObject,JsonProtocol {
     var userID : String;
     var ImageURL : URL;
     var title : String;
-    var likes : [String]; // collection of user ids
     var commonts : [Comment];
     var tags : [String]; // collection of user ids
     
-    init(postID : String,userID : String,ImageURL : URL,title : String,likes : [String],commonts : [Comment],tags : [String]) {
+    init(postID : String,userID : String,ImageURL : URL,title : String,commonts : [Comment],tags : [String]) {
         self.postID=postID;
         self.userID=userID;
         self.ImageURL=ImageURL;
         self.title=title;
-        self.likes=likes;
         self.commonts=commonts;
         self.tags=tags;
     }
@@ -33,7 +31,6 @@ class Post: NSObject,JsonProtocol {
         self.userID = json["userID"] as! String;
         self.ImageURL = json["ImageURL"] as! URL;
         self.title = json["title"] as! String;
-        self.likes = json["likes"] as! [String];
         self.commonts = [Comment]()
         if(json["commonts"] != nil){
             let cms = json["commonts"] as! [[String:Any]]
@@ -51,7 +48,6 @@ class Post: NSObject,JsonProtocol {
         json["userID"] = userID
         json["ImageURL"] = ImageURL
         json["title"] = title
-        json["likes"] = likes
         json["tags"] = tags
         var cms = [[String:Any]]();
         for cm in commonts {
