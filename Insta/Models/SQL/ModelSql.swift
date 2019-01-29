@@ -28,18 +28,22 @@ class ModelSql {
     }
     
     func createTables() {
-        User.createTable(database: database);
-        Post.createTable(database: database)
-        Following.createTable(database: database)
         Comment.createTable(database: database)
+        Following.createTable(database: database)
+        Like.createTable(database: database)
+        Post.createTable(database: database)
+        Tag.createTable(database: database)
+        User.createTable(database: database)
         LastUpdateDates.createTable(database: database);
     }
     
     func dropTables(){
-        User.drop(database: database)
-        Post.drop(database: database)
-        Following.drop(database: database)
         Comment.drop(database: database)
+        Following.drop(database: database)
+        Like.drop(database: database)
+        Post.drop(database: database)
+        Tag.drop(database: database)
+        User.drop(database: database)
         LastUpdateDates.drop(database: database)
     }
     
