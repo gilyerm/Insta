@@ -122,11 +122,22 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         //case fields are empty
         if(usernameTxt.text == "" || passwordTxt.text == "" || repeatpasswordTxt.text == "" || usernameTxt.text == "" || emailTxt.text == ""){
             
+            // alert message "fill all fields"
             let alert = UIAlertController(title: "PLEASE", message: "fill all fields", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
+        }
         
+        //case different password
+        if passwordTxt.text != repeatpasswordTxt.text{
+            
+            //alert message
+            let alert = UIAlertController(title: "PASSWORD", message: "do not match", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+
         }
     }
     
