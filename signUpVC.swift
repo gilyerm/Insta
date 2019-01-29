@@ -139,6 +139,9 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             self.present(alert, animated: true, completion: nil)
 
         }
+        
+        //send data to server//
+        
     }
     
     
