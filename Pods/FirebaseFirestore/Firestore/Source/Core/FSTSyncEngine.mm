@@ -16,8 +16,6 @@
 
 #import "Firestore/Source/Core/FSTSyncEngine.h"
 
-#import <GRPCClient/GRPCCall.h>
-
 #include <map>
 #include <set>
 #include <unordered_map>
@@ -32,16 +30,16 @@
 #import "Firestore/Source/Local/FSTLocalViewChanges.h"
 #import "Firestore/Source/Local/FSTLocalWriteResult.h"
 #import "Firestore/Source/Local/FSTQueryData.h"
-#import "Firestore/Source/Local/FSTReferenceSet.h"
 #import "Firestore/Source/Model/FSTDocument.h"
 #import "Firestore/Source/Model/FSTDocumentSet.h"
 #import "Firestore/Source/Model/FSTMutationBatch.h"
 #import "Firestore/Source/Remote/FSTRemoteEvent.h"
-#import "Firestore/Source/Util/FSTDispatchQueue.h"
 
 #include "Firestore/core/src/firebase/firestore/auth/user.h"
 #include "Firestore/core/src/firebase/firestore/core/target_id_generator.h"
+#include "Firestore/core/src/firebase/firestore/local/reference_set.h"
 #include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/model/document_map.h"
 #include "Firestore/core/src/firebase/firestore/model/snapshot_version.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/log.h"
@@ -49,13 +47,17 @@
 using firebase::firestore::auth::HashUser;
 using firebase::firestore::auth::User;
 using firebase::firestore::core::TargetIdGenerator;
+using firebase::firestore::local::ReferenceSet;
 using firebase::firestore::model::BatchId;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::DocumentKeySet;
+using firebase::firestore::model::DocumentMap;
+using firebase::firestore::model::MaybeDocumentMap;
 using firebase::firestore::model::ListenSequenceNumber;
 using firebase::firestore::model::OnlineState;
 using firebase::firestore::model::SnapshotVersion;
 using firebase::firestore::model::TargetId;
+using firebase::firestore::util::AsyncQueue;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -156,9 +158,6 @@ class LimboResolution {
 @property(nonatomic, strong, readonly)
     NSMutableDictionary<NSNumber *, FSTQueryView *> *queryViewsByTarget;
 
-/** Used to track any documents that are currently in limbo. */
-@property(nonatomic, strong, readonly) FSTReferenceSet *limboDocumentRefs;
-
 @end
 
 @implementation FSTSyncEngine {
@@ -182,6 +181,9 @@ class LimboResolution {
   std::map<TargetId, LimboResolution> _limboResolutionsByTarget;
 
   User _currentUser;
+
+  /** Used to track any documents that are currently in limbo. */
+  ReferenceSet _limboDocumentRefs;
 }
 
 - (instancetype)initWithLocalStore:(FSTLocalStore *)localStore
@@ -194,8 +196,7 @@ class LimboResolution {
     _queryViewsByQuery = [NSMutableDictionary dictionary];
     _queryViewsByTarget = [NSMutableDictionary dictionary];
 
-    _limboDocumentRefs = [[FSTReferenceSet alloc] init];
-    _targetIdGenerator = TargetIdGenerator::SyncEngineTargetIdGenerator(0);
+    _targetIdGenerator = TargetIdGenerator::SyncEngineTargetIdGenerator();
     _currentUser = initialUser;
   }
   return self;
@@ -206,25 +207,32 @@ class LimboResolution {
   HARD_ASSERT(self.queryViewsByQuery[query] == nil, "We already listen to query: %s", query);
 
   FSTQueryData *queryData = [self.localStore allocateQuery:query];
-  FSTDocumentDictionary *docs = [self.localStore executeQuery:query];
+  FSTViewSnapshot *viewSnapshot = [self initializeViewAndComputeSnapshotForQueryData:queryData];
+  [self.syncEngineDelegate handleViewSnapshots:@[ viewSnapshot ]];
+
+  [self.remoteStore listenToTargetWithQueryData:queryData];
+  return queryData.targetID;
+}
+
+- (FSTViewSnapshot *)initializeViewAndComputeSnapshotForQueryData:(FSTQueryData *)queryData {
+  DocumentMap docs = [self.localStore executeQuery:queryData.query];
   DocumentKeySet remoteKeys = [self.localStore remoteDocumentKeysForTarget:queryData.targetID];
 
-  FSTView *view = [[FSTView alloc] initWithQuery:query remoteDocuments:std::move(remoteKeys)];
-  FSTViewDocumentChanges *viewDocChanges = [view computeChangesWithDocuments:docs];
+  FSTView *view = [[FSTView alloc] initWithQuery:queryData.query
+                                 remoteDocuments:std::move(remoteKeys)];
+  FSTViewDocumentChanges *viewDocChanges = [view computeChangesWithDocuments:docs.underlying_map()];
   FSTViewChange *viewChange = [view applyChangesToDocuments:viewDocChanges];
   HARD_ASSERT(viewChange.limboChanges.count == 0,
               "View returned limbo docs before target ack from the server.");
 
-  FSTQueryView *queryView = [[FSTQueryView alloc] initWithQuery:query
+  FSTQueryView *queryView = [[FSTQueryView alloc] initWithQuery:queryData.query
                                                        targetID:queryData.targetID
                                                     resumeToken:queryData.resumeToken
                                                            view:view];
-  self.queryViewsByQuery[query] = queryView;
+  self.queryViewsByQuery[queryData.query] = queryView;
   self.queryViewsByTarget[@(queryData.targetID)] = queryView;
-  [self.delegate handleViewSnapshots:@[ viewChange.snapshot ]];
 
-  [self.remoteStore listenToTargetWithQueryData:queryData];
-  return queryData.targetID;
+  return viewChange.snapshot;
 }
 
 - (void)stopListeningToQuery:(FSTQuery *)query {
@@ -245,7 +253,7 @@ class LimboResolution {
   FSTLocalWriteResult *result = [self.localStore locallyWriteMutations:mutations];
   [self addMutationCompletionBlock:completion batchID:result.batchID];
 
-  [self emitNewSnapshotsWithChanges:result.changes remoteEvent:nil];
+  [self emitNewSnapshotsAndNotifyLocalStoreWithChanges:result.changes remoteEvent:nil];
   [self.remoteStore fillWritePipeline];
 }
 
@@ -272,42 +280,43 @@ class LimboResolution {
  * reads are performed before any writes. Transactions must be performed while online.
  */
 - (void)transactionWithRetries:(int)retries
-           workerDispatchQueue:(FSTDispatchQueue *)workerDispatchQueue
+                   workerQueue:(AsyncQueue *)workerQueue
                    updateBlock:(FSTTransactionBlock)updateBlock
                     completion:(FSTVoidIDErrorBlock)completion {
-  [workerDispatchQueue verifyIsCurrentQueue];
+  workerQueue->VerifyIsCurrentQueue();
   HARD_ASSERT(retries >= 0, "Got negative number of retries for transaction");
   FSTTransaction *transaction = [self.remoteStore transaction];
   updateBlock(transaction, ^(id _Nullable result, NSError *_Nullable error) {
-    [workerDispatchQueue dispatchAsync:^{
-      if (error) {
-        completion(nil, error);
-        return;
-      }
-      [transaction commitWithCompletion:^(NSError *_Nullable transactionError) {
-        if (!transactionError) {
-          completion(result, nil);
-          return;
-        }
-        // TODO(b/35201829): Only retry on real transaction failures.
-        if (retries == 0) {
-          NSError *wrappedError =
-              [NSError errorWithDomain:FIRFirestoreErrorDomain
-                                  code:FIRFirestoreErrorCodeFailedPrecondition
-                              userInfo:@{
-                                NSLocalizedDescriptionKey : @"Transaction failed all retries.",
-                                NSUnderlyingErrorKey : transactionError
-                              }];
-          completion(nil, wrappedError);
-          return;
-        }
-        [workerDispatchQueue verifyIsCurrentQueue];
-        return [self transactionWithRetries:(retries - 1)
-                        workerDispatchQueue:workerDispatchQueue
-                                updateBlock:updateBlock
-                                 completion:completion];
-      }];
-    }];
+    workerQueue->Enqueue(
+        [self, retries, workerQueue, updateBlock, completion, transaction, result, error] {
+          if (error) {
+            completion(nil, error);
+            return;
+          }
+          [transaction commitWithCompletion:^(NSError *_Nullable transactionError) {
+            if (!transactionError) {
+              completion(result, nil);
+              return;
+            }
+            // TODO(b/35201829): Only retry on real transaction failures.
+            if (retries == 0) {
+              NSError *wrappedError =
+                  [NSError errorWithDomain:FIRFirestoreErrorDomain
+                                      code:FIRFirestoreErrorCodeFailedPrecondition
+                                  userInfo:@{
+                                    NSLocalizedDescriptionKey : @"Transaction failed all retries.",
+                                    NSUnderlyingErrorKey : transactionError
+                                  }];
+              completion(nil, wrappedError);
+              return;
+            }
+            workerQueue->VerifyIsCurrentQueue();
+            return [self transactionWithRetries:(retries - 1)
+                                    workerQueue:workerQueue
+                                    updateBlock:updateBlock
+                                     completion:completion];
+          }];
+        });
   });
 }
 
@@ -343,8 +352,8 @@ class LimboResolution {
     }
   }
 
-  FSTMaybeDocumentDictionary *changes = [self.localStore applyRemoteEvent:remoteEvent];
-  [self emitNewSnapshotsWithChanges:changes remoteEvent:remoteEvent];
+  MaybeDocumentMap changes = [self.localStore applyRemoteEvent:remoteEvent];
+  [self emitNewSnapshotsAndNotifyLocalStoreWithChanges:changes remoteEvent:remoteEvent];
 }
 
 - (void)applyChangedOnlineState:(OnlineState)onlineState {
@@ -359,7 +368,8 @@ class LimboResolution {
         }
       }];
 
-  [self.delegate handleViewSnapshots:newViewSnapshots];
+  [self.syncEngineDelegate handleViewSnapshots:newViewSnapshots];
+  [self.syncEngineDelegate applyChangedOnlineState:onlineState];
 }
 
 - (void)rejectListenWithTargetID:(const TargetId)targetID error:(NSError *)error {
@@ -378,8 +388,9 @@ class LimboResolution {
     // It's a limbo doc. Create a synthetic event saying it was deleted. This is kind of a hack.
     // Ideally, we would have a method in the local store to purge a document. However, it would
     // be tricky to keep all of the local store's invariants with another method.
-    FSTDeletedDocument *doc =
-        [FSTDeletedDocument documentWithKey:limboKey version:SnapshotVersion::None()];
+    FSTDeletedDocument *doc = [FSTDeletedDocument documentWithKey:limboKey
+                                                          version:SnapshotVersion::None()
+                                            hasCommittedMutations:NO];
     DocumentKeySet limboDocuments = DocumentKeySet{doc.key};
     FSTRemoteEvent *event = [[FSTRemoteEvent alloc] initWithSnapshotVersion:SnapshotVersion::None()
         targetChanges:{}
@@ -399,7 +410,7 @@ class LimboResolution {
       LOG_WARN("Listen for query at %s failed: %s", query.path.CanonicalString(),
                error.localizedDescription);
     }
-    [self.delegate handleError:error forQuery:query];
+    [self.syncEngineDelegate handleError:error forQuery:query];
   }
 }
 
@@ -411,17 +422,17 @@ class LimboResolution {
   // consistently happen before listen events.
   [self processUserCallbacksForBatchID:batchResult.batch.batchID error:nil];
 
-  FSTMaybeDocumentDictionary *changes = [self.localStore acknowledgeBatchWithResult:batchResult];
-  [self emitNewSnapshotsWithChanges:changes remoteEvent:nil];
+  MaybeDocumentMap changes = [self.localStore acknowledgeBatchWithResult:batchResult];
+  [self emitNewSnapshotsAndNotifyLocalStoreWithChanges:changes remoteEvent:nil];
 }
 
 - (void)rejectFailedWriteWithBatchID:(BatchId)batchID error:(NSError *)error {
   [self assertDelegateExistsForSelector:_cmd];
-  FSTMaybeDocumentDictionary *changes = [self.localStore rejectBatchID:batchID];
+  MaybeDocumentMap changes = [self.localStore rejectBatchID:batchID];
 
-  if (!changes.isEmpty && [self errorIsInteresting:error]) {
-    LOG_WARN("Write at %s failed: %s", changes.minKey.path.CanonicalString(),
-             error.localizedDescription);
+  if (!changes.empty() && [self errorIsInteresting:error]) {
+    const DocumentKey &minKey = changes.min()->first;
+    LOG_WARN("Write at %s failed: %s", minKey.ToString(), error.localizedDescription);
   }
 
   // The local store may or may not be able to apply the write result and raise events immediately
@@ -429,7 +440,7 @@ class LimboResolution {
   // consistently happen before listen events.
   [self processUserCallbacksForBatchID:batchID error:error];
 
-  [self emitNewSnapshotsWithChanges:changes remoteEvent:nil];
+  [self emitNewSnapshotsAndNotifyLocalStoreWithChanges:changes remoteEvent:nil];
 }
 
 - (void)processUserCallbacksForBatchID:(BatchId)batchID error:(NSError *_Nullable)error {
@@ -449,7 +460,7 @@ class LimboResolution {
 }
 
 - (void)assertDelegateExistsForSelector:(SEL)methodSelector {
-  HARD_ASSERT(self.delegate, "Tried to call '%s' before delegate was registered.",
+  HARD_ASSERT(self.syncEngineDelegate, "Tried to call '%s' before delegate was registered.",
               NSStringFromSelector(methodSelector));
 }
 
@@ -457,10 +468,10 @@ class LimboResolution {
   [self.queryViewsByQuery removeObjectForKey:queryView.query];
   [self.queryViewsByTarget removeObjectForKey:@(queryView.targetID)];
 
-  DocumentKeySet limboKeys = [self.limboDocumentRefs referencedKeysForID:queryView.targetID];
-  [self.limboDocumentRefs removeReferencesForID:queryView.targetID];
+  DocumentKeySet limboKeys = _limboDocumentRefs.ReferencedKeys(queryView.targetID);
+  _limboDocumentRefs.RemoveReferences(queryView.targetID);
   for (const DocumentKey &key : limboKeys) {
-    if (![self.limboDocumentRefs containsKey:key]) {
+    if (!_limboDocumentRefs.ContainsKey(key)) {
       // We removed the last reference for this key.
       [self removeLimboTargetForKey:key];
     }
@@ -470,8 +481,8 @@ class LimboResolution {
 /**
  * Computes a new snapshot from the changes and calls the registered callback with the new snapshot.
  */
-- (void)emitNewSnapshotsWithChanges:(FSTMaybeDocumentDictionary *)changes
-                        remoteEvent:(FSTRemoteEvent *_Nullable)remoteEvent {
+- (void)emitNewSnapshotsAndNotifyLocalStoreWithChanges:(const MaybeDocumentMap &)changes
+                                           remoteEvent:(FSTRemoteEvent *_Nullable)remoteEvent {
   NSMutableArray<FSTViewSnapshot *> *newSnapshots = [NSMutableArray array];
   NSMutableArray<FSTLocalViewChanges *> *documentChangesInAllViews = [NSMutableArray array];
 
@@ -483,8 +494,9 @@ class LimboResolution {
           // The query has a limit and some docs were removed/updated, so we need to re-run the
           // query against the local store to make sure we didn't lose any good docs that had been
           // past the limit.
-          FSTDocumentDictionary *docs = [self.localStore executeQuery:queryView.query];
-          viewDocChanges = [view computeChangesWithDocuments:docs previousChanges:viewDocChanges];
+          DocumentMap docs = [self.localStore executeQuery:queryView.query];
+          viewDocChanges = [view computeChangesWithDocuments:docs.underlying_map()
+                                             previousChanges:viewDocChanges];
         }
 
         FSTTargetChange *_Nullable targetChange = nil;
@@ -494,8 +506,8 @@ class LimboResolution {
             targetChange = it->second;
           }
         }
-        FSTViewChange *viewChange =
-            [queryView.view applyChangesToDocuments:viewDocChanges targetChange:targetChange];
+        FSTViewChange *viewChange = [queryView.view applyChangesToDocuments:viewDocChanges
+                                                               targetChange:targetChange];
 
         [self updateTrackedLimboDocumentsWithChanges:viewChange.limboChanges
                                             targetID:queryView.targetID];
@@ -509,7 +521,7 @@ class LimboResolution {
         }
       }];
 
-  [self.delegate handleViewSnapshots:newSnapshots];
+  [self.syncEngineDelegate handleViewSnapshots:newSnapshots];
   [self.localStore notifyLocalViewChanges:documentChangesInAllViews];
 }
 
@@ -519,14 +531,14 @@ class LimboResolution {
   for (FSTLimboDocumentChange *limboChange in limboChanges) {
     switch (limboChange.type) {
       case FSTLimboDocumentChangeTypeAdded:
-        [self.limboDocumentRefs addReferenceToKey:limboChange.key forID:targetID];
+        _limboDocumentRefs.AddReference(limboChange.key, targetID);
         [self trackLimboChange:limboChange];
         break;
 
       case FSTLimboDocumentChangeTypeRemoved:
         LOG_DEBUG("Document no longer in limbo: %s", limboChange.key.ToString());
-        [self.limboDocumentRefs removeReferenceToKey:limboChange.key forID:targetID];
-        if (![self.limboDocumentRefs containsKey:limboChange.key]) {
+        _limboDocumentRefs.RemoveReference(limboChange.key, targetID);
+        if (!_limboDocumentRefs.ContainsKey(limboChange.key)) {
           // We removed the last reference for this key
           [self removeLimboTargetForKey:limboChange.key];
         }
@@ -579,8 +591,8 @@ class LimboResolution {
 
   if (userChanged) {
     // Notify local store and emit any resulting events from swapping out the mutation queue.
-    FSTMaybeDocumentDictionary *changes = [self.localStore userDidChange:user];
-    [self emitNewSnapshotsWithChanges:changes remoteEvent:nil];
+    MaybeDocumentMap changes = [self.localStore userDidChange:user];
+    [self emitNewSnapshotsAndNotifyLocalStoreWithChanges:changes remoteEvent:nil];
   }
 
   // Notify remote store so it can restart its streams.

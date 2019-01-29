@@ -7,30 +7,58 @@
 //
 
 import UIKit
-import Firebase
 
 class ViewController: UIViewController {
-
+    
+    
+    var userListener:NSObjectProtocol?
+    var activityIndicator: UIActivityIndicatorView = UIActivityIndicatorView()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        //var ref: DatabaseReference!
         
-        //ref = Database.database().reference()
-        
-        let connectedRef = Database.database().reference(withPath: ".info/connected")
-        connectedRef.observe(.value, with: { snapshot in
-            if snapshot.value as? Bool ?? false {
-                print("Connected")
-            } else {
-                print("Not connected")
+        userListener = ModelNotification.userListNotification.observe(){
+            (data:Any) in
+            print("get data!!!")
+            let data = data as! [User]
+            print("data size : \(data.count)")
+            data.forEach({ (user : User) in
+                print("userID= \(user.userID)")
+            })
+            self.activityIndicator.stopAnimating();
+            
+            
+            Model.instance.getUser(byId: "Advyqa4Y17RCUKXeHpNLkKk5Gfq2"){
+                (user:User?)in
+                print("get user%%%%%")
+                let user : User! = user
+                print("username= \(user.username)")
             }
-        })
+        }
+        
+        activityIndicator.center = self.view.center;
+        activityIndicator.hidesWhenStopped = true;
+        activityIndicator.color = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1);
+        view.addSubview(activityIndicator);
+        
+        activityIndicator.startAnimating();
+        Model.instance.getAllUsers()
+        
+        
+        
+        
+        
         
     }
-
-
+    
+    deinit{
+        if userListener != nil{
+            ModelNotification.userListNotification.remove(observer: userListener!)
+        }
+    }
 }
 

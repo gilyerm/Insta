@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		460CBFE321FF83F100BEC408 /* FollowingSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE221FF83F100BEC408 /* FollowingSQL.swift */; };
+		460CBFE521FF8AE600BEC408 /* FirebaseFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */; };
+		460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE621FF8E4A00BEC408 /* Tag.swift */; };
+		460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE821FF90BB00BEC408 /* CommentSQL.swift */; };
+		460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEA21FF995400BEC408 /* FirebaseComment.swift */; };
+		460CBFED22006C4700BEC408 /* LikeSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEC22006C4700BEC408 /* LikeSQL.swift */; };
+		460CBFEF22006E5500BEC408 /* FirebaseLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEE22006E5500BEC408 /* FirebaseLike.swift */; };
+		460CBFF122006F5900BEC408 /* TagSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFF022006F5900BEC408 /* TagSQL.swift */; };
+		460CBFF3220070B900BEC408 /* FirebaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFF2220070B900BEC408 /* FirebaseTag.swift */; };
+		4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294921FF47F500DAF34E /* PostSQL.swift */; };
+		4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */; };
+		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
 		463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */; };
 		463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFC9219EE69A00E13CB0 /* ViewController.swift */; };
 		463EFFCD219EE69A00E13CB0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463EFFCB219EE69A00E13CB0 /* Main.storyboard */; };
@@ -14,8 +26,24 @@
 		463EFFD2219EE69A00E13CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */; };
 		463EFFDD219EE69A00E13CB0 /* InstaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFDC219EE69A00E13CB0 /* InstaTests.swift */; };
 		463EFFE8219EE69B00E13CB0 /* InstaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */; };
+		465FCFFC21FE0E830014DBC2 /* Like.swift in Sources */ = {isa = PBXBuildFile; fileRef = 465FCFFB21FE0E830014DBC2 /* Like.swift */; };
+		46E9B14621FDEF22004EF77A /* FirebasePost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46E9B14521FDEF22004EF77A /* FirebasePost.swift */; };
 		46F14F1D21A40CAF00FC1CA3 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */; };
 		4AB4D1173CB82C6DC0C0B5A2 /* Pods_InstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */; };
+		586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */; };
+		586036C7A00767397715AA08 /* ModelNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58603E0943EC9EC1B705F72F /* ModelNotification.swift */; };
+		5860373F493C8D76D118F9D6 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 586039B3CFA70C3D91F7E65F /* Model.swift */; };
+		58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */; };
+		8443BE9E21D50E7800F883FD /* Following.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BE9D21D50E7800F883FD /* Following.swift */; };
+		8443BEA121D510F900F883FD /* ModelSql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA021D510F900F883FD /* ModelSql.swift */; };
+		8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA221D5114F00F883FD /* UserSQL.swift */; };
+		8443BEA521D518A400F883FD /* LastUpdateDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8443BEA421D518A400F883FD /* LastUpdateDates.swift */; };
+		846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EC05421BEE20F000F221B /* ModelFirebase.swift */; };
+		846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846EC05621BEE32E000F221B /* FirebaseUser.swift */; };
+		84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4621BEC07D006BDA0D /* Post.swift */; };
+		84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4721BEC07E006BDA0D /* User.swift */; };
+		84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */; };
+		84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4A21BEC07E006BDA0D /* Comment.swift */; };
 		CE0D84753934BA3C6B72882D /* Pods_InstaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */; };
 		D1824CC7AF80F68BE7FE04CE /* Pods_Insta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC818AFABE6A5C9493189F59 /* Pods_Insta.framework */; };
 /* End PBXBuildFile section */
@@ -40,6 +68,19 @@
 /* Begin PBXFileReference section */
 		252572DBD688E520714814A0 /* Pods-InstaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		3AF6BEFB85ECD042F41519AD /* Pods_InstaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		460CBFE221FF83F100BEC408 /* FollowingSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingSQL.swift; sourceTree = "<group>"; };
+		460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFollowing.swift; sourceTree = "<group>"; };
+		460CBFE621FF8E4A00BEC408 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		460CBFE821FF90BB00BEC408 /* CommentSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSQL.swift; sourceTree = "<group>"; };
+		460CBFEA21FF995400BEC408 /* FirebaseComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseComment.swift; sourceTree = "<group>"; };
+		460CBFEC22006C4700BEC408 /* LikeSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeSQL.swift; sourceTree = "<group>"; };
+		460CBFEE22006E5500BEC408 /* FirebaseLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLike.swift; sourceTree = "<group>"; };
+		460CBFF022006F5900BEC408 /* TagSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSQL.swift; sourceTree = "<group>"; };
+		460CBFF2220070B900BEC408 /* FirebaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTag.swift; sourceTree = "<group>"; };
+		4611294921FF47F500DAF34E /* PostSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
+		4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
+		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
+		46311D1F21CA894C00CA88AA /* MyDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDate.swift; sourceTree = "<group>"; };
 		463EFFC4219EE69A00E13CB0 /* Insta.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Insta.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		463EFFC9219EE69A00E13CB0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,8 +94,24 @@
 		463EFFE3219EE69B00E13CB0 /* InstaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaUITests.swift; sourceTree = "<group>"; };
 		463EFFE9219EE69B00E13CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		465FCFFB21FE0E830014DBC2 /* Like.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Like.swift; sourceTree = "<group>"; };
+		46E9B14521FDEF22004EF77A /* FirebasePost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebasePost.swift; sourceTree = "<group>"; };
 		46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseStorage.swift; sourceTree = "<group>"; };
+		5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseAuthUser.swift; sourceTree = "<group>"; };
+		586039B3CFA70C3D91F7E65F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		58603E0943EC9EC1B705F72F /* ModelNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelNotification.swift; sourceTree = "<group>"; };
 		81E5A92D3578F5047CC1A534 /* Pods-InstaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-InstaTests/Pods-InstaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8443BE9D21D50E7800F883FD /* Following.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Following.swift; sourceTree = "<group>"; };
+		8443BEA021D510F900F883FD /* ModelSql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelSql.swift; sourceTree = "<group>"; };
+		8443BEA221D5114F00F883FD /* UserSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSQL.swift; sourceTree = "<group>"; };
+		8443BEA421D518A400F883FD /* LastUpdateDates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastUpdateDates.swift; sourceTree = "<group>"; };
+		846EC05421BEE20F000F221B /* ModelFirebase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelFirebase.swift; sourceTree = "<group>"; };
+		846EC05621BEE32E000F221B /* FirebaseUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUser.swift; sourceTree = "<group>"; };
+		84BE0A4621BEC07D006BDA0D /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		84BE0A4721BEC07E006BDA0D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonProtocol.swift; sourceTree = "<group>"; };
+		84BE0A4A21BEC07E006BDA0D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta/Pods-Insta.debug.xcconfig"; sourceTree = "<group>"; };
 		B9C0E6CD77F8368873386CA3 /* Pods-InstaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -91,6 +148,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		46311D1A21CA846E00CA88AA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
+				8443BE9D21D50E7800F883FD /* Following.swift */,
+				465FCFFB21FE0E830014DBC2 /* Like.swift */,
+				84BE0A4621BEC07D006BDA0D /* Post.swift */,
+				460CBFE621FF8E4A00BEC408 /* Tag.swift */,
+				84BE0A4721BEC07E006BDA0D /* User.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		463EFFBB219EE69A00E13CB0 = {
 			isa = PBXGroup;
 			children = (
@@ -116,13 +186,14 @@
 		463EFFC6219EE69A00E13CB0 /* Insta */ = {
 			isa = PBXGroup;
 			children = (
+				84BE0A3921BEC04F006BDA0D /* Models */,
 				46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */,
+				463EFFD3219EE69A00E13CB0 /* Info.plist */,
 				463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */,
 				463EFFC9219EE69A00E13CB0 /* ViewController.swift */,
-				463EFFCB219EE69A00E13CB0 /* Main.storyboard */,
 				463EFFCE219EE69A00E13CB0 /* Assets.xcassets */,
 				463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */,
-				463EFFD3219EE69A00E13CB0 /* Info.plist */,
+				463EFFCB219EE69A00E13CB0 /* Main.storyboard */,
 			);
 			path = Insta;
 			sourceTree = "<group>";
@@ -145,6 +216,40 @@
 			path = InstaUITests;
 			sourceTree = "<group>";
 		};
+		46E9B14421FDE766004EF77A /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				46311D1F21CA894C00CA88AA /* MyDate.swift */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		46E9B14921FE0392004EF77A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				460CBFEA21FF995400BEC408 /* FirebaseComment.swift */,
+				460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */,
+				460CBFEE22006E5500BEC408 /* FirebaseLike.swift */,
+				46E9B14521FDEF22004EF77A /* FirebasePost.swift */,
+				460CBFF2220070B900BEC408 /* FirebaseTag.swift */,
+				846EC05621BEE32E000F221B /* FirebaseUser.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		46E9B14A21FE03B7004EF77A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				460CBFE821FF90BB00BEC408 /* CommentSQL.swift */,
+				460CBFE221FF83F100BEC408 /* FollowingSQL.swift */,
+				460CBFEC22006C4700BEC408 /* LikeSQL.swift */,
+				4611294921FF47F500DAF34E /* PostSQL.swift */,
+				460CBFF022006F5900BEC408 /* TagSQL.swift */,
+				8443BEA221D5114F00F883FD /* UserSQL.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		4BE852310A9F00FCEF54159E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -156,6 +261,51 @@
 				B9C0E6CD77F8368873386CA3 /* Pods-InstaUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8443BE9F21D510CF00F883FD /* SQL */ = {
+			isa = PBXGroup;
+			children = (
+				46E9B14A21FE03B7004EF77A /* Classes */,
+				8443BEA021D510F900F883FD /* ModelSql.swift */,
+				8443BEA421D518A400F883FD /* LastUpdateDates.swift */,
+			);
+			path = SQL;
+			sourceTree = "<group>";
+		};
+		84459F5721C5265800E72391 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */,
+				4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		846EC05321BEE1DB000F221B /* FireBase */ = {
+			isa = PBXGroup;
+			children = (
+				46E9B14921FE0392004EF77A /* Classes */,
+				846EC05421BEE20F000F221B /* ModelFirebase.swift */,
+				5860375F403F7193E95E4D27 /* FirebaseAuthUser.swift */,
+				586036CDA7C7B7B8C0993BFD /* FirebaseStorage.swift */,
+			);
+			path = FireBase;
+			sourceTree = "<group>";
+		};
+		84BE0A3921BEC04F006BDA0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				46E9B14421FDE766004EF77A /* extensions */,
+				8443BE9F21D510CF00F883FD /* SQL */,
+				46311D1A21CA846E00CA88AA /* Classes */,
+				84459F5721C5265800E72391 /* Protocols */,
+				846EC05321BEE1DB000F221B /* FireBase */,
+				58603E0943EC9EC1B705F72F /* ModelNotification.swift */,
+				586039B3CFA70C3D91F7E65F /* Model.swift */,
+				46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		F327B5BB73DE20521311A87B /* Frameworks */ = {
@@ -241,6 +391,7 @@
 				TargetAttributes = {
 					463EFFC3219EE69A00E13CB0 = {
 						CreatedOnToolsVersion = 10.0;
+						LastSwiftMigration = 1000;
 					};
 					463EFFD7219EE69A00E13CB0 = {
 						CreatedOnToolsVersion = 10.0;
@@ -306,15 +457,12 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Insta/Pods-Insta-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
-				"${BUILT_PRODUCTS_DIR}/BoringSSL/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/BoringSSL-GRPC/openssl_grpc.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMOAuth2/GTMOAuth2.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
@@ -322,23 +470,17 @@
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${PODS_ROOT}/TwitterCore/iOS/TwitterCore.framework",
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC/GRPCClient.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-C++/grpcpp.framework",
 				"${BUILT_PRODUCTS_DIR}/gRPC-Core/grpc.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-ProtoRPC/ProtoRPC.framework",
-				"${BUILT_PRODUCTS_DIR}/gRPC-RxLibrary/RxLibrary.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl_grpc.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMOAuth2.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
@@ -346,11 +488,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterCore.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TwitterKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GRPCClient.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpcpp.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/grpc.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ProtoRPC.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxLibrary.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
@@ -364,15 +503,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Insta-checkManifestLockResult.txt",
 			);
@@ -386,8 +521,6 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Insta/Pods-Insta-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseUI/FirebaseAnonymousAuthUI.bundle",
@@ -400,8 +533,6 @@
 				"${PODS_ROOT}/TwitterKit/iOS/TwitterKit.framework/TwitterKitResources.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAnonymousAuthUI.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FirebaseAuthUI.bundle",
@@ -422,15 +553,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-InstaTests-checkManifestLockResult.txt",
 			);
@@ -444,15 +571,11 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputFileListPaths = (
-			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-InstaUITests-checkManifestLockResult.txt",
 			);
@@ -468,8 +591,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */,
+				4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */,
+				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
+				460CBFF122006F5900BEC408 /* TagSQL.swift in Sources */,
+				8443BE9E21D50E7800F883FD /* Following.swift in Sources */,
+				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
+				460CBFED22006C4700BEC408 /* LikeSQL.swift in Sources */,
+				460CBFE321FF83F100BEC408 /* FollowingSQL.swift in Sources */,
+				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
+				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
 				463EFFCA219EE69A00E13CB0 /* ViewController.swift in Sources */,
+				4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */,
+				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,
+				8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */,
+				460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */,
+				8443BEA121D510F900F883FD /* ModelSql.swift in Sources */,
+				460CBFEF22006E5500BEC408 /* FirebaseLike.swift in Sources */,
+				460CBFF3220070B900BEC408 /* FirebaseTag.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
+				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
+				460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */,
+				84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */,
+				460CBFE521FF8AE600BEC408 /* FirebaseFollowing.swift in Sources */,
+				46E9B14621FDEF22004EF77A /* FirebasePost.swift in Sources */,
+				58603F77118AF288548EC89D /* FirebaseAuthUser.swift in Sources */,
+				586036C7A00767397715AA08 /* ModelNotification.swift in Sources */,
+				465FCFFC21FE0E830014DBC2 /* Like.swift in Sources */,
+				8443BEA521D518A400F883FD /* LastUpdateDates.swift in Sources */,
+				5860373F493C8D76D118F9D6 /* Model.swift in Sources */,
+				586034723EC6E8E6190DDA45 /* FirebaseStorage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,7 +796,9 @@
 			baseConfigurationReference = A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8VUP9HM5R5;
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -653,6 +806,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -663,7 +818,9 @@
 			baseConfigurationReference = C5B4AF57A7D01B070676D812 /* Pods-Insta.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 8VUP9HM5R5;
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -671,6 +828,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

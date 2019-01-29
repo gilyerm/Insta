@@ -17,38 +17,45 @@
 #import "Firestore/Source/Local/FSTLocalStore.h"
 
 #include <set>
+#include <utility>
 
 #import "FIRTimestamp.h"
 #import "Firestore/Source/Core/FSTListenSequence.h"
 #import "Firestore/Source/Core/FSTQuery.h"
+#import "Firestore/Source/Local/FSTLRUGarbageCollector.h"
 #import "Firestore/Source/Local/FSTLocalDocumentsView.h"
 #import "Firestore/Source/Local/FSTLocalViewChanges.h"
 #import "Firestore/Source/Local/FSTLocalWriteResult.h"
 #import "Firestore/Source/Local/FSTMutationQueue.h"
 #import "Firestore/Source/Local/FSTPersistence.h"
-#import "Firestore/Source/Local/FSTQueryCache.h"
 #import "Firestore/Source/Local/FSTQueryData.h"
-#import "Firestore/Source/Local/FSTReferenceSet.h"
-#import "Firestore/Source/Local/FSTRemoteDocumentCache.h"
 #import "Firestore/Source/Model/FSTDocument.h"
-#import "Firestore/Source/Model/FSTDocumentDictionary.h"
 #import "Firestore/Source/Model/FSTMutation.h"
 #import "Firestore/Source/Model/FSTMutationBatch.h"
 #import "Firestore/Source/Remote/FSTRemoteEvent.h"
 
 #include "Firestore/core/src/firebase/firestore/auth/user.h"
 #include "Firestore/core/src/firebase/firestore/core/target_id_generator.h"
-#include "Firestore/core/src/firebase/firestore/model/document_key.h"
+#include "Firestore/core/src/firebase/firestore/immutable/sorted_set.h"
+#include "Firestore/core/src/firebase/firestore/local/query_cache.h"
+#include "Firestore/core/src/firebase/firestore/local/reference_set.h"
+#include "Firestore/core/src/firebase/firestore/local/remote_document_cache.h"
 #include "Firestore/core/src/firebase/firestore/model/snapshot_version.h"
 #include "Firestore/core/src/firebase/firestore/util/hard_assert.h"
 #include "Firestore/core/src/firebase/firestore/util/log.h"
 
 using firebase::firestore::auth::User;
 using firebase::firestore::core::TargetIdGenerator;
+using firebase::firestore::local::LruResults;
+using firebase::firestore::local::QueryCache;
+using firebase::firestore::local::ReferenceSet;
+using firebase::firestore::local::RemoteDocumentCache;
 using firebase::firestore::model::BatchId;
 using firebase::firestore::model::DocumentKey;
 using firebase::firestore::model::DocumentKeySet;
+using firebase::firestore::model::DocumentMap;
 using firebase::firestore::model::DocumentVersionMap;
+using firebase::firestore::model::MaybeDocumentMap;
 using firebase::firestore::model::ListenSequenceNumber;
 using firebase::firestore::model::SnapshotVersion;
 using firebase::firestore::model::TargetId;
@@ -71,37 +78,26 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 /** The set of all mutations that have been sent but not yet been applied to the backend. */
 @property(nonatomic, strong) id<FSTMutationQueue> mutationQueue;
 
-/** The set of all cached remote documents. */
-@property(nonatomic, strong) id<FSTRemoteDocumentCache> remoteDocumentCache;
-
 /** The "local" view of all documents (layering mutationQueue on top of remoteDocumentCache). */
 @property(nonatomic, strong) FSTLocalDocumentsView *localDocuments;
 
-/** The set of document references maintained by any local views. */
-@property(nonatomic, strong) FSTReferenceSet *localViewReferences;
-
 /** Maps a query to the data about that query. */
-@property(nonatomic, strong) id<FSTQueryCache> queryCache;
+@property(nonatomic) QueryCache *queryCache;
 
 /** Maps a targetID to data about its query. */
 @property(nonatomic, strong) NSMutableDictionary<NSNumber *, FSTQueryData *> *targetIDs;
-
-/**
- * A heldBatchResult is a mutation batch result (from a write acknowledgement) that arrived before
- * the watch stream got notified of a snapshot that includes the write.  So we "hold" it until
- * the watch stream catches up. It ensures that the local write remains visible (latency
- * compensation) and doesn't temporarily appear reverted because the watch stream is slower than
- * the write stream and so wasn't reflecting it.
- *
- * NOTE: Eventually we want to move this functionality into the remote store.
- */
-@property(nonatomic, strong) NSMutableArray<FSTMutationBatchResult *> *heldBatchResults;
 
 @end
 
 @implementation FSTLocalStore {
   /** Used to generate targetIDs for queries tracked locally. */
   TargetIdGenerator _targetIDGenerator;
+  /** The set of all cached remote documents. */
+  RemoteDocumentCache *_remoteDocumentCache;
+  QueryCache *_queryCache;
+
+  /** The set of document references maintained by any local views. */
+  ReferenceSet _localViewReferences;
 }
 
 - (instancetype)initWithPersistence:(id<FSTPersistence>)persistence
@@ -113,48 +109,26 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
     _queryCache = [persistence queryCache];
     _localDocuments = [FSTLocalDocumentsView viewWithRemoteDocumentCache:_remoteDocumentCache
                                                            mutationQueue:_mutationQueue];
-    _localViewReferences = [[FSTReferenceSet alloc] init];
-    [_persistence.referenceDelegate addInMemoryPins:_localViewReferences];
+    [_persistence.referenceDelegate addInMemoryPins:&_localViewReferences];
 
     _targetIDs = [NSMutableDictionary dictionary];
-    _heldBatchResults = [NSMutableArray array];
 
-    _targetIDGenerator = TargetIdGenerator::LocalStoreTargetIdGenerator(0);
+    _targetIDGenerator = TargetIdGenerator::QueryCacheTargetIdGenerator(0);
   }
   return self;
 }
 
 - (void)start {
   [self startMutationQueue];
-  TargetId targetID = [self.queryCache highestTargetID];
-  _targetIDGenerator = TargetIdGenerator::LocalStoreTargetIdGenerator(targetID);
+  TargetId targetID = _queryCache->highest_target_id();
+  _targetIDGenerator = TargetIdGenerator::QueryCacheTargetIdGenerator(targetID);
 }
 
 - (void)startMutationQueue {
-  self.persistence.run("Start MutationQueue", [&]() {
-    [self.mutationQueue start];
-
-    // If we have any leftover mutation batch results from a prior run, just drop them.
-    // TODO(http://b/33446471): We probably need to repopulate heldBatchResults or similar instead,
-    // but that is not straightforward since we're not persisting the write ack versions.
-    [self.heldBatchResults removeAllObjects];
-
-    // TODO(mikelehen): This is the only usage of getAllMutationBatchesThroughBatchId:. Consider
-    // removing it in favor of a getAcknowledgedBatches method.
-    BatchId highestAck = [self.mutationQueue highestAcknowledgedBatchID];
-    if (highestAck != kFSTBatchIDUnknown) {
-      NSArray<FSTMutationBatch *> *batches =
-          [self.mutationQueue allMutationBatchesThroughBatchID:highestAck];
-      if (batches.count > 0) {
-        // NOTE: This could be more efficient if we had a removeBatchesThroughBatchID, but this set
-        // should be very small and this code should go away eventually.
-        [self.mutationQueue removeMutationBatches:batches];
-      }
-    }
-  });
+  self.persistence.run("Start MutationQueue", [&]() { [self.mutationQueue start]; });
 }
 
-- (FSTMaybeDocumentDictionary *)userDidChange:(const User &)user {
+- (MaybeDocumentMap)userDidChange:(const User &)user {
   // Swap out the mutation queue, grabbing the pending mutation batches before and after.
   NSArray<FSTMutationBatch *> *oldBatches = self.persistence.run(
       "OldBatches",
@@ -164,13 +138,12 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 
   [self startMutationQueue];
 
-  return self.persistence.run("NewBatches", [&]() -> FSTMaybeDocumentDictionary * {
+  return self.persistence.run("NewBatches", [&]() -> MaybeDocumentMap {
     NSArray<FSTMutationBatch *> *newBatches = [self.mutationQueue allMutationBatches];
 
     // Recreate our LocalDocumentsView using the new MutationQueue.
-    self.localDocuments =
-        [FSTLocalDocumentsView viewWithRemoteDocumentCache:self.remoteDocumentCache
-                                             mutationQueue:self.mutationQueue];
+    self.localDocuments = [FSTLocalDocumentsView viewWithRemoteDocumentCache:_remoteDocumentCache
+                                                               mutationQueue:self.mutationQueue];
 
     // Union the old/new changed keys.
     DocumentKeySet changedKeys;
@@ -190,46 +163,36 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 - (FSTLocalWriteResult *)locallyWriteMutations:(NSArray<FSTMutation *> *)mutations {
   return self.persistence.run("Locally write mutations", [&]() -> FSTLocalWriteResult * {
     FIRTimestamp *localWriteTime = [FIRTimestamp timestamp];
-    FSTMutationBatch *batch =
-        [self.mutationQueue addMutationBatchWithWriteTime:localWriteTime mutations:mutations];
+    FSTMutationBatch *batch = [self.mutationQueue addMutationBatchWithWriteTime:localWriteTime
+                                                                      mutations:mutations];
     DocumentKeySet keys = [batch keys];
-    FSTMaybeDocumentDictionary *changedDocuments = [self.localDocuments documentsForKeys:keys];
-    return [FSTLocalWriteResult resultForBatchID:batch.batchID changes:changedDocuments];
+    MaybeDocumentMap changedDocuments = [self.localDocuments documentsForKeys:keys];
+    return [FSTLocalWriteResult resultForBatchID:batch.batchID changes:std::move(changedDocuments)];
   });
 }
 
-- (FSTMaybeDocumentDictionary *)acknowledgeBatchWithResult:(FSTMutationBatchResult *)batchResult {
-  return self.persistence.run("Acknowledge batch", [&]() -> FSTMaybeDocumentDictionary * {
+- (MaybeDocumentMap)acknowledgeBatchWithResult:(FSTMutationBatchResult *)batchResult {
+  return self.persistence.run("Acknowledge batch", [&]() -> MaybeDocumentMap {
     id<FSTMutationQueue> mutationQueue = self.mutationQueue;
 
-    [mutationQueue acknowledgeBatch:batchResult.batch streamToken:batchResult.streamToken];
-
-    DocumentKeySet affected;
-    if ([self shouldHoldBatchResultWithVersion:batchResult.commitVersion]) {
-      [self.heldBatchResults addObject:batchResult];
-    } else {
-      affected = [self releaseBatchResults:@[ batchResult ]];
-    }
-
+    FSTMutationBatch *batch = batchResult.batch;
+    [mutationQueue acknowledgeBatch:batch streamToken:batchResult.streamToken];
+    [self applyBatchResult:batchResult];
     [self.mutationQueue performConsistencyCheck];
 
-    return [self.localDocuments documentsForKeys:affected];
+    return [self.localDocuments documentsForKeys:batch.keys];
   });
 }
 
-- (FSTMaybeDocumentDictionary *)rejectBatchID:(BatchId)batchID {
-  return self.persistence.run("Reject batch", [&]() -> FSTMaybeDocumentDictionary * {
+- (MaybeDocumentMap)rejectBatchID:(BatchId)batchID {
+  return self.persistence.run("Reject batch", [&]() -> MaybeDocumentMap {
     FSTMutationBatch *toReject = [self.mutationQueue lookupMutationBatch:batchID];
     HARD_ASSERT(toReject, "Attempt to reject nonexistent batch!");
 
-    BatchId lastAcked = [self.mutationQueue highestAcknowledgedBatchID];
-    HARD_ASSERT(batchID > lastAcked, "Acknowledged batches can't be rejected.");
-
-    DocumentKeySet affected = [self removeMutationBatch:toReject];
-
+    [self.mutationQueue removeMutationBatch:toReject];
     [self.mutationQueue performConsistencyCheck];
 
-    return [self.localDocuments documentsForKeys:affected];
+    return [self.localDocuments documentsForKeys:toReject.keys];
   });
 }
 
@@ -243,14 +206,13 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 }
 
 - (const SnapshotVersion &)lastRemoteSnapshotVersion {
-  return [self.queryCache lastRemoteSnapshotVersion];
+  return self.queryCache->GetLastRemoteSnapshotVersion();
 }
 
-- (FSTMaybeDocumentDictionary *)applyRemoteEvent:(FSTRemoteEvent *)remoteEvent {
-  return self.persistence.run("Apply remote event", [&]() -> FSTMaybeDocumentDictionary * {
+- (MaybeDocumentMap)applyRemoteEvent:(FSTRemoteEvent *)remoteEvent {
+  return self.persistence.run("Apply remote event", [&]() -> MaybeDocumentMap {
     // TODO(gsoltis): move the sequence number into the reference delegate.
     ListenSequenceNumber sequenceNumber = self.persistence.currentSequenceNumber;
-    id<FSTQueryCache> queryCache = self.queryCache;
 
     DocumentKeySet authoritativeUpdates;
     for (const auto &entry : remoteEvent.targetChanges) {
@@ -279,8 +241,8 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
         authoritativeUpdates = authoritativeUpdates.insert(key);
       }
 
-      [queryCache removeMatchingKeys:change.removedDocuments forTargetID:targetID];
-      [queryCache addMatchingKeys:change.addedDocuments forTargetID:targetID];
+      _queryCache->RemoveMatchingKeys(change.removedDocuments, targetID);
+      _queryCache->AddMatchingKeys(change.addedDocuments, targetID);
 
       // Update the resume token if the change includes one. Don't clear any preexisting value.
       // Bump the sequence number as well, so that documents being removed now are ordered later
@@ -294,32 +256,43 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
         self.targetIDs[boxedTargetID] = queryData;
 
         if ([self shouldPersistQueryData:queryData oldQueryData:oldQueryData change:change]) {
-          [self.queryCache updateQueryData:queryData];
+          _queryCache->UpdateTarget(queryData);
         }
       }
     }
 
-    // TODO(klimt): This could probably be an NSMutableDictionary.
-    DocumentKeySet changedDocKeys;
+    MaybeDocumentMap changedDocs;
     const DocumentKeySet &limboDocuments = remoteEvent.limboDocumentChanges;
+    DocumentKeySet updatedKeys;
+    for (const auto &kv : remoteEvent.documentUpdates) {
+      updatedKeys = updatedKeys.insert(kv.first);
+    }
+    // Each loop iteration only affects its "own" doc, so it's safe to get all the remote
+    // documents in advance in a single call.
+    MaybeDocumentMap existingDocs = _remoteDocumentCache->GetAll(updatedKeys);
+
     for (const auto &kv : remoteEvent.documentUpdates) {
       const DocumentKey &key = kv.first;
       FSTMaybeDocument *doc = kv.second;
-      changedDocKeys = changedDocKeys.insert(key);
-      FSTMaybeDocument *existingDoc = [self.remoteDocumentCache entryForKey:key];
+      FSTMaybeDocument *existingDoc = nil;
+      auto foundExisting = existingDocs.find(key);
+      if (foundExisting != existingDocs.end()) {
+        existingDoc = foundExisting->second;
+      }
 
       // If a document update isn't authoritative, make sure we don't apply an old document version
       // to the remote cache. We make an exception for SnapshotVersion.MIN which can happen for
       // manufactured events (e.g. in the case of a limbo document resolution failing).
       if (!existingDoc || doc.version == SnapshotVersion::None() ||
-          authoritativeUpdates.contains(doc.key) || doc.version >= existingDoc.version) {
-        [self.remoteDocumentCache addEntry:doc];
+          (authoritativeUpdates.contains(doc.key) && !existingDoc.hasPendingWrites) ||
+          doc.version >= existingDoc.version) {
+        _remoteDocumentCache->Add(doc);
+        changedDocs = changedDocs.insert(key, doc);
       } else {
-        LOG_DEBUG(
-            "FSTLocalStore Ignoring outdated watch update for %s. "
-            "Current version: %s  Watch version: %s",
-            key.ToString(), existingDoc.version.timestamp().ToString(),
-            doc.version.timestamp().ToString());
+        LOG_DEBUG("FSTLocalStore Ignoring outdated watch update for %s. "
+                  "Current version: %s  Watch version: %s",
+                  key.ToString(), existingDoc.version.timestamp().ToString(),
+                  doc.version.timestamp().ToString());
       }
 
       // If this was a limbo resolution, make sure we mark when it was accessed.
@@ -331,24 +304,16 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
     // HACK: The only reason we allow omitting snapshot version is so we can synthesize remote
     // events when we get permission denied errors while trying to resolve the state of a locally
     // cached document that is in limbo.
-    const SnapshotVersion &lastRemoteVersion = [self.queryCache lastRemoteSnapshotVersion];
+    const SnapshotVersion &lastRemoteVersion = _queryCache->GetLastRemoteSnapshotVersion();
     const SnapshotVersion &remoteVersion = remoteEvent.snapshotVersion;
     if (remoteVersion != SnapshotVersion::None()) {
       HARD_ASSERT(remoteVersion >= lastRemoteVersion,
                   "Watch stream reverted to previous snapshot?? (%s < %s)",
                   remoteVersion.timestamp().ToString(), lastRemoteVersion.timestamp().ToString());
-      [self.queryCache setLastRemoteSnapshotVersion:remoteVersion];
+      _queryCache->SetLastRemoteSnapshotVersion(remoteVersion);
     }
 
-    DocumentKeySet releasedWriteKeys = [self releaseHeldBatchResults];
-
-    // Union the two key sets.
-    DocumentKeySet keysToRecalc = changedDocKeys;
-    for (const DocumentKey &key : releasedWriteKeys) {
-      keysToRecalc = keysToRecalc.insert(key);
-    }
-
-    return [self.localDocuments documentsForKeys:keysToRecalc];
+    return [self.localDocuments localViewsForDocuments:changedDocs];
   });
 }
 
@@ -391,13 +356,12 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 
 - (void)notifyLocalViewChanges:(NSArray<FSTLocalViewChanges *> *)viewChanges {
   self.persistence.run("NotifyLocalViewChanges", [&]() {
-    FSTReferenceSet *localViewReferences = self.localViewReferences;
     for (FSTLocalViewChanges *viewChange in viewChanges) {
       for (const DocumentKey &key : viewChange.removedKeys) {
         [self->_persistence.referenceDelegate removeReference:key];
       }
-      [localViewReferences addReferencesToKeys:viewChange.addedKeys forID:viewChange.targetID];
-      [localViewReferences removeReferencesToKeys:viewChange.removedKeys forID:viewChange.targetID];
+      _localViewReferences.AddReferences(viewChange.addedKeys, viewChange.targetID);
+      _localViewReferences.AddReferences(viewChange.removedKeys, viewChange.targetID);
     }
   });
 }
@@ -418,14 +382,14 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 
 - (FSTQueryData *)allocateQuery:(FSTQuery *)query {
   FSTQueryData *queryData = self.persistence.run("Allocate query", [&]() -> FSTQueryData * {
-    FSTQueryData *cached = [self.queryCache queryDataForQuery:query];
+    FSTQueryData *cached = _queryCache->GetTarget(query);
     // TODO(mcg): freshen last accessed date if cached exists?
     if (!cached) {
       cached = [[FSTQueryData alloc] initWithQuery:query
                                           targetID:_targetIDGenerator.NextId()
                               listenSequenceNumber:self.persistence.currentSequenceNumber
                                            purpose:FSTQueryPurposeListen];
-      [self.queryCache addQueryData:cached];
+      _queryCache->AddTarget(cached);
     }
     return cached;
   });
@@ -439,7 +403,7 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
 
 - (void)releaseQuery:(FSTQuery *)query {
   self.persistence.run("Release query", [&]() {
-    FSTQueryData *queryData = [self.queryCache queryDataForQuery:query];
+    FSTQueryData *queryData = _queryCache->GetTarget(query);
     HARD_ASSERT(queryData, "Tried to release nonexistent query: %s", query);
 
     TargetId targetID = queryData.targetID;
@@ -451,92 +415,32 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
       // conditions and rationale) we need to persist the token now because there will no
       // longer be an in-memory version to fall back on.
       queryData = cachedQueryData;
-      [self.queryCache updateQueryData:queryData];
+      _queryCache->UpdateTarget(queryData);
     }
 
-    [self.localViewReferences removeReferencesForID:targetID];
+    // References for documents sent via Watch are automatically removed when we delete a
+    // query's target data from the reference delegate. Since this does not remove references
+    // for locally mutated documents, we have to remove the target associations for these
+    // documents manually.
+    DocumentKeySet removed = _localViewReferences.RemoveReferences(targetID);
+    for (const DocumentKey &key : removed) {
+      [self.persistence.referenceDelegate removeReference:key];
+    }
     [self.targetIDs removeObjectForKey:boxedTargetID];
     [self.persistence.referenceDelegate removeTarget:queryData];
-
-    // If this was the last watch target, then we won't get any more watch snapshots, so we should
-    // release any held batch results.
-    if ([self.targetIDs count] == 0) {
-      [self releaseHeldBatchResults];
-    }
   });
 }
 
-- (FSTDocumentDictionary *)executeQuery:(FSTQuery *)query {
-  return self.persistence.run("ExecuteQuery", [&]() -> FSTDocumentDictionary * {
+- (DocumentMap)executeQuery:(FSTQuery *)query {
+  return self.persistence.run("ExecuteQuery", [&]() -> DocumentMap {
     return [self.localDocuments documentsMatchingQuery:query];
   });
 }
 
 - (DocumentKeySet)remoteDocumentKeysForTarget:(TargetId)targetID {
   return self.persistence.run("RemoteDocumentKeysForTarget", [&]() -> DocumentKeySet {
-    return [self.queryCache matchingKeysForTargetID:targetID];
+    return _queryCache->GetMatchingKeys(targetID);
   });
-}
-
-/**
- * Releases all the held mutation batches up to the current remote version received, and
- * applies their mutations to the docs in the remote documents cache.
- *
- * @return the set of keys of docs that were modified by those writes.
- */
-- (DocumentKeySet)releaseHeldBatchResults {
-  NSMutableArray<FSTMutationBatchResult *> *toRelease = [NSMutableArray array];
-  for (FSTMutationBatchResult *batchResult in self.heldBatchResults) {
-    if (![self isRemoteUpToVersion:batchResult.commitVersion]) {
-      break;
-    }
-    [toRelease addObject:batchResult];
-  }
-
-  if (toRelease.count == 0) {
-    return DocumentKeySet{};
-  } else {
-    [self.heldBatchResults removeObjectsInRange:NSMakeRange(0, toRelease.count)];
-    return [self releaseBatchResults:toRelease];
-  }
-}
-
-- (BOOL)isRemoteUpToVersion:(const SnapshotVersion &)version {
-  // If there are no watch targets, then we won't get remote snapshots, and are always "up-to-date."
-  return version <= self.queryCache.lastRemoteSnapshotVersion || self.targetIDs.count == 0;
-}
-
-- (BOOL)shouldHoldBatchResultWithVersion:(const SnapshotVersion &)version {
-  // Check if watcher isn't up to date or prior results are already held.
-  return ![self isRemoteUpToVersion:version] || self.heldBatchResults.count > 0;
-}
-
-- (DocumentKeySet)releaseBatchResults:(NSArray<FSTMutationBatchResult *> *)batchResults {
-  NSMutableArray<FSTMutationBatch *> *batches = [NSMutableArray array];
-  for (FSTMutationBatchResult *batchResult in batchResults) {
-    [self applyBatchResult:batchResult];
-    [batches addObject:batchResult.batch];
-  }
-
-  return [self removeMutationBatches:batches];
-}
-
-- (DocumentKeySet)removeMutationBatch:(FSTMutationBatch *)batch {
-  return [self removeMutationBatches:@[ batch ]];
-}
-
-/** Removes all the mutation batches named in the given array. */
-- (DocumentKeySet)removeMutationBatches:(NSArray<FSTMutationBatch *> *)batches {
-  DocumentKeySet affectedDocs;
-  for (FSTMutationBatch *batch in batches) {
-    for (FSTMutation *mutation in batch.mutations) {
-      const DocumentKey &key = mutation.key;
-      affectedDocs = affectedDocs.insert(key);
-    }
-  }
-
-  [self.mutationQueue removeMutationBatches:batches];
-  return affectedDocs;
 }
 
 - (void)applyBatchResult:(FSTMutationBatchResult *)batchResult {
@@ -544,7 +448,7 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
   DocumentKeySet docKeys = batch.keys;
   const DocumentVersionMap &versions = batchResult.docVersions;
   for (const DocumentKey &docKey : docKeys) {
-    FSTMaybeDocument *_Nullable remoteDoc = [self.remoteDocumentCache entryForKey:docKey];
+    FSTMaybeDocument *_Nullable remoteDoc = _remoteDocumentCache->Get(docKey);
     FSTMaybeDocument *_Nullable doc = remoteDoc;
 
     auto ackVersionIter = versions.find(docKey);
@@ -557,10 +461,18 @@ static const int64_t kResumeTokenMaxAgeSeconds = 5 * 60;  // 5 minutes
         HARD_ASSERT(!remoteDoc, "Mutation batch %s applied to document %s resulted in nil.", batch,
                     remoteDoc);
       } else {
-        [self.remoteDocumentCache addEntry:doc];
+        _remoteDocumentCache->Add(doc);
       }
     }
   }
+
+  [self.mutationQueue removeMutationBatch:batch];
+}
+
+- (LruResults)collectGarbage:(FSTLRUGarbageCollector *)garbageCollector {
+  return self.persistence.run("Collect garbage", [&]() -> LruResults {
+    return [garbageCollector collectWithLiveTargets:_targetIDs];
+  });
 }
 
 @end
