@@ -7,59 +7,8 @@ import Foundation
 import Firebase
 
 extension ModelFirebase {
-
-//    func Login(email:String,password :String, callback:@escaping (Bool)->Void) {
-//        auth.signIn(withEmail: email, password: password){
-//            (authdataresult:AuthDataResult?,error :Error?) in
-//            if error != nil {
-//                print(error!);
-//            }else{
-//                let fbuser = authdataresult!.user;
-//                self.userref.child(fbuser.uid).observeSingleEvent(of: .value, with: {
-//                    (snapshot) in
-//                    let value : [String: Any] = snapshot.value as! [String:Any];
-//                    let user: User = User(json: value);
-//                    callback(true);
-//                    print(user.toJson());
-//                })
-//            }
-//            callback(false)
-//        };
-//    }
-//
-//    func Register(username:String, email:String,password :String, callback:@escaping (Bool)->Void){
-//        auth.createUser(withEmail: email, password: password) {
-//            (authdataresult: AuthDataResult?, error: Error?) in
-//            if (error != nil){
-//                print(error!);
-//            }
-//            if authdataresult?.user != nil{
-//                let fbUser = authdataresult!.user;
-//                let myUser:User = User(userID: fbUser.uid, username:username ,email: fbUser.email!);
-//                self.addNewUser(user: myUser);
-//                callback(true)
-//            }
-//            else{
-//                callback(false)
-//            }
-//        }
-//    }
-//    
-//    func getUserId() -> String {
-//        return auth.currentUser!.uid;
-//    }
-//    
-//    func isLogin() -> Bool {
-//        return auth.currentUser != nil
-//    }
-//    
-//    func getCurrentUser() -> User? {
-//        return ref.child("users").value(forKey: getUserId()) as! User?
-//    }
     
-    
-    
-    func signin(email:String, password:String, callback:@escaping (Bool)->Void) {
+    static func signin(email:String, password:String, callback:@escaping (Bool)->Void) {
         Auth.auth().signIn(withEmail: email, password: password) { (user, error) in
             if (user != nil){
                 //user?.user.uid
@@ -68,10 +17,9 @@ extension ModelFirebase {
                 callback(false)
             }
         }
-        
     }
     
-    func createUser(email:String, password:String, callback:@escaping (Bool)->Void) {
+    static func createUser(email:String, password:String, callback:@escaping (Bool)->Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (authResult, error) in
             if authResult?.user != nil {
                 callback (true)
@@ -81,11 +29,11 @@ extension ModelFirebase {
         }
     }
     
-    func checkIfSignIn() -> Bool {
+    static func checkIfSignIn() -> Bool {
         return (Auth.auth().currentUser != nil)
     }
     
-    func getUserId()->String{
-        return Auth.auth().currentUser!.uid
+    static func getUser()->Firebase.User?{
+        return Auth.auth().currentUser
     }
 }
