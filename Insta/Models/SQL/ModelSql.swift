@@ -31,6 +31,7 @@ class ModelSql {
         User.createTable(database: database);
         Post.createTable(database: database)
         Following.createTable(database: database)
+        Comment.createTable(database: database)
         LastUpdateDates.createTable(database: database);
     }
     
@@ -38,6 +39,7 @@ class ModelSql {
         User.drop(database: database)
         Post.drop(database: database)
         Following.drop(database: database)
+        Comment.drop(database: database)
         LastUpdateDates.drop(database: database)
     }
     

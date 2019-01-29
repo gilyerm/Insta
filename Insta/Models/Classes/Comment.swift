@@ -9,14 +9,12 @@
 import UIKit
 
 class Comment: NSObject,JsonProtocol {
-    var commentID: String;
     var postID: String; // post id
     var sender: String; // user id sender
     var messsage:  String;
     var timeSend: Date;
     
-    init(commentID: String,postID: String,sender: String,messsage:String,timeSend: Date) {
-        self.commentID=commentID;
+    init(postID: String,sender: String,messsage:String,timeSend: Date) {
         self.postID=postID;
         self.sender=sender;
         self.messsage=messsage;
@@ -24,7 +22,6 @@ class Comment: NSObject,JsonProtocol {
     }
     
     required init(json: [String : Any]) {
-        self.commentID = json["commentID"] as! String;
         self.postID = json["postID"] as! String;
         self.sender = json["sender"] as! String;
         self.messsage = json["messsage"] as! String;
@@ -33,7 +30,6 @@ class Comment: NSObject,JsonProtocol {
     
     func toJson() -> [String : Any] {
         var json = [String:Any]()
-        json["commentID"] = commentID
         json["postID"] = postID
         json["sender"] = sender
         json["messsage"] = messsage

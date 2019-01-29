@@ -25,31 +25,9 @@ extension Following : SQLiteProtocol{
         }
     }
     
-    static func drop(database: OpaquePointer?) {
-        var errormsg: UnsafeMutablePointer<Int8>? = nil
-        let res = sqlite3_exec(database, "DROP TABLE \(TableName);", nil, nil, &errormsg);
-        if(res != 0){
-            print("error creating table");
-            return
-        }
-    }
-    
-    static func getAll(database: OpaquePointer?) -> [Following] {
-        var sqlite3_stmt: OpaquePointer? = nil
-        var data = [Following]()
-        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName);",-1,&sqlite3_stmt,nil)
-            == SQLITE_OK){
-            while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
-                data.append(getFollowingByStmt(sqlite3_stmt: sqlite3_stmt))
-            }
-        }
-        sqlite3_finalize(sqlite3_stmt)
-        return data
-    }
-    
     static func addNew(database: OpaquePointer?, data following: Following) {
         var sqlite3_stmt: OpaquePointer? = nil
-        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(FOLLOWING_USERID), \(FOLLOWING_FOLLOWED)) VALUES (?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(FOLLOWING_USERID), \(FOLLOWING_FOLLOWED)) VALUES (?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
             let userID = following.userID.cString(using: .utf8)
             let followed = String(data: (try? JSONSerialization.data(withJSONObject: following.followed, options: []))!, encoding: .utf8)
             
@@ -76,22 +54,16 @@ extension Following : SQLiteProtocol{
                 return nil
             }
             if(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
-                data = getFollowingByStmt(sqlite3_stmt: sqlite3_stmt)
+                data = getTypeByStmt(sqlite3_stmt: sqlite3_stmt)
             }
         }
         return data;
     }
     
-    static func getLastUpdateDate(database: OpaquePointer?)->Double{
-        return LastUpdateDates.get(database: database, tabeName: TableName)
-    }
-    
-    static func setLastUpdateDate(database: OpaquePointer?, date:Double){
-        LastUpdateDates.set(database: database, tabeName: TableName, date: date);
-    }
     
     
-    static private func getFollowingByStmt(sqlite3_stmt: OpaquePointer?)->Following{
+    
+    static func getTypeByStmt(sqlite3_stmt: OpaquePointer?)->Following{
         let userID = String(cString:sqlite3_column_text(sqlite3_stmt,0)!)
         let followed = try? JSONSerialization.jsonObject(with: String(cString:sqlite3_column_text(sqlite3_stmt,1)!).data(using: .utf8)!, options: .mutableLeaves)
         return Following(userID: userID, followed: followed as! [String])

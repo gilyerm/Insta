@@ -11,22 +11,22 @@ import Foundation
 class Like: NSObject,JsonProtocol {
     
     var postID: String;
-    var userID: String;
+    var likers: [String];
     
-    init(postID : String, userID: String) {
+    init(postID : String, likers: [String]) {
         self.postID = postID;
-        self.userID = userID;
+        self.likers = likers;
     }
     
     required init(json: [String : Any]) {
         self.postID = json["postID"] as! String;
-        self.userID = json["userID"] as! String;
+        self.likers = json["likers"] as! [String];
     }
     
     func toJson() -> [String : Any] {
         var json = [String:Any]()
         json["postID"] = postID
-        json["userID"] = userID
+        json["likers"] = likers
         return json;
     }
     

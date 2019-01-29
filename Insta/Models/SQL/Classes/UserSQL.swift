@@ -29,28 +29,6 @@ extension User : SQLiteProtocol{
         }
     }
     
-    static func drop(database: OpaquePointer?)  {
-        var errormsg: UnsafeMutablePointer<Int8>? = nil
-        let res = sqlite3_exec(database, "DROP TABLE \(TableName);", nil, nil, &errormsg);
-        if(res != 0){
-            print("error creating table");
-            return
-        }
-    }
-    
-    static func getAll(database: OpaquePointer?)->[User]{
-        var sqlite3_stmt: OpaquePointer? = nil
-        var data = [User]()
-        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName);",-1,&sqlite3_stmt,nil)
-            == SQLITE_OK){
-            while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
-                data.append(getUserByStmt(sqlite3_stmt: sqlite3_stmt))
-            }
-        }
-        sqlite3_finalize(sqlite3_stmt)
-        return data
-    }
-    
     static func addNew(database: OpaquePointer?, data user:User){
         var sqlite3_stmt: OpaquePointer? = nil
         if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(USER_ID), \(USER_USERNAME), \(USER_EMAIL), \(USER_PROFILEPIC), \(USERS_DETAILS)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
@@ -87,22 +65,14 @@ extension User : SQLiteProtocol{
                 return nil
             }
             if(sqlite3_step(sqlite3_stmt) == SQLITE_ROW){
-                data = getUserByStmt(sqlite3_stmt: sqlite3_stmt)
+                data = getTypeByStmt(sqlite3_stmt: sqlite3_stmt)
             }
         }
         return data;
     }
     
-    static func getLastUpdateDate(database: OpaquePointer?)->Double{
-        return LastUpdateDates.get(database: database, tabeName: TableName)
-    }
     
-    static func setLastUpdateDate(database: OpaquePointer?, date:Double){
-        LastUpdateDates.set(database: database, tabeName: TableName, date: date);
-    }
-    
-    
-    static private func getUserByStmt(sqlite3_stmt: OpaquePointer?)->User{
+    static func getTypeByStmt(sqlite3_stmt: OpaquePointer?)->User{
         let userID = String(cString:sqlite3_column_text(sqlite3_stmt,0)!)
         let username = String(cString:sqlite3_column_text(sqlite3_stmt,1)!)
         let email = String(cString:sqlite3_column_text(sqlite3_stmt,2)!)

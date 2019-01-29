@@ -20,6 +20,7 @@ class ModelFirebase{
     let userref : DatabaseReference;
     let postref : DatabaseReference;
     let followingref : DatabaseReference;
+    let commentref : DatabaseReference;
     
     init() {
         FirebaseApp.configure()
@@ -27,7 +28,8 @@ class ModelFirebase{
         userref = ref.child("users")
         postref = ref.child("posts")
         followingref = ref.child("followings")
-
+        commentref = ref.child("comments")
+        
     }
 
 }

@@ -13,14 +13,12 @@ class Post: NSObject,JsonProtocol {
     var userID : String;
     var ImageURL : URL;
     var title : String;
-    var commonts : [Comment];
     
-    init(postID : String,userID : String,ImageURL : URL,title : String,commonts : [Comment]) {
+    init(postID : String,userID : String,ImageURL : URL,title : String) {
         self.postID=postID;
         self.userID=userID;
         self.ImageURL=ImageURL;
         self.title=title;
-        self.commonts=commonts;
     }
     
     
@@ -29,13 +27,13 @@ class Post: NSObject,JsonProtocol {
         self.userID = json["userID"] as! String;
         self.ImageURL = json["ImageURL"] as! URL;
         self.title = json["title"] as! String;
-        self.commonts = [Comment]()
-        if(json["commonts"] != nil){
-            let cms = json["commonts"] as! [[String:Any]]
-            for cm in cms{
-                self.commonts.append(Comment(json: cm))
-            }
-        }
+//        self.commonts = [Comment]()
+//        if(json["commonts"] != nil){
+//            let cms = json["commonts"] as! [[String:Any]]
+//            for cm in cms{
+//                self.commonts.append(Comment(json: cm))
+//            }
+//        }
     }
     
     func toJson() -> [String : Any] {
@@ -45,12 +43,11 @@ class Post: NSObject,JsonProtocol {
         json["ImageURL"] = ImageURL
         json["title"] = title
         
-        var cms = [[String:Any]]();
-        for cm in commonts {
-            cms.append(cm.toJson())
-        }
-        json["commonts"] = cms
-        
+//        var cms = [[String:Any]]();
+//        for cm in commonts {
+//            cms.append(cm.toJson())
+//        }
+//        json["commonts"] = cms
         return json
     }
     

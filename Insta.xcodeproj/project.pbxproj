@@ -10,6 +10,8 @@
 		460CBFE321FF83F100BEC408 /* FollowingSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE221FF83F100BEC408 /* FollowingSQL.swift */; };
 		460CBFE521FF8AE600BEC408 /* FirebaseFollowing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */; };
 		460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE621FF8E4A00BEC408 /* Tag.swift */; };
+		460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE821FF90BB00BEC408 /* CommentSQL.swift */; };
+		460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEA21FF995400BEC408 /* FirebaseComment.swift */; };
 		4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294921FF47F500DAF34E /* PostSQL.swift */; };
 		4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */; };
 		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
@@ -65,6 +67,8 @@
 		460CBFE221FF83F100BEC408 /* FollowingSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingSQL.swift; sourceTree = "<group>"; };
 		460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseFollowing.swift; sourceTree = "<group>"; };
 		460CBFE621FF8E4A00BEC408 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		460CBFE821FF90BB00BEC408 /* CommentSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSQL.swift; sourceTree = "<group>"; };
+		460CBFEA21FF995400BEC408 /* FirebaseComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseComment.swift; sourceTree = "<group>"; };
 		4611294921FF47F500DAF34E /* PostSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
 		4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
 		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -140,11 +144,11 @@
 			isa = PBXGroup;
 			children = (
 				84BE0A4A21BEC07E006BDA0D /* Comment.swift */,
-				84BE0A4621BEC07D006BDA0D /* Post.swift */,
-				84BE0A4721BEC07E006BDA0D /* User.swift */,
 				8443BE9D21D50E7800F883FD /* Following.swift */,
 				465FCFFB21FE0E830014DBC2 /* Like.swift */,
+				84BE0A4621BEC07D006BDA0D /* Post.swift */,
 				460CBFE621FF8E4A00BEC408 /* Tag.swift */,
+				84BE0A4721BEC07E006BDA0D /* User.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -176,12 +180,12 @@
 			children = (
 				84BE0A3921BEC04F006BDA0D /* Models */,
 				46F14F1C21A40CAF00FC1CA3 /* GoogleService-Info.plist */,
+				463EFFD3219EE69A00E13CB0 /* Info.plist */,
 				463EFFC7219EE69A00E13CB0 /* AppDelegate.swift */,
 				463EFFC9219EE69A00E13CB0 /* ViewController.swift */,
-				463EFFCB219EE69A00E13CB0 /* Main.storyboard */,
 				463EFFCE219EE69A00E13CB0 /* Assets.xcassets */,
 				463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */,
-				463EFFD3219EE69A00E13CB0 /* Info.plist */,
+				463EFFCB219EE69A00E13CB0 /* Main.storyboard */,
 			);
 			path = Insta;
 			sourceTree = "<group>";
@@ -215,9 +219,10 @@
 		46E9B14921FE0392004EF77A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				460CBFEA21FF995400BEC408 /* FirebaseComment.swift */,
+				460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */,
 				46E9B14521FDEF22004EF77A /* FirebasePost.swift */,
 				846EC05621BEE32E000F221B /* FirebaseUser.swift */,
-				460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -225,9 +230,10 @@
 		46E9B14A21FE03B7004EF77A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				8443BEA221D5114F00F883FD /* UserSQL.swift */,
-				4611294921FF47F500DAF34E /* PostSQL.swift */,
+				460CBFE821FF90BB00BEC408 /* CommentSQL.swift */,
 				460CBFE221FF83F100BEC408 /* FollowingSQL.swift */,
+				4611294921FF47F500DAF34E /* PostSQL.swift */,
+				8443BEA221D5114F00F883FD /* UserSQL.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -585,9 +591,11 @@
 				4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */,
 				846EC05721BEE32E000F221B /* FirebaseUser.swift in Sources */,
 				8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */,
+				460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */,
 				8443BEA121D510F900F883FD /* ModelSql.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
 				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
+				460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */,
 				84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */,
 				460CBFE521FF8AE600BEC408 /* FirebaseFollowing.swift in Sources */,
 				46E9B14621FDEF22004EF77A /* FirebasePost.swift in Sources */,
