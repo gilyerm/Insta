@@ -144,6 +144,13 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                                     </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="bio" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" id="gMO-Y2-m75">
+                                        <rect key="frame" x="8" y="305" width="359" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                    </textField>
                                 </subviews>
                             </scrollView>
                         </subviews>
@@ -151,6 +158,7 @@
                     </view>
                     <connections>
                         <outlet property="avaImg" destination="ncM-Na-xjK" id="vrF-5F-oUY"/>
+                        <outlet property="bioTxt" destination="gMO-Y2-m75" id="5A8-tD-NyM"/>
                         <outlet property="cancelBtn" destination="B7w-Bn-0xb" id="UDJ-ZV-IeJ"/>
                         <outlet property="emailTxt" destination="r1z-Ie-8YW" id="scn-KD-ZiZ"/>
                         <outlet property="passwordTxt" destination="c0K-xY-9jz" id="ine-vL-p9L"/>

@@ -18,6 +18,7 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var repeatpasswordTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
+    @IBOutlet weak var bioTxt: UITextField!
     
     //scrollView
     @IBOutlet weak var scrollView: UIScrollView!
@@ -52,8 +53,11 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
         
+        //round image
+        avaImg.layer.cornerRadius = avaImg.frame.width/2
+        avaImg.clipsToBounds = true
         
-        //declare select image
+        //declare select image tap
         let avaTap = UITapGestureRecognizer(target: self, action: #selector(signUpVC.loadImg(recognizer:)))
         avaTap.numberOfTapsRequired = 1
         avaImg.isUserInteractionEnabled = true
@@ -111,7 +115,22 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     //clickedSignUp
     @IBAction func signUpBtn_click(_ sender: Any) {
         print("sign up pressed")
+        
+        //dismiss keyboard
+        self.view.endEditing(true)
+        
+        //case fields are empty
+        if(usernameTxt.text == "" || passwordTxt.text == "" || repeatpasswordTxt.text == "" || usernameTxt.text == "" || emailTxt.text == ""){
+            
+            let alert = UIAlertController(title: "PLEASE", message: "fill all fields", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        
+        }
     }
+    
+    
     //clickedCancel
     @IBAction func cancelBtn_click(_ sender: Any) {
         print("cancel pressed")
