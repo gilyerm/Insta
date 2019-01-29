@@ -8,7 +8,7 @@
 
 import UIKit
 
-class signUpVC: UIViewController, UITextFieldDelegate  {
+class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
     //image
     @IBOutlet weak var avaImg: UIImageView!
@@ -18,9 +18,6 @@ class signUpVC: UIViewController, UITextFieldDelegate  {
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var repeatpasswordTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
-    @IBOutlet weak var fullnameTxt: UITextField!
-    @IBOutlet weak var bioTxt: UITextField!
-    @IBOutlet weak var webTxt: UITextField!
     
     //scrollView
     @IBOutlet weak var scrollView: UIScrollView!
@@ -45,16 +42,40 @@ class signUpVC: UIViewController, UITextFieldDelegate  {
         scrollViewHeight = scrollView.frame.size.height
         
         //check notification if keyboard is shown or not
-        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpVC.showKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+       
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpVC.hideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 
-        
-        
         // declare hide keyboard tap
         let hideTap = UITapGestureRecognizer(target: self, action: #selector(signUpVC.hideKeyboardTap))
         hideTap.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
         self.view.addGestureRecognizer(hideTap)
+        
+        
+        //declare select image
+        let avaTap = UITapGestureRecognizer(target: self, action: #selector(signUpVC.loadImg(recognizer:)))
+        avaTap.numberOfTapsRequired = 1
+        avaImg.isUserInteractionEnabled = true
+        avaImg.addGestureRecognizer(avaTap)
+
+    }
+    
+    //calling picker to select image
+    @objc func loadImg(recognizer: UITapGestureRecognizer){
+        let picker = UIImagePickerController()
+        picker.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate //current vc
+        picker.sourceType = .photoLibrary
+        picker.allowsEditing = true
+        present(picker, animated: true, completion: nil)
+    }
+    
+    //Connect selected image to our image view
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        print("imagepickercontroller")
+        avaImg.image = (info[UIImagePickerController.InfoKey.editedImage]! as! UIImage)
+        //picker.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: nil)
     }
     
     // hide keyboard if tapped
@@ -81,7 +102,7 @@ class signUpVC: UIViewController, UITextFieldDelegate  {
         print("hideKeyboard")
         print(notification.name)
         // move down UI
-        UIView.animate(withDuration: 99.4) {
+        UIView.animate(withDuration: 0.4) {
             self.scrollView.frame.size.height = self.view.frame.height
         }
         
@@ -95,5 +116,5 @@ class signUpVC: UIViewController, UITextFieldDelegate  {
     @IBAction func cancelBtn_click(_ sender: Any) {
         print("cancel pressed")
         self.dismiss(animated: true, completion: nil)
-    }    
+    }
 }
