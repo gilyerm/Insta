@@ -12,6 +12,10 @@
 		460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE621FF8E4A00BEC408 /* Tag.swift */; };
 		460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFE821FF90BB00BEC408 /* CommentSQL.swift */; };
 		460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEA21FF995400BEC408 /* FirebaseComment.swift */; };
+		460CBFED22006C4700BEC408 /* LikeSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEC22006C4700BEC408 /* LikeSQL.swift */; };
+		460CBFEF22006E5500BEC408 /* FirebaseLike.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFEE22006E5500BEC408 /* FirebaseLike.swift */; };
+		460CBFF122006F5900BEC408 /* TagSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFF022006F5900BEC408 /* TagSQL.swift */; };
+		460CBFF3220070B900BEC408 /* FirebaseTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 460CBFF2220070B900BEC408 /* FirebaseTag.swift */; };
 		4611294A21FF47F500DAF34E /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294921FF47F500DAF34E /* PostSQL.swift */; };
 		4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */; };
 		46311D2021CA894C00CA88AA /* MyDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46311D1F21CA894C00CA88AA /* MyDate.swift */; };
@@ -69,6 +73,10 @@
 		460CBFE621FF8E4A00BEC408 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		460CBFE821FF90BB00BEC408 /* CommentSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentSQL.swift; sourceTree = "<group>"; };
 		460CBFEA21FF995400BEC408 /* FirebaseComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseComment.swift; sourceTree = "<group>"; };
+		460CBFEC22006C4700BEC408 /* LikeSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeSQL.swift; sourceTree = "<group>"; };
+		460CBFEE22006E5500BEC408 /* FirebaseLike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseLike.swift; sourceTree = "<group>"; };
+		460CBFF022006F5900BEC408 /* TagSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSQL.swift; sourceTree = "<group>"; };
+		460CBFF2220070B900BEC408 /* FirebaseTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseTag.swift; sourceTree = "<group>"; };
 		4611294921FF47F500DAF34E /* PostSQL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
 		4611294B21FF536D00DAF34E /* SQLiteProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
 		46311D1B21CA875700CA88AA /* Insta-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Insta-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -221,7 +229,9 @@
 			children = (
 				460CBFEA21FF995400BEC408 /* FirebaseComment.swift */,
 				460CBFE421FF8AE600BEC408 /* FirebaseFollowing.swift */,
+				460CBFEE22006E5500BEC408 /* FirebaseLike.swift */,
 				46E9B14521FDEF22004EF77A /* FirebasePost.swift */,
+				460CBFF2220070B900BEC408 /* FirebaseTag.swift */,
 				846EC05621BEE32E000F221B /* FirebaseUser.swift */,
 			);
 			path = Classes;
@@ -232,7 +242,9 @@
 			children = (
 				460CBFE821FF90BB00BEC408 /* CommentSQL.swift */,
 				460CBFE221FF83F100BEC408 /* FollowingSQL.swift */,
+				460CBFEC22006C4700BEC408 /* LikeSQL.swift */,
 				4611294921FF47F500DAF34E /* PostSQL.swift */,
+				460CBFF022006F5900BEC408 /* TagSQL.swift */,
 				8443BEA221D5114F00F883FD /* UserSQL.swift */,
 			);
 			path = Classes;
@@ -582,8 +594,10 @@
 				460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */,
 				4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */,
 				84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */,
+				460CBFF122006F5900BEC408 /* TagSQL.swift in Sources */,
 				8443BE9E21D50E7800F883FD /* Following.swift in Sources */,
 				84BE0A4C21BEC07E006BDA0D /* Post.swift in Sources */,
+				460CBFED22006C4700BEC408 /* LikeSQL.swift in Sources */,
 				460CBFE321FF83F100BEC408 /* FollowingSQL.swift in Sources */,
 				46311D2021CA894C00CA88AA /* MyDate.swift in Sources */,
 				84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */,
@@ -593,6 +607,8 @@
 				8443BEA321D5114F00F883FD /* UserSQL.swift in Sources */,
 				460CBFE921FF90BB00BEC408 /* CommentSQL.swift in Sources */,
 				8443BEA121D510F900F883FD /* ModelSql.swift in Sources */,
+				460CBFEF22006E5500BEC408 /* FirebaseLike.swift in Sources */,
+				460CBFF3220070B900BEC408 /* FirebaseTag.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
 				846EC05521BEE20F000F221B /* ModelFirebase.swift in Sources */,
 				460CBFEB21FF995400BEC408 /* FirebaseComment.swift in Sources */,

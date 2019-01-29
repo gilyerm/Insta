@@ -41,8 +41,21 @@ extension ModelFirebase{
     func addNewUser(user:User){
         userref.child(user.userID).setValue(user.toJson())
     }
-    
-    func getUser(byId:String)->User?{
-        return userref.value(forKey: byId) as! User?
+//
+//    func getUser(byId:String)->User?{
+//        return userref.value(forKey: byId) as! User?
+//    }
+//
+    func getUsers(byId : String,callback:@escaping ([User])->Void){
+        commentref.queryEqual(toValue: byId).observeSingleEvent(of:.value, with: {
+            (snapshot) in
+            // Get user value
+            var data = [User]()
+            let value = snapshot.value as! [String:Any]
+            for (_, json) in value{
+                data.append(User(json: json as! [String : Any]))
+            }
+            callback(data)
+        })
     }
 }

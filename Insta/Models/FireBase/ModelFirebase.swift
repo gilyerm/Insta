@@ -21,6 +21,8 @@ class ModelFirebase{
     let postref : DatabaseReference;
     let followingref : DatabaseReference;
     let commentref : DatabaseReference;
+    let likeref : DatabaseReference;
+    let tagref : DatabaseReference;
     
     init() {
         FirebaseApp.configure()
@@ -29,7 +31,8 @@ class ModelFirebase{
         postref = ref.child("posts")
         followingref = ref.child("followings")
         commentref = ref.child("comments")
-        
+        likeref = ref.child("likes")
+        tagref = ref.child("tags")
     }
 
 }
