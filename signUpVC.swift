@@ -152,6 +152,7 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             //success
             print("Successfully created user with Firebase")
+            print(user!)
         }
         }
 
