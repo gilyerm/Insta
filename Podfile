@@ -6,6 +6,7 @@ target 'Insta' do
   use_frameworks!
 
   # Pods for Insta
+	pod 'Firebase/Auth'
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
 	pod 'FirebaseUI'
