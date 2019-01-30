@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
     
@@ -131,19 +132,29 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         //case different password
         if passwordTxt.text != repeatpasswordTxt.text{
-            
             //alert message
             let alert = UIAlertController(title: "PASSWORD", message: "do not match", preferredStyle: .alert)
             let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
-
         }
+            guard let email = emailTxt.text else {return}
+            guard let password = passwordTxt.text else {return}
+            print("email is: \(email) and password is: \(password)")
         
-        //send data to server//
-        
-    }
-    
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            
+            //handle error
+            if let error = error {
+                print("Failed to creat user with error: ", error.localizedDescription)
+                return
+            }
+            
+            //success
+            print("Successfully created user with Firebase")
+        }
+        }
+
     
     //clickedCancel
     @IBAction func cancelBtn_click(_ sender: Any) {
@@ -151,3 +162,4 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.dismiss(animated: true, completion: nil)
     }
 }
+
