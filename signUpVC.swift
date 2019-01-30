@@ -138,11 +138,13 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             alert.addAction(ok)
             self.present(alert, animated: true, completion: nil)
         }
+            //values for sign
             guard let email = emailTxt.text else {return}
             guard let password = passwordTxt.text else {return}
-            print("email is: \(email) and password is: \(password)")
+            guard let username = usernameTxt.text else {return}
+            guard let bio = bioTxt.text else {return}
         
-        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
             //handle error
             if let error = error {
@@ -150,11 +152,36 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 return
             }
             
-            //success
-            print("Successfully created user with Firebase")
-            print(user!)
+            //set profile image
+                guard let profileImg = self.avaImg.image else {return}
+                
+                //upload data
+                guard let uploadData = self.avaImg.image?.jpegData(compressionQuality: 0.3) else {return}
+                
+                //place image in firebase storage
+                let filename = NSUUID().uuidString
+                Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: {(metadata, error) in
+                    
+                    guard let profileImgURL = metadata?.storageReference?.downloadURL(completion: {(url, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                            return
+                        }
+                    }) else {return}
+                
+                    let dictionaryValues = ["username": username,
+                                            "email": email,
+                                            "profileImgURL": profileImgURL] as [String : Any]
+                    
+                    let values = [user?.user.uid: dictionaryValues] //save to DB by val
+                    
+                    //save user info to DB
+                    Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: {(error, ref) in
+                        print("Seccessfuly created user and saved information to DB")
+                    })
+                })
         }
-        }
+    }
 
     
     //clickedCancel
