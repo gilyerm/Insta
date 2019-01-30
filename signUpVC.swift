@@ -156,29 +156,40 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 guard let profileImg = self.avaImg.image else {return}
                 
                 //upload data
-                guard let uploadData = self.avaImg.image?.jpegData(compressionQuality: 0.3) else {return}
+                guard let uploadData : Data = profileImg.jpegData(compressionQuality: 0.3) else {return}
                 
                 //place image in firebase storage
                 let filename = NSUUID().uuidString
-                Storage.storage().reference().child("profile_images").child(filename).putData(uploadData, metadata: nil, completion: {(metadata, error) in
-                    
-                    guard let profileImgURL = metadata?.storageReference?.downloadURL(completion: {(url, error) in
+                let storageRef = Storage.storage().reference().child("profile_images").child(filename+".jpg")
+                storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
+                    if let error = error {
+                        print("error in storage reference \(filename).jpeg")
+                        print(error.localizedDescription)
+                        return
+                    }
+                    storageRef.downloadURL(completion: {(url, error) in
                         if let error = error {
+                            print("error in storage reference")
                             print(error.localizedDescription)
                             return
                         }
-                    }) else {return}
-                
-                    let dictionaryValues = ["username": username,
-                                            "email": email,
-                                            "profileImgURL": profileImgURL] as [String : Any]
-                    
-                    let values = [user?.user.uid: dictionaryValues] //save to DB by val
-                    
-                    //save user info to DB
-                    Database.database().reference().child("users").updateChildValues(dictionaryValues, withCompletionBlock: {(error, ref) in
-                        print("Seccessfuly created user and saved information to DB")
+                        print("so far so good in storage reference")
+                        let profileImgURL = url!
+                        
+                        let dictionaryValues = ["username": username,
+                                                "email": email,
+                                                "profileImgURL": profileImgURL.absoluteString] as [String : Any]
+                        
+                        let values = [user?.user.uid: dictionaryValues] //save to DB by val
+                        
+                        //save user info to DB
+                        Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
+                            print("Seccessfuly created user and saved information to DB")
+                        })
+                        
                     })
+                
+                    
                 })
         }
     }
