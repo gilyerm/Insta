@@ -189,6 +189,13 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                         //save user info to DB
                         Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
                             print("Seccessfuly created user and saved information to DB")
+                            
+                            
+                            print("Successfully signed user up" )
+                            
+                            let mainTabVC = MainTabVC()
+                            
+                            self.present(mainTabVC, animated:  true, completion: nil)
                         })
                         
                     })

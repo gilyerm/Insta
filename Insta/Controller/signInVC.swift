@@ -48,6 +48,10 @@ class signInVC: UIViewController {
             
             // handle sucsses
             print("Successfully signed user in" )
+            
+            let mainTabVC = MainTabVC()
+            
+            self.present(mainTabVC, animated:  true, completion: nil)
         }
     }
     

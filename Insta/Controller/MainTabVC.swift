@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
 
@@ -17,7 +18,20 @@ class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
         
         // delegate
         self.delegate = self
+        
+        // user validation
+        checkIfUserIsLoggedIn()
+        
      }
-     
+    
+    
+    
+    func checkIfUserIsLoggedIn() {
+        if Auth.auth().currentUser == nil {
+            print("no current User")
+        } else {
+            print("User is logged in")
+        }
+    }
     
 }
