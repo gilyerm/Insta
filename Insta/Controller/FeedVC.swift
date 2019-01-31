@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "Cell"
 
@@ -19,10 +20,7 @@ class FeedVC: UICollectionViewController {
         self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
-        
-        
-        // configure Logout Button
-        configureLogoutButton()
+    
     }
 
 
@@ -47,14 +45,31 @@ class FeedVC: UICollectionViewController {
     
         return cell
     }
-
     
-    func configureLogoutButton()
-    {
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "LogOut", style: .plain, target: self, action: #selector(FeedVC.handleLogout))
-    }
-
-    @objc func handleLogout(){
+    
+    @IBAction func handleLogout(_ sender: Any) {
         print("handle Logout here...")
+        // declare alert controller
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        // add alert log out  action
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
+            do{
+                // attempt sign out
+                try Auth.auth().signOut()
+                // present login controller
+                let loginVC = signInVC()
+                let navController = UINavigationController(rootViewController: loginVC)
+                self.present(navController, animated: true, completion: nil )
+                print("Successfull logged out")
+            } catch{
+                // handle error
+                print("failed to sign out")
+                
+            }
+        }))
+        // add cancel action
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+        
     }
 }

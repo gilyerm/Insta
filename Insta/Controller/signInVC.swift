@@ -26,6 +26,7 @@ class signInVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("at signInVC")
 
     }
     @IBAction func signInBtn_click(_ sender: Any) {
@@ -49,9 +50,11 @@ class signInVC: UIViewController {
             // handle sucsses
             print("Successfully signed user in" )
             
-            let mainTabVC = MainTabVC()
+            guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else { return }
             
-            self.present(mainTabVC, animated:  true, completion: nil)
+            mainTabVC.viewDidLoad()
+            
+            self.dismiss(animated: true, completion: nil )
         }
     }
     
