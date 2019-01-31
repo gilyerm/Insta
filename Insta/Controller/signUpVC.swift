@@ -167,20 +167,24 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                         print(error.localizedDescription)
                         return
                     }
+                    
                     storageRef.downloadURL(completion: {(url, error) in
-                        if let error = error {
-                            print("error in storage reference")
-                            print(error.localizedDescription)
+                        guard let downloadURL = url else {
+                            // Uh-oh, an error occurred!
                             return
                         }
                         print("so far so good in storage reference")
-                        let profileImgURL = url!
+                        
+                        guard let uid = user?.user.uid else {
+                            // Uh-oh, an error occurred!
+                            return
+                        }
                         
                         let dictionaryValues = ["username": username,
                                                 "email": email,
-                                                "profileImgURL": profileImgURL.absoluteString] as [String : Any]
+                                                "profileImgURL": downloadURL.absoluteString] as [String : Any]
                         
-                        let values = [user?.user.uid: dictionaryValues] //save to DB by val
+                        let values = [uid: dictionaryValues] //save to DB by val
                         
                         //save user info to DB
                         Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
