@@ -33,9 +33,9 @@ class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
             print("no current User")
             DispatchQueue.main.async {
                 // present login controller
-                let loginVC = signInVC()
-                let navController = UINavigationController(rootViewController: loginVC)
-                self.present(navController, animated: true, completion: nil ) 
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")
+                self.present(signInVC, animated: true, completion: nil)
             }
             return 
         } else {

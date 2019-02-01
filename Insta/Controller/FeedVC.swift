@@ -57,9 +57,10 @@ class FeedVC: UICollectionViewController {
                 // attempt sign out
                 try Auth.auth().signOut()
                 // present login controller
-                let loginVC = signInVC()
-                let navController = UINavigationController(rootViewController: loginVC)
-                self.present(navController, animated: true, completion: nil )
+                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")
+                self.present(signInVC, animated: true, completion: nil)
+
                 print("Successfull logged out")
             } catch{
                 // handle error
