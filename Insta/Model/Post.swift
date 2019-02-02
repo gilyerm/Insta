@@ -8,25 +8,40 @@
 
 import Foundation
 
-class Post : JsonProtocol{
-    var caption : String
-    var photoUrl : String
-    
-    required init(json: [String : Any]) {
-        caption = json["caption"] as? String ?? ""
-        photoUrl = json["photoUrl"] as? String ?? ""
-    }
-    
-    func toJson() -> [String : Any] {
-        var json = [String: Any]()
-        json["caption"] = caption
-        json["photoUrl"] = photoUrl
-        return json
-    }
+class Post{
+    var uid : String?
+    var caption : String?
+    var photoUrl : String?
     
     
-    init(captionText : String , photoUrlString : String ) {
+    init(uid : String,captionText : String , photoUrlString : String ) {
+        self.uid = uid
         self.caption = captionText
         self.photoUrl = photoUrlString
     }
+    
+    init() {
+        
+    }
+}
+
+extension Post{
+    
+    static func transformPostFromJson(json : [String : Any]) -> Post{
+        let post : Post = Post()
+        post.uid = json["uid"] as? String
+        post.caption = json["caption"] as? String
+        post.photoUrl = json["photoUrl"] as? String
+        return post
+    }
+    
+    
+    static func transformPostToJson(post : Post) -> [String : Any]{
+        var json = [String: Any]()
+        json["uid"] = post.uid
+        json["caption"] = post.caption
+        json["photoUrl"] = post.photoUrl
+        return json
+    }
+    
 }

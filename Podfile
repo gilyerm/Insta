@@ -14,6 +14,7 @@ target 'Insta' do
 	pod 'Firebase/Messaging'
 	pod 'Firebase/Firestore'
 	pod 'ProgressHUD'
+	pod 'SDWebImage'
 
   target 'InstaTests' do
     inherit! :search_paths

@@ -97,9 +97,11 @@ class UploadPostVC: UIViewController {
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key
         let newPostReference = postsReference.child(newPostID!)
-        let dictionaryValues = ["photoUrl": photoUrl,
-                                "caption": captionTextView.text!]
-        newPostReference.setValue(dictionaryValues) { (error, databaseRef) in
+        
+        guard let currentUserId : String = Auth.auth().currentUser?.uid else { return }
+        let post : Post = Post(uid: currentUserId,captionText: captionTextView.text!, photoUrlString: photoUrl)
+        
+        newPostReference.setValue(Post.transformPostToJson(post: post)) { (error, databaseRef) in
             if error != nil{
                 ProgressHUD.showError(error.debugDescription)
                 return

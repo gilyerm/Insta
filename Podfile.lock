@@ -196,6 +196,7 @@ DEPENDENCIES:
   - Firebase/Storage
   - FirebaseUI
   - ProgressHUD
+  - SDWebImage
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -262,6 +263,6 @@ SPEC CHECKSUMS:
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: 62b31123f7b69e28c397d7eaffc5bee9d279d583
+PODFILE CHECKSUM: ad88646a466621cb570138de9749b448be83eeaa
 
 COCOAPODS: 1.5.2

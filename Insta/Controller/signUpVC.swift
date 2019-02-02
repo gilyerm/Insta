@@ -195,10 +195,8 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                             return
                         }
                         
-                        let dictionaryValues = ["username": username,
-                                                "email": email,
-                                                "profileImgURL": downloadURL.absoluteString] as [String : Any]
-                        
+                        let dictionaryValues = User.transformUserToJson(
+                            user: User.init(email: email, photoImageUrl: downloadURL.absoluteString, username: username))
                         let values = [uid: dictionaryValues] //save to DB by val
                         
                         //save user info to DB

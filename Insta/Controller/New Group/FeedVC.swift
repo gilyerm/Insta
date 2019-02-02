@@ -8,6 +8,7 @@
 
 import UIKit
 import Firebase
+import SDWebImage
 
 private let reuseIdentifier = "Cell"
 
@@ -16,9 +17,13 @@ class FeedVC: UIViewController {
     
     
     var posts :[Post] = [Post]()
+    var users :[User] = [User]()
+    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        tableView.estimatedRowHeight = 521
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
         
         loadPosts()
@@ -26,15 +31,31 @@ class FeedVC: UIViewController {
 
     func loadPosts(){
         
-        
+        activityIndicatorView.startAnimating()
         Database.database().reference().child("posts").observe(.childAdded) { (snapshot:DataSnapshot) in
             if let dict = snapshot.value as? [String:Any] {
                  print(dict)
-                let post : Post = Post(json: dict)
-                self.posts.append(post)
-                self.tableView.reloadData()
+                let post : Post = Post.transformPostFromJson(json: dict)
+                self.fetchUser(uid: post.uid!
+                    , completed: {
+                        self.posts.append(post)
+                        self.activityIndicatorView.stopAnimating()
+                        self.tableView.reloadData()
+                })
+                
             }
         }
+    }
+    
+    func fetchUser(uid: String , completed : @escaping () -> Void){
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                print(dict)
+                let user : User = User.transformUserFromJson(json: dict)
+                self.users.append(user)
+                completed()
+            }
+        }, withCancel: nil)
     }
     
     @IBAction func handleLogout(_ sender: Any) {
@@ -71,8 +92,12 @@ extension FeedVC : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath)
-        cell.textLabel?.text = self.posts[indexPath.row].caption
+        let cell : FeedCellVC = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! FeedCellVC
+        
+        let post = self.posts[indexPath.row]
+        let user = self.users[indexPath.row]
+        cell.post = post
+        cell.user = user
         return cell
     }
     
