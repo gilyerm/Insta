@@ -52,6 +52,7 @@
 		84BE0A4D21BEC07E006BDA0D /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4721BEC07E006BDA0D /* User.swift */; };
 		84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */; };
 		84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4A21BEC07E006BDA0D /* Comment.swift */; };
+		84C4E2252205878C00F67686 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4E2242205878C00F67686 /* UserProfileHeader.swift */; };
 		CE0D84753934BA3C6B72882D /* Pods_InstaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */; };
 		D1824CC7AF80F68BE7FE04CE /* Pods_Insta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC818AFABE6A5C9493189F59 /* Pods_Insta.framework */; };
 /* End PBXBuildFile section */
@@ -128,6 +129,7 @@
 		84BE0A4721BEC07E006BDA0D /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonProtocol.swift; sourceTree = "<group>"; };
 		84BE0A4A21BEC07E006BDA0D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		84C4E2242205878C00F67686 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta/Pods-Insta.debug.xcconfig"; sourceTree = "<group>"; };
 		B9C0E6CD77F8368873386CA3 /* Pods-InstaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 				46302B8522033F830051714F /* UploadPostVC.swift */,
 				46302B8722033FBA0051714F /* NotificaitonsVC.swift */,
 				46302B8922033FEA0051714F /* UserProfileVC.swift */,
+				84C4E2242205878C00F67686 /* UserProfileHeader.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84C4E2252205878C00F67686 /* UserProfileHeader.swift in Sources */,
 				460CBFE721FF8E4A00BEC408 /* Tag.swift in Sources */,
 				46302B8022033A610051714F /* MainTabVC.swift in Sources */,
 				4611294C21FF536D00DAF34E /* SQLiteProtocol.swift in Sources */,

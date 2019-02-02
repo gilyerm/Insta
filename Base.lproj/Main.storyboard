@@ -108,7 +108,7 @@
             </objects>
             <point key="canvasLocation" x="817" y="847"/>
         </scene>
-        <!--Item-->
+        <!--SearchVC-->
         <scene sceneID="Y7k-1s-DsP">
             <objects>
                 <tableViewController id="M50-Ov-O6X" customClass="SearchVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,13 +131,13 @@
                             <outlet property="delegate" destination="M50-Ov-O6X" id="6ZD-Zi-bod"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" image="search_unselected" selectedImage="search_selected" id="p4t-Fv-EFm"/>
+                    <tabBarItem key="tabBarItem" title="" image="search_unselected" selectedImage="search_selected" id="p4t-Fv-EFm"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aT9-6e-otp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="82" y="1603"/>
         </scene>
-        <!--Item-->
+        <!--Upload PostVC-->
         <scene sceneID="Fjv-eh-ApC">
             <objects>
                 <viewController id="GMS-pL-AYZ" customClass="UploadPostVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
@@ -146,13 +146,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" image="plus_unselected" selectedImage="plus_unselected" id="Xnc-uR-xU0"/>
+                    <tabBarItem key="tabBarItem" title="" image="plus_unselected" selectedImage="plus_unselected" id="Xnc-uR-xU0"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAN-MZ-PBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="817" y="1603"/>
         </scene>
-        <!--Item-->
+        <!--NotificaitonsVC-->
         <scene sceneID="6SH-BG-0wY">
             <objects>
                 <tableViewController id="So9-3R-nIP" customClass="NotificaitonsVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
@@ -175,13 +175,13 @@
                             <outlet property="delegate" destination="So9-3R-nIP" id="cYs-LZ-Hat"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Item" image="like_unselected" selectedImage="like_selected" id="S73-PU-571"/>
+                    <tabBarItem key="tabBarItem" title="" image="like_unselected" selectedImage="like_selected" id="S73-PU-571"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qa4-WZ-j1i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1534" y="1603"/>
         </scene>
-        <!--Item-->
+        <!--title-->
         <scene sceneID="FTf-6r-7Or">
             <objects>
                 <collectionViewController id="NBj-Mv-mw0" customClass="UserProfileVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
@@ -210,11 +210,13 @@
                             <outlet property="delegate" destination="NBj-Mv-mw0" id="UbB-S1-k2W"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" image="profile_unselected" selectedImage="profile_selected" id="zV4-aW-dwj"/>
+                    <tabBarItem key="tabBarItem" title="" image="profile_unselected" selectedImage="profile_selected" id="oo8-pb-OlH"/>
+                    <navigationItem key="navigationItem" title="title" id="QWx-uc-luK"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="haA-jC-nv6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2311" y="1603"/>
+            <point key="canvasLocation" x="2309.5999999999999" y="1602.5487256371816"/>
         </scene>
         <!--Feed-->
         <scene sceneID="D5x-7H-A9x">
@@ -245,7 +247,7 @@
                             <outlet property="delegate" destination="UqT-Br-qjp" id="pZ2-KZ-nUn"/>
                         </connections>
                     </collectionView>
-                    <tabBarItem key="tabBarItem" title="Item" image="home_unselected" selectedImage="home_selected" id="4rC-SC-gwn"/>
+                    <tabBarItem key="tabBarItem" title="" image="home_unselected" selectedImage="home_selected" id="4rC-SC-gwn"/>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Feed" id="ror-xq-kjP">
                         <barButtonItem key="leftBarButtonItem" title="Logout" id="Z2Q-Ir-IFy">
@@ -264,11 +266,11 @@
             </objects>
             <point key="canvasLocation" x="-887" y="2375"/>
         </scene>
-        <!--Item-->
+        <!--Navigation Controller-->
         <scene sceneID="3sS-YE-fRP">
             <objects>
                 <navigationController id="pFs-4q-FJs" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="home_unselected" selectedImage="home_selected" id="Ece-KU-eyV"/>
+                    <tabBarItem key="tabBarItem" title="" image="home_unselected" selectedImage="home_selected" id="Ece-KU-eyV"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="rgX-hS-aQP">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
