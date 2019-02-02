@@ -72,9 +72,6 @@ extension FeedVC : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath)
-        //cell.textLabel?.text = "\(indexPath.row)"
-        cell.backgroundColor = UIColor.red
-        
         cell.textLabel?.text = self.posts[indexPath.row].caption
         return cell
     }
