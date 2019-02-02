@@ -30,7 +30,7 @@
                                 <state key="normal" title="Sign Up"/>
                                 <connections>
                                     <action selector="signUpBtn_click:" destination="xD5-5l-jEl" eventType="touchUpInside" id="Yhv-Ls-vz1"/>
-                                    <segue destination="HHt-9d-vVY" kind="modal" id="e8t-3J-Zdw"/>
+                                    <segue destination="HHt-9d-vVY" kind="show" identifier="SignUpID" id="e8t-3J-Zdw"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Don't have anccount?     " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Iq-TQ-Wb9">
@@ -101,6 +101,7 @@
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="username" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="T4I-1f-DzS">
                                         <rect key="frame" x="8" y="172" width="359" height="30"/>
+                                        <gestureRecognizers/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="done"/>
@@ -151,12 +152,6 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="bio" textAlignment="natural" minimumFontSize="17" clearButtonMode="always" translatesAutoresizingMaskIntoConstraints="NO" id="NaO-Vp-fJl">
-                                        <rect key="frame" x="8" y="324" width="359" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="done"/>
-                                    </textField>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus_photo" translatesAutoresizingMaskIntoConstraints="NO" id="fSs-Nj-axa">
                                         <rect key="frame" x="136" y="49" width="103" height="102"/>
                                         <constraints>
@@ -169,25 +164,22 @@
                                     <constraint firstItem="8WF-yY-3mA" firstAttribute="trailing" secondItem="c6c-L1-r2k" secondAttribute="trailing" id="1ic-KG-Ktr"/>
                                     <constraint firstItem="T4I-1f-DzS" firstAttribute="leading" secondItem="dCe-cL-vdY" secondAttribute="leadingMargin" id="546-El-3v8"/>
                                     <constraint firstItem="fSs-Nj-axa" firstAttribute="top" secondItem="dCe-cL-vdY" secondAttribute="top" constant="49" id="7S5-Hi-RzC"/>
-                                    <constraint firstItem="NaO-Vp-fJl" firstAttribute="top" secondItem="c6c-L1-r2k" secondAttribute="bottom" constant="8" symbolic="YES" id="ATT-LM-fcM"/>
+                                    <constraint firstItem="EV6-3R-bSc" firstAttribute="leading" secondItem="c6c-L1-r2k" secondAttribute="leading" id="A9Z-7H-Dqx"/>
                                     <constraint firstAttribute="bottom" secondItem="EV6-3R-bSc" secondAttribute="bottom" constant="207" id="F9S-F9-YWs"/>
-                                    <constraint firstItem="NaO-Vp-fJl" firstAttribute="leading" secondItem="EV6-3R-bSc" secondAttribute="leading" id="L52-4A-0jF"/>
                                     <constraint firstItem="T4I-1f-DzS" firstAttribute="top" secondItem="fSs-Nj-axa" secondAttribute="bottom" constant="21" id="LJs-7T-rrL"/>
                                     <constraint firstItem="fSs-Nj-axa" firstAttribute="centerX" secondItem="dCe-cL-vdY" secondAttribute="centerX" id="QWQ-Gd-REq"/>
                                     <constraint firstItem="c6c-L1-r2k" firstAttribute="top" secondItem="8WF-yY-3mA" secondAttribute="bottom" constant="8" symbolic="YES" id="Qds-ji-aJJ"/>
-                                    <constraint firstItem="c6c-L1-r2k" firstAttribute="leading" secondItem="NaO-Vp-fJl" secondAttribute="leading" id="UOl-Lb-Sdg"/>
-                                    <constraint firstItem="NaO-Vp-fJl" firstAttribute="trailing" secondItem="Pqi-6O-4sY" secondAttribute="trailing" id="Vds-IP-ULZ"/>
                                     <constraint firstItem="T4I-1f-DzS" firstAttribute="trailing" secondItem="itI-GZ-EbB" secondAttribute="trailing" id="Xei-J6-gxa"/>
                                     <constraint firstItem="fSs-Nj-axa" firstAttribute="centerX" secondItem="T4I-1f-DzS" secondAttribute="centerX" id="Zq4-uB-8Ik"/>
+                                    <constraint firstItem="Pqi-6O-4sY" firstAttribute="trailing" secondItem="c6c-L1-r2k" secondAttribute="trailing" id="a2w-tL-lvM"/>
                                     <constraint firstItem="8WF-yY-3mA" firstAttribute="leading" secondItem="c6c-L1-r2k" secondAttribute="leading" id="bOf-EP-4EA"/>
                                     <constraint firstItem="T4I-1f-DzS" firstAttribute="trailing" secondItem="dCe-cL-vdY" secondAttribute="trailingMargin" id="bXC-R9-MXf"/>
-                                    <constraint firstItem="c6c-L1-r2k" firstAttribute="trailing" secondItem="NaO-Vp-fJl" secondAttribute="trailing" id="dMy-2O-4Ac"/>
                                     <constraint firstItem="T4I-1f-DzS" firstAttribute="leading" secondItem="itI-GZ-EbB" secondAttribute="leading" id="eJb-CL-7PJ"/>
-                                    <constraint firstItem="EV6-3R-bSc" firstAttribute="top" secondItem="NaO-Vp-fJl" secondAttribute="bottom" constant="76" id="h46-h1-jqf"/>
                                     <constraint firstItem="EV6-3R-bSc" firstAttribute="baseline" secondItem="Pqi-6O-4sY" secondAttribute="baseline" id="iEx-uE-ZD9"/>
                                     <constraint firstItem="itI-GZ-EbB" firstAttribute="top" secondItem="T4I-1f-DzS" secondAttribute="bottom" constant="8" symbolic="YES" id="pQs-Z6-oGu"/>
                                     <constraint firstItem="itI-GZ-EbB" firstAttribute="trailing" secondItem="8WF-yY-3mA" secondAttribute="trailing" id="tBF-5U-BGl"/>
                                     <constraint firstItem="8WF-yY-3mA" firstAttribute="top" secondItem="itI-GZ-EbB" secondAttribute="bottom" constant="8" symbolic="YES" id="tmb-ox-VTQ"/>
+                                    <constraint firstItem="EV6-3R-bSc" firstAttribute="top" secondItem="dCe-cL-vdY" secondAttribute="top" constant="430" id="v1n-sI-pJ3"/>
                                     <constraint firstItem="itI-GZ-EbB" firstAttribute="leading" secondItem="8WF-yY-3mA" secondAttribute="leading" id="xzx-Lr-Xhr"/>
                                 </constraints>
                             </scrollView>
@@ -201,9 +193,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="CQv-0U-Y1h"/>
                     </view>
+                    <navigationItem key="navigationItem" id="OQg-4J-V01"/>
                     <connections>
                         <outlet property="avaImg" destination="fSs-Nj-axa" id="aKk-1f-hbv"/>
-                        <outlet property="bioTxt" destination="NaO-Vp-fJl" id="TaZ-k7-StG"/>
                         <outlet property="cancelBtn" destination="Pqi-6O-4sY" id="70T-uw-To9"/>
                         <outlet property="emailTxt" destination="c6c-L1-r2k" id="vne-9D-a84"/>
                         <outlet property="passwordTxt" destination="itI-GZ-EbB" id="8Mu-XL-33v"/>

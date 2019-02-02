@@ -8,8 +8,15 @@
 
 import UIKit
 import Firebase
+import ProgressHUD
+
+protocol SignUpDelegate{
+    func onComplete(success:Bool);
+}
 
 class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate  {
+    
+    var delegate:SignUpDelegate?
     
     //image
     @IBOutlet weak var avaImg: UIImageView!
@@ -19,7 +26,6 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var repeatpasswordTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
-    @IBOutlet weak var bioTxt: UITextField!
     
     //scrollView
     @IBOutlet weak var scrollView: UIScrollView!
@@ -116,39 +122,46 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     //clickedSignUp
     @IBAction func signUpBtn_click(_ sender: Any) {
         print("sign up pressed")
-        
         //dismiss keyboard
         self.view.endEditing(true)
-        
+        ProgressHUD.show("Waiting...",interaction: false)
         //case fields are empty
-        if(usernameTxt.text == "" || passwordTxt.text == "" || repeatpasswordTxt.text == "" || usernameTxt.text == "" || emailTxt.text == ""){
-            
+        if(usernameTxt.text?.isEmpty ?? true || passwordTxt.text?.isEmpty ?? true || repeatpasswordTxt.text?.isEmpty ?? true || emailTxt.text?.isEmpty ?? true ){
+        
             // alert message "fill all fields"
-            let alert = UIAlertController(title: "PLEASE", message: "fill all fields", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
+            ProgressHUD.showError("PLEASE fill all fields")
+//            let alert = UIAlertController(title: "PLEASE", message: "", preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true, completion: nil)
+            return
         }
         
         //case different password
         if passwordTxt.text != repeatpasswordTxt.text{
             //alert message
-            let alert = UIAlertController(title: "PASSWORD", message: "do not match", preferredStyle: .alert)
-            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(ok)
-            self.present(alert, animated: true, completion: nil)
+            ProgressHUD.showError("PASSWORD do not match")
+//            let alert = UIAlertController(title: "PASSWORD", message: "do not match", preferredStyle: .alert)
+//            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//            alert.addAction(ok)
+//            self.present(alert, animated: true, completion: nil)
+            return
         }
             //values for sign
             guard let email = emailTxt.text else {return}
             guard let password = passwordTxt.text else {return}
             guard let username = usernameTxt.text else {return}
-            guard let bio = bioTxt.text else {return}
         
+        
+        
+
             Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
             
             //handle error
             if let error = error {
                 print("Failed to creat user with error: ", error.localizedDescription)
+                ProgressHUD.showError(error.localizedDescription)
+
                 return
             }
             
@@ -165,6 +178,8 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     if let error = error {
                         print("error in storage reference \(filename).jpeg")
                         print(error.localizedDescription)
+                        ProgressHUD.showError(error.localizedDescription)
+
                         return
                     }
                     
@@ -190,17 +205,27 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                         Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
                             print("Seccessfuly created user and saved information to DB")
                             
-                            
+                            ProgressHUD.showSuccess("Success")
                             print("Successfully signed user up" )
                             
-                            let mainTabVC = MainTabVC()
+
+//                            guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else {
+//                                print("by UIStoryboard")
+//                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//                                let mainTabVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC")
+//                                self.present(mainTabVC, animated: true, completion: nil)
+//                                return
+//
+//                            }
+//                            print("by mainTabVC")
                             
-                            self.present(mainTabVC, animated:  true, completion: nil)
+                            
+                            self.dismiss(animated: true, completion: {() in
+                                self.delegate!.onComplete(success: true);
+                            })
                         })
                         
                     })
-                
-                    
                 })
         }
     }
