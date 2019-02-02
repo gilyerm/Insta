@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" colorMatched="YES" initialViewController="P5h-lg-gUj">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="P5h-lg-gUj">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -8,20 +8,87 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Upload PostVC-->
+        <!--Camera-->
         <scene sceneID="Fjv-eh-ApC">
             <objects>
                 <viewController id="GMS-pL-AYZ" customClass="UploadPostVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="GRE-oU-Okg"/>
+                        <viewControllerLayoutGuide type="bottom" id="O3T-3V-MN3"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="H8m-oK-Ma8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EDi-Am-0f1">
+                                <rect key="frame" x="0.0" y="64" width="375" height="110"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="camera_photo" translatesAutoresizingMaskIntoConstraints="NO" id="pnZ-XL-8OM">
+                                        <rect key="frame" x="8" y="10" width="80" height="90"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="q43-S4-Lgo"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qC9-gy-hHW">
+                                        <rect key="frame" x="110" y="10" width="271" height="90"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="pnZ-XL-8OM" firstAttribute="top" secondItem="EDi-Am-0f1" secondAttribute="top" constant="10" id="IqB-fn-WRg"/>
+                                    <constraint firstAttribute="trailing" secondItem="qC9-gy-hHW" secondAttribute="trailing" constant="8" id="MOf-jj-XHN"/>
+                                    <constraint firstAttribute="bottom" secondItem="pnZ-XL-8OM" secondAttribute="bottom" constant="10" id="X9f-TW-YZt"/>
+                                    <constraint firstAttribute="bottom" secondItem="qC9-gy-hHW" secondAttribute="bottom" constant="10" id="gGq-Gb-eW5"/>
+                                    <constraint firstItem="qC9-gy-hHW" firstAttribute="top" secondItem="EDi-Am-0f1" secondAttribute="top" constant="10" id="nol-qU-eGj"/>
+                                    <constraint firstItem="pnZ-XL-8OM" firstAttribute="leading" secondItem="EDi-Am-0f1" secondAttribute="leading" constant="8" id="qT6-lt-OWi"/>
+                                    <constraint firstItem="qC9-gy-hHW" firstAttribute="leading" secondItem="pnZ-XL-8OM" secondAttribute="trailing" constant="8" symbolic="YES" id="r8P-1H-ViI"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="izk-A4-gGx">
+                                <rect key="frame" x="24" y="560" width="327" height="50"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="lightTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aLI-yh-TwI"/>
+                                </constraints>
+                                <state key="normal" title="Post">
+                                    <color key="titleColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="postButton_Action:" destination="GMS-pL-AYZ" eventType="touchUpInside" id="n7b-WQ-Znr"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="izk-A4-gGx" secondAttribute="trailing" constant="8" id="8sO-j4-6kc"/>
+                            <constraint firstItem="O3T-3V-MN3" firstAttribute="top" secondItem="EDi-Am-0f1" secondAttribute="bottom" constant="444" id="9ud-5S-GLa"/>
+                            <constraint firstItem="O3T-3V-MN3" firstAttribute="top" secondItem="izk-A4-gGx" secondAttribute="bottom" constant="8" id="Jex-EX-qch"/>
+                            <constraint firstItem="EDi-Am-0f1" firstAttribute="leading" secondItem="H8m-oK-Ma8" secondAttribute="leading" id="RvK-PS-bHp"/>
+                            <constraint firstItem="izk-A4-gGx" firstAttribute="leading" secondItem="H8m-oK-Ma8" secondAttribute="leadingMargin" constant="8" id="UVC-D0-MKR"/>
+                            <constraint firstItem="EDi-Am-0f1" firstAttribute="top" secondItem="GRE-oU-Okg" secondAttribute="bottom" id="ZZY-Zf-P3R"/>
+                            <constraint firstAttribute="trailing" secondItem="EDi-Am-0f1" secondAttribute="trailing" id="tso-O6-WIx"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="RFw-gf-sOf"/>
+                    <navigationItem key="navigationItem" title="Camera" id="RFw-gf-sOf">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="YSf-qf-3Il">
+                            <connections>
+                                <action selector="removeAction:" destination="GMS-pL-AYZ" id="DAe-wB-9Nl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="YSf-qf-3Il" id="Y83-g4-9aM"/>
+                        <outlet property="captionTextView" destination="qC9-gy-hHW" id="3nR-aJ-YPi"/>
+                        <outlet property="photo" destination="pnZ-XL-8OM" id="SvO-Xb-Zhv"/>
+                        <outlet property="postButton" destination="izk-A4-gGx" id="Q2N-tl-wqG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UAN-MZ-PBG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="894" y="2374"/>
+            <point key="canvasLocation" x="893.60000000000002" y="2373.4632683658174"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8FZ-xl-LH0">
@@ -45,6 +112,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="camera_photo" width="400" height="300"/>
         <image name="plus_unselected" width="21" height="21"/>
     </resources>
 </document>
