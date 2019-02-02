@@ -9,10 +9,6 @@
 import UIKit
 
 class UserProfileHeader: UICollectionViewCell {
-    let profileImageView: UIImage = {
-        let iv = UIImageView
-        
-    }
     
     override init(frame: CGRect){
         super.init(frame: frame)

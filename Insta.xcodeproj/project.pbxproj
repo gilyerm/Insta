@@ -53,6 +53,12 @@
 		84BE0A4E21BEC07E006BDA0D /* JsonProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */; };
 		84BE0A5021BEC07E006BDA0D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BE0A4A21BEC07E006BDA0D /* Comment.swift */; };
 		84C4E2252205878C00F67686 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C4E2242205878C00F67686 /* UserProfileHeader.swift */; };
+		84C4E22722059DD800F67686 /* Log.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E22622059DD800F67686 /* Log.storyboard */; };
+		84C4E22D2205C67C00F67686 /* Feed.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E22C2205C67C00F67686 /* Feed.storyboard */; };
+		84C4E22F2205C71800F67686 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E22E2205C71800F67686 /* Search.storyboard */; };
+		84C4E2312205C83800F67686 /* Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E2302205C83800F67686 /* Camera.storyboard */; };
+		84C4E2332205C8D200F67686 /* Notification.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E2322205C8D200F67686 /* Notification.storyboard */; };
+		84C4E2352205C8F800F67686 /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84C4E2342205C8F800F67686 /* Profile.storyboard */; };
 		CE0D84753934BA3C6B72882D /* Pods_InstaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */; };
 		D1824CC7AF80F68BE7FE04CE /* Pods_Insta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC818AFABE6A5C9493189F59 /* Pods_Insta.framework */; };
 /* End PBXBuildFile section */
@@ -130,6 +136,12 @@
 		84BE0A4821BEC07E006BDA0D /* JsonProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JsonProtocol.swift; sourceTree = "<group>"; };
 		84BE0A4A21BEC07E006BDA0D /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		84C4E2242205878C00F67686 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		84C4E22622059DD800F67686 /* Log.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Log.storyboard; path = Insta/View/Log.storyboard; sourceTree = "<group>"; };
+		84C4E22C2205C67C00F67686 /* Feed.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
+		84C4E22E2205C71800F67686 /* Search.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
+		84C4E2302205C83800F67686 /* Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Camera.storyboard; sourceTree = "<group>"; };
+		84C4E2322205C8D200F67686 /* Notification.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Notification.storyboard; sourceTree = "<group>"; };
+		84C4E2342205C8F800F67686 /* Profile.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Profile.storyboard; sourceTree = "<group>"; };
 		994417D40DC470FEA5991B3C /* Pods_InstaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A0A0F810D472E5A6BA45F97B /* Pods-Insta.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Insta.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Insta/Pods-Insta.debug.xcconfig"; sourceTree = "<group>"; };
 		B9C0E6CD77F8368873386CA3 /* Pods-InstaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstaUITests/Pods-InstaUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -330,8 +342,14 @@
 		84BCA68B22007D2300525C17 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				84C4E2342205C8F800F67686 /* Profile.storyboard */,
+				84C4E2322205C8D200F67686 /* Notification.storyboard */,
+				84C4E2302205C83800F67686 /* Camera.storyboard */,
+				84C4E22E2205C71800F67686 /* Search.storyboard */,
+				84C4E22C2205C67C00F67686 /* Feed.storyboard */,
 				463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */,
 				463EFFCB219EE69A00E13CB0 /* Main.storyboard */,
+				84C4E22622059DD800F67686 /* Log.storyboard */,
 			);
 			name = View;
 			path = ..;
@@ -473,9 +491,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				463EFFD2219EE69A00E13CB0 /* LaunchScreen.storyboard in Resources */,
+				84C4E2312205C83800F67686 /* Camera.storyboard in Resources */,
+				84C4E2352205C8F800F67686 /* Profile.storyboard in Resources */,
+				84C4E2332205C8D200F67686 /* Notification.storyboard in Resources */,
 				46F14F1D21A40CAF00FC1CA3 /* GoogleService-Info.plist in Resources */,
+				84C4E22D2205C67C00F67686 /* Feed.storyboard in Resources */,
 				463EFFCF219EE69A00E13CB0 /* Assets.xcassets in Resources */,
+				84C4E22F2205C71800F67686 /* Search.storyboard in Resources */,
 				463EFFCD219EE69A00E13CB0 /* Main.storyboard in Resources */,
+				84C4E22722059DD800F67686 /* Log.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -851,7 +875,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VUP9HM5R5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -859,6 +883,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
@@ -873,7 +898,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 8VUP9HM5R5;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Insta/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -881,6 +906,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = gilyerm.Insta;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ENABLE_BATCH_MODE = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Insta/Models/Insta-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

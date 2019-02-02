@@ -15,6 +15,7 @@ private let headerIdentifier = "UserProfileHeader"
  
 class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
+    @IBOutlet weak var navbar: UINavigationItem!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,8 +69,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         guard let currentId = Auth.auth().currentUser?.uid else {return}
         print("Current User ID is: \(currentId)")
         Database.database().reference().child("users").child(currentId).child("username").observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let username = snapshot.value as? String else {return} ////MAKE IT WORK  !!!!!!!!
-        self.navigationItem.title = username
+            guard let username = snapshot.value as? String else {return}
+            self.navbar.title = username
         })
     }
  }

@@ -51,11 +51,14 @@ class signInVC: UIViewController {
             print("Successfully signed user in" )
             
             guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else {
+                print("by UIStoryboard")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let mainTabVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC")
                 self.present(mainTabVC, animated: true, completion: nil)
-                return }
-            
+                return
+                
+            }
+            print("by mainTabVC")
             mainTabVC.viewDidLoad()
             
             self.dismiss(animated: true, completion: nil )

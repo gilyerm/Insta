@@ -57,7 +57,7 @@ class FeedVC: UICollectionViewController {
                 // attempt sign out
                 try Auth.auth().signOut()
                 // present login controller
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                let storyboard = UIStoryboard(name: "Log", bundle: nil)
                 let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")
                 self.present(signInVC, animated: true, completion: nil)
 
