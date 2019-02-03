@@ -28,34 +28,27 @@ class FeedVC: UIViewController {
         
         loadPosts()
     }
-
+    
     func loadPosts(){
         
         activityIndicatorView.startAnimating()
-        Database.database().reference().child("posts").observe(.childAdded) { (snapshot:DataSnapshot) in
-            if let dict = snapshot.value as? [String:Any] {
-                 print(dict)
-                let post : Post = Post.transformPostFromJson(json: dict)
-                self.fetchUser(uid: post.uid!
-                    , completed: {
-                        self.posts.append(post)
-                        self.activityIndicatorView.stopAnimating()
-                        self.tableView.reloadData()
-                })
-                
-            }
+        
+        Api.Post .observePosts { (post) in
+            self.fetchUser(uid: post.uid!
+                , completed: {
+                    self.posts.append(post)
+                    self.activityIndicatorView.stopAnimating()
+                    self.tableView.reloadData()
+            })
         }
+       
     }
     
     func fetchUser(uid: String , completed : @escaping () -> Void){
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dict = snapshot.value as? [String:Any] {
-                print(dict)
-                let user : User = User.transformUserFromJson(json: dict)
-                self.users.append(user)
-                completed()
-            }
-        }, withCancel: nil)
+        Api.User.observeUser(withId: uid) { (user) in
+            self.users.append(user)
+            completed()
+        }
     }
     
     @IBAction func handleLogout(_ sender: Any) {
@@ -84,6 +77,17 @@ class FeedVC: UIViewController {
         self.present(alertController, animated: true, completion: nil)
         
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("segue.identifier =\(String(describing: segue.identifier))")
+        if segue.identifier == "commentSeque"{
+            let commentVC = segue.destination as! CommentVC
+            let postId = sender as! String
+            commentVC.postId = postId
+            print("postId=\(postId)")
+            
+        }
+    }
 }
 
 extension FeedVC : UITableViewDataSource {
@@ -98,6 +102,7 @@ extension FeedVC : UITableViewDataSource {
         let user = self.users[indexPath.row]
         cell.post = post
         cell.user = user
+        cell.feedVC = self
         return cell
     }
     

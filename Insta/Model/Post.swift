@@ -12,6 +12,7 @@ class Post{
     var uid : String?
     var caption : String?
     var photoUrl : String?
+    var id : String?
     
     
     init(uid : String,captionText : String , photoUrlString : String ) {
@@ -27,8 +28,9 @@ class Post{
 
 extension Post{
     
-    static func transformPostFromJson(json : [String : Any]) -> Post{
+    static func transformPostFromJson(json : [String : Any] , key : String) -> Post{
         let post : Post = Post()
+        post.id = key
         post.uid = json["uid"] as? String
         post.caption = json["caption"] as? String
         post.photoUrl = json["photoUrl"] as? String

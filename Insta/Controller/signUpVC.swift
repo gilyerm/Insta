@@ -50,7 +50,7 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         scrollViewHeight = scrollView.frame.size.height
         
         //check notification if keyboard is shown or not
-        NotificationCenter.default.addObserver(self, selector: #selector(signUpVC.showKeyboard(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(signUpVC.showKeyboard(notification:)), name:   UIResponder.keyboardWillShowNotification, object: nil)
        
         NotificationCenter.default.addObserver(self, selector: #selector(signUpVC.hideKeyboard(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
 

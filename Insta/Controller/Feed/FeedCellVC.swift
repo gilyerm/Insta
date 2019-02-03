@@ -20,6 +20,8 @@ class FeedCellVC: UITableViewCell {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     
+    var feedVC : FeedVC?
+    
     var post: Post?{
         didSet{
             updateView()
@@ -57,6 +59,17 @@ class FeedCellVC: UITableViewCell {
         super.awakeFromNib()
         self.nameLabel.text = ""
         self.captionLabel.text = ""
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(commentImgViewAction))
+        commentImgView.addGestureRecognizer(tapGesture)
+        commentImgView.isUserInteractionEnabled = true
+    }
+    
+    @objc func commentImgViewAction(){
+        if let id = post?.id{
+            print("commentSeque post id =\(id)")
+            feedVC?.performSegue(withIdentifier: "commentSeque", sender: id)
+        }
     }
     
     override func prepareForReuse() {

@@ -37,9 +37,9 @@ extension User{
     
     static func transformUserToJson(user : User) -> [String : Any]{
         var json = [String: Any]()
-        json["email"] = user.email
-        json["photoImageUrl"] = user.photoImageUrl
-        json["username"] = user.username
+        json["email"]           = user.email
+        json["photoImageUrl"]   = user.photoImageUrl
+        json["username"]        = user.username
         return json
     }
     
