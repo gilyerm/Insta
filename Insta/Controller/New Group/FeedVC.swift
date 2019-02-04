@@ -34,7 +34,8 @@ class FeedVC: UIViewController {
         activityIndicatorView.startAnimating()
         
         Api.Post .observePosts { (post) in
-            self.fetchUser(uid: post.uid!
+            guard let uid = post.uid else { return }
+            self.fetchUser(uid: uid
                 , completed: {
                     self.posts.append(post)
                     self.activityIndicatorView.stopAnimating()

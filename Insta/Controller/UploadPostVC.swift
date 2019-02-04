@@ -99,7 +99,10 @@ class UploadPostVC: UIViewController {
         let newPostReference = postsReference.child(newPostID!)
         
         guard let currentUserId : String = Auth.auth().currentUser?.uid else { return }
-        let post : Post = Post(uid: currentUserId,captionText: captionTextView.text!, photoUrlString: photoUrl)
+        let post : Post = Post()
+        post.uid = currentUserId
+        post.caption = captionTextView.text!
+        post.photoUrl = photoUrl
         
         newPostReference.setValue(Post.transformPostToJson(post: post)) { (error, databaseRef) in
             if error != nil{
