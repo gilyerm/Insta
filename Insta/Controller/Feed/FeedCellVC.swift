@@ -67,13 +67,13 @@ class FeedCellVC: UITableViewCell {
     func updateLike(post : Post){
         DispatchQueue.main.async {
             if let isliked = post.isliked {
-                print("isliked= \(isliked)")
+                //print("isliked= \(isliked)")
                 if isliked {
                     self.likeImgView.image = #imageLiteral(resourceName: "like_selected")
-                    print("like")
+                    //print("like")
                 } else{
                     self.likeImgView.image = #imageLiteral(resourceName: "like_unselected")
-                    print("unlike")
+                    //print("unlike")
                 }
             }else{
                  self.likeImgView.image = #imageLiteral(resourceName: "like_unselected")
@@ -120,7 +120,7 @@ class FeedCellVC: UITableViewCell {
     
     @objc func commentImgViewAction(){
         if let id = post?.id{
-            print("commentSeque post id =\(id)")
+            //print("commentSeque post id =\(id)")
             feedVC?.performSegue(withIdentifier: "commentSeque", sender: id)
         }
     }
@@ -133,7 +133,7 @@ class FeedCellVC: UITableViewCell {
     func incrementLikes(forRef ref : DatabaseReference ){
         ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
             if var post = currentData.value as? [String : AnyObject], let uid = Auth.auth().currentUser?.uid {
-                print("value 1:\(String(describing: currentData.value))")
+                //print("value 1:\(String(describing: currentData.value))")
                 var likes: Dictionary<String, Bool>
                 likes = post["likes"] as? [String : Bool] ?? [:]
                 var likeCount = post["likeCount"] as? Int ?? 0
@@ -159,7 +159,7 @@ class FeedCellVC: UITableViewCell {
             if let error = error {
                 print(error.localizedDescription)
             }
-            print("value 2:\(String(describing: snapshot?.value))")
+            //print("value 2:\(String(describing: snapshot?.value))")
             
             if let dict = snapshot?.value as? [String: Any]{
                 let post = Post.transformPostFromJson(json: dict, key: snapshot!.key)
