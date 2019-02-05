@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import FirebaseDatabase
-
+import ProgressHUD
 
 class FeedCellVC: UITableViewCell {
     
@@ -42,25 +41,18 @@ class FeedCellVC: UITableViewCell {
             self.postImgView.sd_setImage(with: photoUrl, completed: nil)
         }
         
-        Api.Post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .value) { (snapshot :DataSnapshot) in
-            if let dict = snapshot.value as? [String: Any]{
-                let post = Post.transformPostFromJson(json: dict, key: snapshot.key)
-                self.updateLike(post: post)
-            }
+        Api.Post.observePost(withId: post!.id!) { (post : Post) in
+            self.updateLike(post: post)
         }
         
-        Api.Post.REF_POSTS.child(post!.id!).observe(.childChanged) { (snapshot :DataSnapshot) in
-            print(snapshot)
-            
-            if let count = snapshot.value as? Int {
-                if count != 0{
-                    self.likeCountButton.setTitle("\(count) likes!", for: .normal)
-                } else{
-                    self.likeCountButton.setTitle("", for: .normal)
-                }
+        
+        Api.Post.observeLikeCount(withPostId: post!.id!) { (likeCount) in
+            if likeCount != 0{
+                self.likeCountButton.setTitle("\(likeCount) likes!", for: .normal)
+            } else{
+                self.likeCountButton.setTitle("", for: .normal)
             }
         }
-        
     }
     
     func updateLike(post : Post){
@@ -126,46 +118,12 @@ class FeedCellVC: UITableViewCell {
     
     @objc func likeImgViewAction(){
         guard let postId = post?.id else { return  }
-        incrementLikes(forRef: Api.Post.REF_POSTS.child(postId))
-    }
-    
-    func incrementLikes(forRef ref : DatabaseReference ){
-        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-            if var post = currentData.value as? [String : AnyObject], let uid = Api.User.CURRENT_USER?.uid {
-                //print("value 1:\(String(describing: currentData.value))")
-                var likes: Dictionary<String, Bool>
-                likes = post["likes"] as? [String : Bool] ?? [:]
-                var likeCount = post["likeCount"] as? Int ?? 0
-                if let _ = likes[uid] {
-                    // Unslike the post and remove self from likes
-                    likeCount -= 1
-                    likes.removeValue(forKey: uid)
-                } else {
-                    // Like the post and add self to likes
-                    likeCount += 1
-                    likes[uid] = true
-                }
-                post["likeCount"] = likeCount  as AnyObject?
-                post["likes"] = likes as AnyObject?
-                
-                // Set value and report transaction success
-                currentData.value = post
-                
-                return TransactionResult.success(withValue: currentData)
-            }
-            return TransactionResult.success(withValue: currentData)
-        }) { (error, committed, snapshot) in
-            if let error = error {
-                print(error.localizedDescription)
-            }
-            //print("value 2:\(String(describing: snapshot?.value))")
-            
-            if let dict = snapshot?.value as? [String: Any]{
-                let post = Post.transformPostFromJson(json: dict, key: snapshot!.key)
-                self.updateLike(post: post)
-            }
-            
+        Api.Post.incrementLikes(postId : postId , onSucess: { (post: Post) in
+            self.updateLike(post: post)
+        }) { (errorMsg) in
+            ProgressHUD.showError(errorMsg)
         }
+        
     }
     
     override func prepareForReuse() {

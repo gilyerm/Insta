@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 class UserProfileVC: UIViewController {
   
     @IBOutlet weak var collectionView: UICollectionView!
@@ -23,7 +22,7 @@ class UserProfileVC: UIViewController {
     }
     
     func fetchUserPosts(){ //profile vc shouldnt work directly with the DB so it will send it to UserPostApi
-        guard let currentUser = Auth.auth().currentUser else {return}
+        guard let currentUser = Api.User.CURRENT_USER else {return}
         
         Api.UserPosts.REF_USER_POSTS.child(currentUser.uid).observe(.childAdded) { (snapshot) in
             print(snapshot)

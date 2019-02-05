@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var nameLable: UILabel!

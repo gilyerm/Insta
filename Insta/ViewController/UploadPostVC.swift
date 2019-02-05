@@ -8,7 +8,6 @@
 
 import UIKit
 import ProgressHUD
-import Firebase
 
 class UploadPostVC: UIViewController {
 
@@ -58,23 +57,11 @@ class UploadPostVC: UIViewController {
         view.endEditing(true)
         ProgressHUD.show("waiting...",interaction: false)
         if let profileImg = self.selectedImage, let imageData = profileImg.jpegData(compressionQuality: 0.1) {
-            let photoIdString = NSUUID().uuidString
-            let storageRef = Storage.storage().reference()
-                .child("posts").child(photoIdString)
-            storageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                if error != nil{
-                    ProgressHUD.showError(error.debugDescription)
-                    return
-                }
-                 storageRef.downloadURL(completion: { (url, error) in
-                    if error != nil{
-                        ProgressHUD.showError(error.debugDescription)
-                        return
-                    }
-                    let photoUrl = url!.absoluteString
-                    self.sendDataToDatabase(photoUrl: photoUrl)
-                })
+            HelperService.uploadDataToServer(data: imageData, caption: self.captionTextView.text) {
+                self.clearData()
+                self.tabBarController?.selectedIndex = 0
             }
+            
         } else{
             ProgressHUD.showError("Image can't be empty")
         }
@@ -90,39 +77,6 @@ class UploadPostVC: UIViewController {
         self.selectedImage = nil
         handlePost()
     }
-    
-    func sendDataToDatabase(photoUrl : String) {
-        print("send Data To Database")
-        let ref = Database.database().reference()
-        let postsReference = ref.child("posts")
-        let newPostID = postsReference.childByAutoId().key
-        let newPostReference = postsReference.child(newPostID!)
-        guard let currentUserId : String = Auth.auth().currentUser?.uid else { return }
-        
-        let post : Post = Post()
-        post.uid = currentUserId
-        post.caption = captionTextView.text!
-        post.photoUrl = photoUrl
-        
-        newPostReference.setValue(Post.transformPostToJson(post: post)) { (error, databaseRef) in
-            if error != nil{
-                ProgressHUD.showError(error.debugDescription)
-                return
-            }
-            
-            let userPostRef = Api.UserPosts.REF_USER_POSTS.child(currentUserId).child(newPostID!)
-            userPostRef.setValue(true, withCompletionBlock: {(error,ref) in
-                if (error != nil) {
-                    ProgressHUD.showError(error?.localizedDescription)
-                    return
-                }
-            })
-            ProgressHUD.showSuccess("Success")
-            self.clearData()
-            self.tabBarController?.selectedIndex = 0
-        }
-    }
-    
     
     @objc func handleSelectPhoto(){
         print("handle Select Photo")
