@@ -13,6 +13,8 @@ class User {
     var photoImageUrl : String?
     var username : String?
     var id : String?
+    var isFollowing: Bool?
+    
     
     init() {
         

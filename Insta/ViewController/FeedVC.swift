@@ -30,17 +30,25 @@ class FeedVC: UIViewController {
     }
     
     func loadPosts(){
-        
         activityIndicatorView.startAnimating()
         
-        Api.Post.observePosts { (post) in
-            guard let uid = post.uid else { return }
+        Api.Feed.observeFeed(withId: Api.User.CURRENT_USER!.uid) { (post :Post) in
+            guard let uid = post.uid else {
+                return
+            }
             self.fetchUser(uid: uid
                 , completed: {
                     self.posts.append(post)
                     self.activityIndicatorView.stopAnimating()
                     self.tableView.reloadData()
             })
+        }
+        
+        Api.Feed.observeFeedRemove(withId: Api.User.CURRENT_USER!.uid) { (postId : String) in
+            self.posts = self.posts.filter({ (post:Post) -> Bool in
+                return post.id != postId
+            })
+            self.tableView.reloadData()
         }
        
     }

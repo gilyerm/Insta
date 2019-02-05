@@ -40,19 +40,8 @@ class FeedCellVC: UITableViewCell {
             let photoUrl = URL(string: photoUrlString)
             self.postImgView.sd_setImage(with: photoUrl, completed: nil)
         }
-        
-        Api.Post.observePost(withId: post!.id!) { (post : Post) in
-            self.updateLike(post: post)
-        }
-        
-        
-        Api.Post.observeLikeCount(withPostId: post!.id!) { (likeCount) in
-            if likeCount != 0{
-                self.likeCountButton.setTitle("\(likeCount) likes!", for: .normal)
-            } else{
-                self.likeCountButton.setTitle("", for: .normal)
-            }
-        }
+       
+        self.updateLike(post: self.post!)
     }
     
     func updateLike(post : Post){
@@ -120,6 +109,9 @@ class FeedCellVC: UITableViewCell {
         guard let postId = post?.id else { return  }
         Api.Post.incrementLikes(postId : postId , onSucess: { (post: Post) in
             self.updateLike(post: post)
+            self.post?.likes = post.likes
+            self.post?.isliked = post.isliked
+            self.post?.likeCount = post.likeCount
         }) { (errorMsg) in
             ProgressHUD.showError(errorMsg)
         }

@@ -24,10 +24,20 @@ class PeopleVC: UIViewController {
     
     func loadUsers(){
         Api.User.observeUsers { (user: User) in
-            self.users.append(user)
-            self.tableView.reloadData()
+            if Api.User.CURRENT_USER!.uid != user.id{
+                self.isFollowing(userId: user.id!, completed: { (isfollowing:Bool) in
+                    user.isFollowing = isfollowing
+                    self.users.append(user)
+                    self.tableView.reloadData()
+                })
+            }
         }
     }
+    
+    func isFollowing(userId : String , completed : @escaping (Bool)->Void){
+        Api.Follow.isFollowing(userId: userId, completed: completed)
+    }
+    
 }
 
 extension PeopleVC : UITableViewDataSource {

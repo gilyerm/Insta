@@ -27,18 +27,49 @@ class PeopleTableViewCell: UITableViewCell {
             let photoUrl = URL(string: photoImageUrl)
             self.profileImage.sd_setImage(with: photoUrl, completed: nil)
         }
-        followButton.addTarget(self, action: #selector(self.followAction), for: .touchUpInside)
-        followButton.addTarget(self, action: #selector(self.unFollowAction), for: .touchUpInside)
+//        Api.Follow.isFollowing(userId: user!.id!) { (isfollowing) in
+//            if isfollowing == false {
+//                self.configureFollowButton()
+//            } else {
+//                self.configureUnFollowButton()
+//            }
+//        }
+        if user!.isFollowing == false {
+            configureFollowButton()
+        } else {
+            configureUnFollowButton()
+        }
+        
+        
+    }
+    
+    func configureFollowButton(){
+        self.followButton.layer.borderColor = #colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1)
+        self.followButton.setTitleColor(#colorLiteral(red: 0.5843137503, green: 0.8235294223, blue: 0.4196078479, alpha: 1), for: .normal)
+        self.followButton.setTitle("Follow", for: .normal)
+        self.followButton.addTarget(self, action: #selector(self.followAction), for: .touchUpInside)
+    }
+    func configureUnFollowButton(){
+        self.followButton.layer.borderColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+        self.followButton.setTitleColor(#colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1), for: .normal)
+        self.followButton.setTitle("Following", for: .normal)
+        self.followButton.addTarget(self, action: #selector(self.unFollowAction), for: .touchUpInside)
     }
     
     @objc func followAction(){
-        Api.Follow.REF_FOLLOWERS.child(user!.id!).child(Api.User.CURRENT_USER!.uid).setValue(true)
-        Api.Follow.REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(user!.id!).setValue(true)
+         if user!.isFollowing == false {
+            Api.Follow.followAction(withUser: user!.id!)
+            configureUnFollowButton()
+            user!.isFollowing = !(user!.isFollowing!)
+        }
     }
     
     @objc func unFollowAction(){
-        Api.Follow.REF_FOLLOWERS.child(user!.id!).child(Api.User.CURRENT_USER!.uid).removeValue()
-        Api.Follow.REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(user!.id!).removeValue()
+        if user!.isFollowing == true {
+            Api.Follow.unFollowAction(withUser: user!.id!)
+            configureFollowButton()
+            user!.isFollowing = !(user!.isFollowing!)
+        }
     }
 
     
