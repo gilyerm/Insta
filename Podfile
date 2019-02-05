@@ -6,12 +6,15 @@ target 'Insta' do
   use_frameworks!
 
   # Pods for Insta
+	pod 'Firebase/Auth'
 	pod 'Firebase/Core'
 	pod 'Firebase/Database'
 	pod 'FirebaseUI'
 	pod 'Firebase/Storage'
 	pod 'Firebase/Messaging'
 	pod 'Firebase/Firestore'
+	pod 'ProgressHUD'
+	pod 'SDWebImage'
 
   target 'InstaTests' do
     inherit! :search_paths

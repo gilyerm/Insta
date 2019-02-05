@@ -165,6 +165,11 @@
 			<key>orderHint</key>
 			<integer>27</integer>
 		</dict>
+		<key>ProgressHUD.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>31</integer>
+		</dict>
 		<key>Protobuf.xcscheme</key>
 		<dict>
 			<key>isShown</key>

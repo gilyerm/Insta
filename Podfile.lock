@@ -178,6 +178,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - ProgressHUD (2.60)
   - Protobuf (3.6.1)
   - SDWebImage (4.4.4):
     - SDWebImage/Core (= 4.4.4)
@@ -187,12 +188,15 @@ PODS:
     - TwitterCore (>= 3.2.0)
 
 DEPENDENCIES:
+  - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage
   - FirebaseUI
+  - ProgressHUD
+  - SDWebImage
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -221,6 +225,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - ProgressHUD
     - Protobuf
     - SDWebImage
     - TwitterCore
@@ -252,11 +257,12 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  ProgressHUD: 4e4efbaf4f5de8bd32e0c4c3b6644a90ea1a8c3e
   Protobuf: 1eb9700044745f00181c136ef21b8ff3ad5a0fd5
   SDWebImage: c00ec18ab25d10e5ffac109b0f78d1b4341c9691
   TwitterCore: 8cbc9ad34d91c63a0035ea05bfbfc0d7ca72a28c
   TwitterKit: 5e4f41d70b9abdb41df5467f52d7aa2c0fd26ebb
 
-PODFILE CHECKSUM: e236305cc5f9ae133ba372bddefd4c03416b7337
+PODFILE CHECKSUM: ad88646a466621cb570138de9749b448be83eeaa
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.5.2
