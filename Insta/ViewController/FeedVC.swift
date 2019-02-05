@@ -44,9 +44,12 @@ class FeedVC: UIViewController {
             })
         }
         
-        Api.Feed.observeFeedRemove(withId: Api.User.CURRENT_USER!.uid) { (postId : String) in
-            self.posts = self.posts.filter({ (post:Post) -> Bool in
-                return post.id != postId
+        Api.Feed.observeFeedRemove(withId: Api.User.CURRENT_USER!.uid) { (post : Post) in
+            self.posts = self.posts.filter({ (post1:Post) -> Bool in
+                return post1.id != post.id
+            })
+            self.users = self.users.filter({ (user:User) -> Bool in
+                return user.id != post.uid
             })
             self.tableView.reloadData()
         }

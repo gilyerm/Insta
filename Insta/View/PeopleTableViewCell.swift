@@ -27,13 +27,6 @@ class PeopleTableViewCell: UITableViewCell {
             let photoUrl = URL(string: photoImageUrl)
             self.profileImage.sd_setImage(with: photoUrl, completed: nil)
         }
-//        Api.Follow.isFollowing(userId: user!.id!) { (isfollowing) in
-//            if isfollowing == false {
-//                self.configureFollowButton()
-//            } else {
-//                self.configureUnFollowButton()
-//            }
-//        }
         if user!.isFollowing == false {
             configureFollowButton()
         } else {
