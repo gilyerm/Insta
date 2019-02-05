@@ -27,8 +27,21 @@ class PeopleTableViewCell: UITableViewCell {
             let photoUrl = URL(string: photoImageUrl)
             self.profileImage.sd_setImage(with: photoUrl, completed: nil)
         }
-        
+        followButton.addTarget(self, action: #selector(self.followAction), for: .touchUpInside)
+        followButton.addTarget(self, action: #selector(self.unFollowAction), for: .touchUpInside)
     }
+    
+    @objc func followAction(){
+        Api.Follow.REF_FOLLOWERS.child(user!.id!).child(Api.User.CURRENT_USER!.uid).setValue(true)
+        Api.Follow.REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(user!.id!).setValue(true)
+    }
+    
+    @objc func unFollowAction(){
+        Api.Follow.REF_FOLLOWERS.child(user!.id!).child(Api.User.CURRENT_USER!.uid).removeValue()
+        Api.Follow.REF_FOLLOWING.child(Api.User.CURRENT_USER!.uid).child(user!.id!).removeValue()
+    }
+
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()

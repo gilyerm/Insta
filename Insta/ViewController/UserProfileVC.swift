@@ -61,11 +61,12 @@ extension UserProfileVC: UICollectionViewDataSource  //for collection view data 
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let headerViewCell = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "HeaderProfileCollectionReusableView", for: indexPath) as! HeaderProfileCollectionReusableView
-            if let user = self.user {
-                headerViewCell.user = user
-            }
+        if let user = self.user {
+            headerViewCell.user = user
+        }
+        headerViewCell.postCount = (String)(self.posts.count)
            // headerViewCell.updateView()
-            return headerViewCell
+        return headerViewCell
     }
 }
 

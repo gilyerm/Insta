@@ -20,7 +20,11 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
             updateView()
         }
     }
-    
+    var postCount : String?{
+        didSet{
+            myPostCountLable.text = postCount
+        }
+    }
     func updateView(){
             self.nameLable.text = user!.username
             if let photoUrlString = user!.photoImageUrl{
