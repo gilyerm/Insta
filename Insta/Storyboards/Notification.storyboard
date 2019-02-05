@@ -41,7 +41,7 @@
         <scene sceneID="BMk-e0-XIu">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VoC-0Q-JAH" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="like_unselected" selectedImage="like_selected" id="S73-PU-571"/>
+                    <tabBarItem key="tabBarItem" title="" image="Activity" selectedImage="Activity_Selected" id="S73-PU-571"/>
                     <toolbarItems/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="k0i-9V-wMr">
@@ -59,7 +59,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="like_selected" width="22" height="19"/>
-        <image name="like_unselected" width="22" height="18"/>
+        <image name="Activity" width="22" height="20"/>
+        <image name="Activity_Selected" width="22" height="20"/>
     </resources>
 </document>

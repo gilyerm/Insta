@@ -47,4 +47,13 @@ class UserApi{
             }
         }
     }
+    
+    func observeUsers(completion: @escaping (User)-> Void){
+        REF_USERS.observe(.childAdded) { (snapshot: DataSnapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                let user = User.transformUserFromJson(json: dict)
+                completion(user)
+            }
+        }
+    }
 }

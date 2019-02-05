@@ -32,6 +32,8 @@
 		84554C3C2209AD9900158367 /* UserPostsApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84554C3B2209AD9900158367 /* UserPostsApi.swift */; };
 		84554C3E2209C2F000158367 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84554C3D2209C2F000158367 /* PhotoCollectionViewCell.swift */; };
 		84554C412209DF0C00158367 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84554C402209DF0B00158367 /* AuthService.swift */; };
+		848AE050220A0CBE00F1B0FC /* PeopleVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AE04F220A0CBD00F1B0FC /* PeopleVC.swift */; };
+		848AE052220A0CFE00F1B0FC /* PeopleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AE051220A0CFE00F1B0FC /* PeopleTableViewCell.swift */; };
 		84B01D3C2209ED3C007681EB /* HelperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B01D3B2209ED3C007681EB /* HelperService.swift */; };
 		84BCA68D22007DF100525C17 /* signInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCA68C22007DF100525C17 /* signInVC.swift */; };
 		84BCA68F22007E3600525C17 /* signUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCA68E22007E3600525C17 /* signUpVC.swift */; };
@@ -100,6 +102,8 @@
 		84554C3B2209AD9900158367 /* UserPostsApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostsApi.swift; sourceTree = "<group>"; };
 		84554C3D2209C2F000158367 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		84554C402209DF0B00158367 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		848AE04F220A0CBD00F1B0FC /* PeopleVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleVC.swift; sourceTree = "<group>"; };
+		848AE051220A0CFE00F1B0FC /* PeopleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleTableViewCell.swift; sourceTree = "<group>"; };
 		84B01D3B2209ED3C007681EB /* HelperService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperService.swift; sourceTree = "<group>"; };
 		84BCA68C22007DF100525C17 /* signInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInVC.swift; sourceTree = "<group>"; };
 		84BCA68E22007E3600525C17 /* signUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpVC.swift; sourceTree = "<group>"; };
@@ -162,6 +166,7 @@
 				46302B8322033F580051714F /* SearchVC.swift */,
 				46302B8522033F830051714F /* UploadPostVC.swift */,
 				46302B8722033FBA0051714F /* NotificaitonsVC.swift */,
+				848AE04F220A0CBD00F1B0FC /* PeopleVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -243,6 +248,7 @@
 				84CEE0A12208D881003D1B73 /* HeaderProfileCollectionReusableView.swift */,
 				84554C3D2209C2F000158367 /* PhotoCollectionViewCell.swift */,
 				84CEE09C22062863003D1B73 /* FeedCellVC.swift */,
+				848AE051220A0CFE00F1B0FC /* PeopleTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -588,6 +594,7 @@
 			files = (
 				46302B8022033A610051714F /* MainTabVC.swift in Sources */,
 				84BCA68D22007DF100525C17 /* signInVC.swift in Sources */,
+				848AE052220A0CFE00F1B0FC /* PeopleTableViewCell.swift in Sources */,
 				46302B8422033F580051714F /* SearchVC.swift in Sources */,
 				84CEE0A22208D881003D1B73 /* HeaderProfileCollectionReusableView.swift in Sources */,
 				46DD88212208A6940068B68D /* UserProfileVC.swift in Sources */,
@@ -609,6 +616,7 @@
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
 				84B01D3C2209ED3C007681EB /* HelperService.swift in Sources */,
 				46DD8816220773C10068B68D /* PostApi.swift in Sources */,
+				848AE050220A0CBE00F1B0FC /* PeopleVC.swift in Sources */,
 				46DD881A220777A40068B68D /* Api.swift in Sources */,
 				46DD8818220776080068B68D /* UserApi.swift in Sources */,
 			);
