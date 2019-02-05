@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import ProgressHUD
 
 protocol SignUpDelegate{
@@ -147,84 +146,28 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 //            self.present(alert, animated: true, completion: nil)
             return
         }
-            //values for sign
-            guard let email = emailTxt.text else {return}
-            guard let password = passwordTxt.text else {return}
-            guard let username = usernameTxt.text else {return}
-        
-        
-        
-
-            Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        //values for sign
+        guard let email = emailTxt.text else {return}
+        guard let password = passwordTxt.text else {return}
+        guard let username = usernameTxt.text else {return}
+        //set profile image
+        guard let profileImg = self.avaImg.image else {return}
+        //upload data
+        guard let uploadData : Data = profileImg.jpegData(compressionQuality: 0.3) else {return}
+    
+        AuthService.signUp(username: username, email: email, password: password, imageData: uploadData, onSuccess: {
             
-            //handle error
-            if let error = error {
-                print("Failed to creat user with error: ", error.localizedDescription)
-                ProgressHUD.showError(error.localizedDescription)
-
-                return
-            }
+            print("Seccessfuly created user and saved information to DB")
             
-            //set profile image
-                guard let profileImg = self.avaImg.image else {return}
-                
-                //upload data
-                guard let uploadData : Data = profileImg.jpegData(compressionQuality: 0.3) else {return}
-                
-                //place image in firebase storage
-                let filename = NSUUID().uuidString
-                let storageRef = Storage.storage().reference().child("profile_images").child(filename+".jpg")
-                storageRef.putData(uploadData, metadata: nil, completion: {(metadata, error) in
-                    if let error = error {
-                        print("error in storage reference \(filename).jpeg")
-                        print(error.localizedDescription)
-                        ProgressHUD.showError(error.localizedDescription)
-
-                        return
-                    }
-                    
-                    storageRef.downloadURL(completion: {(url, error) in
-                        guard let downloadURL = url else {
-                            // Uh-oh, an error occurred!
-                            return
-                        }
-                        print("so far so good in storage reference")
-                        
-                        guard let uid = user?.user.uid else {
-                            // Uh-oh, an error occurred!
-                            return
-                        }
-                        
-                        let dictionaryValues = User.transformUserToJson(
-                            user: User.init(email: email, photoImageUrl: downloadURL.absoluteString, username: username))
-                        let values = [uid: dictionaryValues] //save to DB by val
-                        
-                        //save user info to DB
-                        Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: {(error, ref) in
-                            print("Seccessfuly created user and saved information to DB")
-                            
-                            ProgressHUD.showSuccess("Success")
-                            print("Successfully signed user up" )
-                            
-
-//                            guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else {
-//                                print("by UIStoryboard")
-//                                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                                let mainTabVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC")
-//                                self.present(mainTabVC, animated: true, completion: nil)
-//                                return
-//
-//                            }
-//                            print("by mainTabVC")
-                            
-                            
-                            self.dismiss(animated: true, completion: {() in
-                                self.delegate!.onComplete(success: true);
-                            })
-                        })
-                        
-                    })
-                })
+            ProgressHUD.showSuccess("Success")
+            print("Successfully signed user up" )
+            self.dismiss(animated: true, completion: {() in
+                self.delegate!.onComplete(success: true);
+            })
+            
+        }) { (errorMsg) in
+            ProgressHUD.showError(errorMsg)
+            return
         }
     }
 

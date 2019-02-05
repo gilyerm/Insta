@@ -8,7 +8,6 @@
 
 import UIKit
 import FirebaseDatabase
-import FirebaseAuth
 
 
 class FeedCellVC: UITableViewCell {
@@ -132,7 +131,7 @@ class FeedCellVC: UITableViewCell {
     
     func incrementLikes(forRef ref : DatabaseReference ){
         ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
-            if var post = currentData.value as? [String : AnyObject], let uid = Auth.auth().currentUser?.uid {
+            if var post = currentData.value as? [String : AnyObject], let uid = Api.User.CURRENT_USER?.uid {
                 //print("value 1:\(String(describing: currentData.value))")
                 var likes: Dictionary<String, Bool>
                 likes = post["likes"] as? [String : Bool] ?? [:]

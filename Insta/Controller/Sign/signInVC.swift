@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 import ProgressHUD
 
 class signInVC: UIViewController,SignUpDelegate {
@@ -15,7 +14,10 @@ class signInVC: UIViewController,SignUpDelegate {
         print("on Complete signInOut \(success)")
         if success {
             print("on Complete signInOut success")
-            self.dismiss(animated: true, completion: nil)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let signInVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC")
+            self.present(signInVC, animated: true, completion: nil)
+//            self.dismiss(animated: true, completion: ())
         }
     }
     
@@ -52,31 +54,15 @@ class signInVC: UIViewController,SignUpDelegate {
                     return}
         
         // sign user in with email and password
-    
-        Auth.auth().signIn(withEmail: email, password: password) { (authDataResult, error) in
-            // handle error
-            if let error = error {
-                print(error.localizedDescription)
-                ProgressHUD.showError(error.localizedDescription)
-                return
-            }
-            
-            // handle sucsses
+        AuthService.signIn(email: email, password: password, onSuccess: {
             print("Successfully signed user in" )
             ProgressHUD.showSuccess("Success")
-
-//            guard let mainTabVC = UIApplication.shared.keyWindow?.rootViewController as? MainTabVC else {
-//                print("by UIStoryboard")
-//                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                let mainTabVC = storyboard.instantiateViewController(withIdentifier: "MainTabVC")
-//                self.present(mainTabVC, animated: true, completion: nil)
-//                return
-//                
-//            }
-//            print("by mainTabVC")
-//            mainTabVC.viewDidLoad()
-            
-            self.dismiss(animated: true, completion: nil )
+            self.onComplete(success: true)
+            //self.dismiss(animated: true, completion: nil )
+        }) { (errorMsg) in
+            print(errorMsg!)
+            ProgressHUD.showError(errorMsg!)
+            return
         }
     }
     

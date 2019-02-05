@@ -21,5 +21,14 @@ class PostApi{
                 completion(newpost)
             }
         }
-    }    
+    }
+    
+    func observePost(withId id: String, completion: @escaping (Post) -> Void){
+        REF_POSTS.child(id).observeSingleEvent(of: DataEventType.value, with: {snapshot in
+        if let dict = snapshot.value as? [String: Any] {
+            let post = Post.transformPostFromJson(json: dict, key: snapshot.key)
+            completion(post)
+            }
+        })
+    }
 }

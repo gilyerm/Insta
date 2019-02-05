@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Firebase
 import SDWebImage
+import ProgressHUD
 
 private let reuseIdentifier = "Cell"
 
@@ -33,7 +33,7 @@ class FeedVC: UIViewController {
         
         activityIndicatorView.startAnimating()
         
-        Api.Post .observePosts { (post) in
+        Api.Post.observePosts { (post) in
             guard let uid = post.uid else { return }
             self.fetchUser(uid: uid
                 , completed: {
@@ -58,20 +58,17 @@ class FeedVC: UIViewController {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         // add alert log out  action
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            do{
-                // attempt sign out
-                try Auth.auth().signOut()
+            // attempt sign out
+            AuthService.logout(onSuccess: {
                 // present login controller
                 let storyboard = UIStoryboard(name: "Log", bundle: nil)
                 let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")
                 self.present(signInVC, animated: true, completion: nil)
-
-                print("Successfull logged out")
-            } catch{
-                // handle error
-                print("failed to sign out")
                 
-            }
+                print("Successfull logged out")
+            }, onError: { (errorMsg) in
+                ProgressHUD.showError(errorMsg)
+            })
         }))
         // add cancel action
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Firebase
 
 class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
 
@@ -25,11 +24,9 @@ class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
        
         
      }
-    
-    
-    
+
     func checkIfUserIsLoggedIn() {
-        if Auth.auth().currentUser == nil {
+        if Api.User.CURRENT_USER == nil {
             print("no current User")
             DispatchQueue.main.async {
                 // present login controller

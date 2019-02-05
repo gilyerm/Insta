@@ -97,8 +97,8 @@ class UploadPostVC: UIViewController {
         let postsReference = ref.child("posts")
         let newPostID = postsReference.childByAutoId().key
         let newPostReference = postsReference.child(newPostID!)
-        
         guard let currentUserId : String = Auth.auth().currentUser?.uid else { return }
+        
         let post : Post = Post()
         post.uid = currentUserId
         post.caption = captionTextView.text!
@@ -109,10 +109,16 @@ class UploadPostVC: UIViewController {
                 ProgressHUD.showError(error.debugDescription)
                 return
             }
+            
+            let userPostRef = Api.UserPosts.REF_USER_POSTS.child(currentUserId).child(newPostID!)
+            userPostRef.setValue(true, withCompletionBlock: {(error,ref) in
+                if (error != nil) {
+                    ProgressHUD.showError(error?.localizedDescription)
+                    return
+                }
+            })
             ProgressHUD.showSuccess("Success")
-            
             self.clearData()
-            
             self.tabBarController?.selectedIndex = 0
         }
     }

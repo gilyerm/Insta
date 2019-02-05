@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="otT-ii-27x">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" colorMatched="YES" initialViewController="otT-ii-27x">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -24,32 +24,51 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="qbL-Sa-sLH">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="131" height="119"/>
                                     <size key="headerReferenceSize" width="50" height="198"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Vx2-WU-bsd">
-                                        <rect key="frame" x="0.0" y="198" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PhotoCollectionViewCell" reuseIdentifier="PhotoCollectionViewCell" id="Vx2-WU-bsd" customClass="PhotoCollectionViewCell" customModule="Insta" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="198" width="131" height="119"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="131" height="119"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="G5T-4p-2Sh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="119"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="G5T-4p-2Sh" secondAttribute="trailing" id="44e-nD-SKv"/>
+                                            <constraint firstItem="G5T-4p-2Sh" firstAttribute="top" secondItem="Vx2-WU-bsd" secondAttribute="top" id="Nll-cY-73m"/>
+                                            <constraint firstAttribute="bottom" secondItem="G5T-4p-2Sh" secondAttribute="bottom" id="bP4-Si-Pds"/>
+                                            <constraint firstItem="G5T-4p-2Sh" firstAttribute="leading" secondItem="Vx2-WU-bsd" secondAttribute="leading" id="ppL-1G-4Hb"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="photo" destination="G5T-4p-2Sh" id="yAf-fo-8QP"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9GJ-KS-0tx">
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="HeaderProfileCollectionReusableView" reuseIdentifier="HeaderProfileCollectionReusableView" id="9GJ-KS-0tx" customClass="HeaderProfileCollectionReusableView" customModule="Insta" customModuleProvider="target">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="198"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male-placeholder." translatesAutoresizingMaskIntoConstraints="NO" id="e38-DQ-7sg">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="male-placeholder." translatesAutoresizingMaskIntoConstraints="NO" id="e38-DQ-7sg">
                                             <rect key="frame" x="15" y="15" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="100" id="7mj-Lr-oZn"/>
                                                 <constraint firstAttribute="width" constant="100" id="UOw-fT-fch"/>
                                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="ton-1c-4Jb"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="50"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gAD-sI-6fc">
                                             <rect key="frame" x="15" y="130" width="100" height="18"/>
@@ -117,13 +136,18 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joM-3Q-TWA">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joM-3Q-TWA">
                                                     <rect key="frame" x="0.0" y="56" width="230" height="30"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
                                                     <state key="normal" title="edit profile">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="3"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -134,8 +158,8 @@
                                                 <constraint firstAttribute="bottom" secondItem="joM-3Q-TWA" secondAttribute="bottom" constant="14" id="wCl-zt-obO"/>
                                             </constraints>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g06-bx-QBP">
-                                            <rect key="frame" x="15" y="156" width="42" height="22"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g06-bx-QBP">
+                                            <rect key="frame" x="15" y="156" width="0.0" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -156,6 +180,13 @@
                                         <constraint firstItem="xNz-p7-nCp" firstAttribute="leading" secondItem="e38-DQ-7sg" secondAttribute="trailing" constant="15" id="tzY-B6-WWd"/>
                                         <constraint firstItem="gAD-sI-6fc" firstAttribute="leading" secondItem="e38-DQ-7sg" secondAttribute="leading" id="y1b-NX-ZhG"/>
                                     </constraints>
+                                    <connections>
+                                        <outlet property="myFollowerCountLable" destination="vzU-lp-A5k" id="Ssn-dO-F5a"/>
+                                        <outlet property="myFollowingCountLable" destination="qjQ-au-21l" id="Egs-GJ-nCS"/>
+                                        <outlet property="myPostCountLable" destination="6ya-kA-xxf" id="7vr-Cc-Yw8"/>
+                                        <outlet property="nameLable" destination="gAD-sI-6fc" id="bjG-QP-VsK"/>
+                                        <outlet property="profileImage" destination="e38-DQ-7sg" id="RGn-4Q-l2r"/>
+                                    </connections>
                                 </collectionReusableView>
                             </collectionView>
                         </subviews>
@@ -168,10 +199,13 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="Bwf-rl-Xfo"/>
+                    <connections>
+                        <outlet property="collectionView" destination="CtQ-aj-QHt" id="YGr-v0-ClQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPS-ex-7EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2628" y="2366"/>
+            <point key="canvasLocation" x="2628" y="2365.3673163418293"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mmL-1N-U0W">

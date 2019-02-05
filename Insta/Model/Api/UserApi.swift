@@ -1,0 +1,50 @@
+//
+//  UserApi.swift
+//  Insta
+//
+//  Created by gil yermiyah on 03/02/2019.
+//  Copyright © 2019 Gil Yermiyah. All rights reserved.
+//
+
+import Foundation
+import Firebase
+
+class UserApi{
+    var REF_USERS = Database.database().reference().child("users")
+    
+    func observeUser(withId uid : String,completion : @escaping (User) -> Void){
+        REF_USERS.child(uid).observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                let newuser : User = User.transformUserFromJson(json: dict)
+                completion(newuser)
+            }
+        }
+
+    }
+    
+    
+    var CURRENT_USER : Firebase.User?{
+        if let currentUser = Auth.auth().currentUser {
+            return currentUser
+        }
+        return nil
+    }
+    
+    var RefCurrentUser: DatabaseReference? {  //pointing to the current user
+        guard let currentUser = Auth.auth().currentUser else {
+            return nil
+        }
+        return REF_USERS.child(currentUser.uid)
+    }
+    
+    func observeCurrentUser(completion: @escaping (User)-> Void){
+        guard let currentUser = Auth.auth().currentUser else {return}
+        
+        REF_USERS.child(currentUser.uid).observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
+            if let dict = snapshot.value as? [String:Any] {
+                let user = User.transformUserFromJson(json: dict)
+                completion(user)
+            }
+        }
+    }
+}

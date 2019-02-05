@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import FirebaseDatabase
-import FirebaseAuth
 import ProgressHUD
 
 class CommentVC: UIViewController {
@@ -119,8 +117,7 @@ class CommentVC: UIViewController {
         let commentsReference = Api.Comment.REF_COMMENTS
         let newCommentID = commentsReference.childByAutoId().key
         let newCommentReference = commentsReference.child(newCommentID!)
-        
-        guard let currentUserId : String = Auth.auth().currentUser?.uid else { return }
+        guard let currentUserId : String = Api.User.CURRENT_USER?.uid else { return }
         let comment : Comment = Comment(uid: currentUserId, commentText: commentTextField.text)
         
         newCommentReference.setValue(Comment.transformCommentToJson(comment: comment)) { (error, databaseRef) in
