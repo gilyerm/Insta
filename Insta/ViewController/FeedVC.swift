@@ -15,9 +15,8 @@ private let reuseIdentifier = "Cell"
 class FeedVC: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
+    var postsUsers : [Post: User] = [Post: User]()
     
-    var posts :[Post] = [Post]()
-    var users :[User] = [User]()
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -37,32 +36,33 @@ class FeedVC: UIViewController {
                 return
             }
             self.fetchUser(uid: uid
-                , completed: {
-                    self.posts.insert(post, at: 0)
-                    self.posts = self.posts.sorted(by: { (post1, post2) -> Bool in /// sort post by date
-                        return post1.createAt! > post2.createAt!
-                    })
+                , completed: { user in
+                    self.postsUsers.updateValue(user, forKey: post)
+
                     self.activityIndicatorView.stopAnimating()
                     self.tableView.reloadData()
             })
         }
         
         Api.Feed.observeFeedRemove(withId: Api.User.CURRENT_USER!.uid) { (post : Post) in
-            self.posts = self.posts.filter({ (post1:Post) -> Bool in
+    
+            self.postsUsers = self.postsUsers.filter({ (arg0) -> Bool in
+                let (post1, _) = arg0
                 return post1.id != post.id
-            })
-            self.users = self.users.filter({ (user:User) -> Bool in
-                return user.id != post.uid
+            }).filter({ (arg0) -> Bool in
+                let (_, user1) = arg0
+                return user1.id != post.uid
+            }).toDictionary(byTransforming: { (arg0) -> (Post, User) in
+                return arg0
             })
             self.tableView.reloadData()
         }
        
     }
     
-    func fetchUser(uid: String , completed : @escaping () -> Void){
+    func fetchUser(uid: String , completed : @escaping (User) -> Void){
         Api.User.observeUser(withId: uid) { (user) in
-            self.users.insert(user, at: 0)
-            completed()
+            completed(user)
         }
     }
     
@@ -88,14 +88,22 @@ class FeedVC: UIViewController {
 
 extension FeedVC : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.posts.count
+//        return self.posts.count
+        return self.postsUsers.values.count
+
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell : FeedCellVC = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as! FeedCellVC
         
-        let post = self.posts[indexPath.row]
-        let user = self.users[indexPath.row]
+        let sortarr = self.postsUsers.sorted(by: { (arg0, arg1) -> Bool in
+            let (post1, _) = arg0
+            let (post2, _) = arg1
+            return post1.createAt! > post2.createAt!
+        })
+        
+        let post = sortarr[indexPath.row].key
+        let user = sortarr[indexPath.row].value
         cell.post = post
         cell.user = user
         cell.delegate = self
@@ -110,5 +118,23 @@ extension FeedVC : FeedCellVCDelegate{
     
     func goToCommentVC(postId: String) {
         self.performSegue(withIdentifier: "commentSeque", sender: postId)
+    }
+}
+
+
+
+
+
+
+extension Array
+{
+    func toDictionary<H:Hashable, T>(byTransforming transformer: (Element) -> (H, T)) -> Dictionary<H, T>
+    {
+        var result = Dictionary<H,T>()
+        self.forEach({ element in
+            let (key,value) = transformer(element)
+            result[key] = value
+        })
+        return result
     }
 }

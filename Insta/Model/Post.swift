@@ -9,7 +9,15 @@
 import Foundation
 import FirebaseAuth
 
-class Post{
+class Post :  Hashable {
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        return (lhs.hashValue == rhs.hashValue)
+    }
+    
+    var hashValue: Int {
+        return (self.id).hashValue
+    }
+    
     var uid : String?
     var caption : String?
     var photoUrl : String?
