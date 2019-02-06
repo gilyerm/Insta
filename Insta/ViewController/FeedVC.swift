@@ -38,7 +38,10 @@ class FeedVC: UIViewController {
             }
             self.fetchUser(uid: uid
                 , completed: {
-                    self.posts.append(post)
+                    self.posts.insert(post, at: 0)
+                    self.posts = self.posts.sorted(by: { (post1, post2) -> Bool in /// sort post by date
+                        return post1.createAt! > post2.createAt!
+                    })
                     self.activityIndicatorView.stopAnimating()
                     self.tableView.reloadData()
             })
@@ -58,7 +61,7 @@ class FeedVC: UIViewController {
     
     func fetchUser(uid: String , completed : @escaping () -> Void){
         Api.User.observeUser(withId: uid) { (user) in
-            self.users.append(user)
+            self.users.insert(user, at: 0)
             completed()
         }
     }

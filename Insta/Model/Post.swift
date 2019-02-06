@@ -17,7 +17,9 @@ class Post{
     var likeCount : Int?
     var likes : Dictionary<String,Any>?
     var isliked : Bool?
-
+    
+    var createAt :Int?
+    
     
 }
 
@@ -40,6 +42,8 @@ extension Post{
         }else {
             post.isliked = false
         }
+        
+        post.createAt = json["createAt"] as? Int ?? 0
         return post
     }
     
@@ -51,6 +55,7 @@ extension Post{
         json["photoUrl"] = post.photoUrl
         json["likeCount"] = post.likeCount ?? 0
         json["likes"] = post.likes
+        json["createAt"] = post.createAt ?? 0
         return json
     }
     

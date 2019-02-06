@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import FirebaseStorage
+import Firebase
 import ProgressHUD
 
 class HelperService {
@@ -44,7 +44,8 @@ class HelperService {
         post.uid = currentUserId
         post.photoUrl = photoUrl
         post.caption = caption
-        
+        let timestamp = Int(Date().timeIntervalSince1970)
+        post.createAt = timestamp
         newPostReference.setValue(Post.transformPostToJson(post: post), withCompletionBlock: {
             (error, ref) in
             if error != nil {
