@@ -12,6 +12,10 @@ protocol HeaderProfileCollectionReusableViewDelegate {
     func updateFollowButton(forUser user:User)
 }
 
+protocol HeaderProfileCollectionReusableViewDelegateSwitchSettingVC {
+    func goToSettingVC()
+}
+
 class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var nameLable: UILabel!
@@ -22,7 +26,7 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     @IBOutlet weak var followButton: UIButton!
     
     var delegate : HeaderProfileCollectionReusableViewDelegate?
-    
+    var delegateSetting : HeaderProfileCollectionReusableViewDelegateSwitchSettingVC?
     var user: User? {
         didSet{
             updateView()
@@ -54,14 +58,26 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
         
         
         if user?.id == Api.User.CURRENT_USER?.uid{
-            followButton.setTitle("edit profile", for: .normal)
-            followButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-            followButton.layer.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+            updateStateEditProfile()
         } else{
             updateStateFollowButton()
         }
         
     }
+    
+    func updateStateEditProfile(){
+        let editProfileButton : UIButton! = followButton
+        editProfileButton.setTitle("edit profile", for: .normal)
+        editProfileButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        editProfileButton.layer.backgroundColor = #colorLiteral(red: 0.6666666865, green: 0.6666666865, blue: 0.6666666865, alpha: 1)
+        
+        editProfileButton.addTarget(self, action: #selector(self.editProfileAction), for: .touchUpInside)
+    }
+    
+    @objc func editProfileAction(){
+        delegateSetting?.goToSettingVC()
+    }
+    
     
     func updateStateFollowButton(){
         

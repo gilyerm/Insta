@@ -74,6 +74,7 @@ extension VisitProfileVC: UICollectionViewDataSource  //for collection view data
         if let user = self.user {
             headerViewCell.user = user
             headerViewCell.delegate = self.delegate
+            headerViewCell.delegateSetting = self
         }
 //        headerViewCell.postCount = (String)(self.posts.count)
         // headerViewCell.updateView()
@@ -93,5 +94,11 @@ extension VisitProfileVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.size.width / 3 , height: collectionView.frame.size.width / 3)
+    }
+}
+
+extension VisitProfileVC : HeaderProfileCollectionReusableViewDelegateSwitchSettingVC{
+    func goToSettingVC() {
+        performSegue(withIdentifier: "VisitProfileToSettingSegue", sender: nil)
     }
 }
