@@ -9,6 +9,12 @@
 import UIKit
 import ProgressHUD
 
+protocol FeedCellVCDelegate {
+    func goToCommentVC(postId : String)
+    func goToProfileVC(userId: String)
+}
+
+
 class FeedCellVC: UITableViewCell {
     
     
@@ -20,7 +26,9 @@ class FeedCellVC: UITableViewCell {
     @IBOutlet weak var likeCountButton: UIButton!
     @IBOutlet weak var captionLabel: UILabel!
     
-    var feedVC : FeedVC?
+    
+    
+    var delegate : FeedCellVCDelegate?
     
     var post: Post?{
         didSet{
@@ -96,12 +104,20 @@ class FeedCellVC: UITableViewCell {
         likeImgView.isUserInteractionEnabled = true
         
         
+        let tapGestureNamelabel = UITapGestureRecognizer(target: self, action: #selector(self.nameLabelAction))
+        nameLabel.addGestureRecognizer(tapGestureNamelabel)
+        nameLabel.isUserInteractionEnabled = true
+    }
+    
+    @objc func nameLabelAction(){
+        if let id = user?.id{
+            delegate?.goToProfileVC(userId: id)
+        }
     }
     
     @objc func commentImgViewAction(){
         if let id = post?.id{
-            //print("commentSeque post id =\(id)")
-            feedVC?.performSegue(withIdentifier: "commentSeque", sender: id)
+            delegate?.goToCommentVC(postId: id)
         }
     }
     

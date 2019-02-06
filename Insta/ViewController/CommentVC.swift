@@ -149,6 +149,17 @@ class CommentVC: UIViewController {
 
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("segue.identifier =\(String(describing: segue.identifier))")
+        if segue.identifier == "CommentToProfileSegue"{
+            let visitProfileVC = segue.destination as! VisitProfileVC
+            let userId = sender as! String
+            visitProfileVC.uid = userId
+            print("userId=\(userId)")
+            
+        }
+    }
+    
 }
 
 
@@ -164,8 +175,16 @@ extension CommentVC : UITableViewDataSource {
         let user = self.users[indexPath.row]
         cell.comment = comment
         cell.user = user
+        cell.delegate = self
         return cell
     }
     
     
 }
+
+extension CommentVC : CommentTVCellDelegate{
+    func goToProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "CommentToProfileSegue", sender: userId)
+    }
+}
+

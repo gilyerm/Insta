@@ -136,10 +136,10 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joM-3Q-TWA">
-                                                    <rect key="frame" x="0.0" y="56" width="230" height="30"/>
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joM-3Q-TWA">
+                                                    <rect key="frame" x="0.0" y="57" width="230" height="29"/>
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                     <state key="normal" title="edit profile">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
@@ -181,6 +181,7 @@
                                         <constraint firstItem="gAD-sI-6fc" firstAttribute="leading" secondItem="e38-DQ-7sg" secondAttribute="leading" id="y1b-NX-ZhG"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="followButton" destination="joM-3Q-TWA" id="1CC-sg-Cmw"/>
                                         <outlet property="myFollowerCountLable" destination="vzU-lp-A5k" id="Ssn-dO-F5a"/>
                                         <outlet property="myFollowingCountLable" destination="qjQ-au-21l" id="Egs-GJ-nCS"/>
                                         <outlet property="myPostCountLable" destination="6ya-kA-xxf" id="7vr-Cc-Yw8"/>
@@ -207,6 +208,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="CtQ-aj-QHt" id="YGr-v0-ClQ"/>
+                        <segue destination="yug-lB-yfw" kind="push" identifier="ProfileToSettingSegue" id="hfv-4Y-mZ9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPS-ex-7EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -312,6 +314,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bl2-fN-Zoi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3416.8000000000002" y="2363.568215892054"/>
+        </scene>
+        <!--Table View Controller-->
+        <scene sceneID="r3c-ad-DF7">
+            <objects>
+                <tableViewController id="yug-lB-yfw" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="HjZ-dC-fhP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="UQJ-IX-eV5">
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="UQJ-IX-eV5" id="y3d-I8-b9i">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="yug-lB-yfw" id="8Ce-l0-GgQ"/>
+                            <outlet property="delegate" destination="yug-lB-yfw" id="gMS-fT-r5E"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="lxR-jd-zvs"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JfH-nX-nfu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3417" y="3136"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="mmL-1N-U0W">
@@ -459,11 +490,10 @@
                                                         </stackView>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLz-aw-H9W">
-                                                    <rect key="frame" x="0.0" y="56" width="230" height="30"/>
-                                                    <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
-                                                    <state key="normal" title="edit profile">
+                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JLz-aw-H9W">
+                                                    <rect key="frame" x="0.0" y="57" width="230" height="29"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                    <state key="normal" title="Waiting.......">
                                                         <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     </state>
                                                     <userDefinedRuntimeAttributes>
@@ -504,6 +534,7 @@
                                         <constraint firstItem="4FV-hK-Cri" firstAttribute="centerX" secondItem="2Eb-Dl-HJC" secondAttribute="centerX" id="uM3-o6-O8q"/>
                                     </constraints>
                                     <connections>
+                                        <outlet property="followButton" destination="JLz-aw-H9W" id="cXj-eT-AWM"/>
                                         <outlet property="myFollowerCountLable" destination="M0W-dR-9ug" id="7Qj-fq-QLd"/>
                                         <outlet property="myFollowingCountLable" destination="Pt5-RD-bkq" id="yNO-uB-Ksh"/>
                                         <outlet property="myPostCountLable" destination="ZM2-dL-0WZ" id="vgp-IN-unC"/>
@@ -528,6 +559,7 @@
                     <navigationItem key="navigationItem" title="Profile" id="1qs-2c-LRl"/>
                     <connections>
                         <outlet property="collectionView" destination="Uts-LW-KWn" id="saC-6r-A6J"/>
+                        <segue destination="yug-lB-yfw" kind="push" identifier="VisitProfileToSettingSegue" id="4vg-XZ-xZR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rTf-iE-EXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -541,4 +573,7 @@
         <image name="profile_selected" width="22" height="22"/>
         <image name="profile_unselected" width="22" height="22"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="4vg-XZ-xZR"/>
+    </inferredMetricsTieBreakers>
 </document>

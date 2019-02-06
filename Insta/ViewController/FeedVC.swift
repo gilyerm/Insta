@@ -96,6 +96,13 @@ class FeedVC: UIViewController {
             print("postId=\(postId)")
             
         }
+        if segue.identifier == "HomeToProfileSegue"{
+            let visitProfileVC = segue.destination as! VisitProfileVC
+            let userId = sender as! String
+            visitProfileVC.uid = userId
+            print("userId=\(userId)")
+            
+        }
     }
 }
 
@@ -111,9 +118,17 @@ extension FeedVC : UITableViewDataSource {
         let user = self.users[indexPath.row]
         cell.post = post
         cell.user = user
-        cell.feedVC = self
+        cell.delegate = self
         return cell
     }
+}
+
+extension FeedVC : FeedCellVCDelegate{
+    func goToProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "HomeToProfileSegue", sender: userId)
+    }
     
-    
+    func goToCommentVC(postId: String) {
+        self.performSegue(withIdentifier: "commentSeque", sender: postId)
+    }
 }

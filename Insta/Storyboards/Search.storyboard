@@ -101,11 +101,22 @@
                     <navigationItem key="navigationItem" id="lik-R3-o0Q"/>
                     <connections>
                         <outlet property="tableView" destination="H0o-UC-qAA" id="3vh-xI-q5w"/>
+                        <segue destination="ivR-FC-wzo" kind="push" identifier="SearchToProfileSegue" id="6T7-Yl-gLa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obE-Jg-L31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="948" y="2372"/>
+        </scene>
+        <!--VisitProfileVC-->
+        <scene sceneID="Q1J-0d-Oub">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="VisitProfileVC" id="ivR-FC-wzo" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="jDy-yz-CzG"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sS7-Ug-DUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1487" y="2175"/>
         </scene>
         <!--DiscoverVC-->
         <scene sceneID="0Ff-nJ-L7U">

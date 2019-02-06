@@ -27,6 +27,10 @@ class SearchVC: UIViewController {
         let searchItem = UIBarButtonItem(customView: searchBar)
         self.navigationItem.rightBarButtonItem = searchItem
         
+        //doSearch()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         doSearch()
     }
     
@@ -46,6 +50,18 @@ class SearchVC: UIViewController {
     
     func isFollowing(userId : String , completed : @escaping (Bool)->Void){
         Api.Follow.isFollowing(userId: userId, completed: completed)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("segue.identifier =\(String(describing: segue.identifier))")
+        if segue.identifier == "SearchToProfileSegue"{
+            let visitProfileVC = segue.destination as! VisitProfileVC
+            let userId = sender as! String
+            visitProfileVC.uid = userId
+            visitProfileVC.delegate = self
+            print("userId=\(userId)")
+            
+        }
     }
     
 }
@@ -69,8 +85,30 @@ class SearchVC: UIViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! PeopleTableViewCell
         
         cell.user = users[indexPath.row]
+        cell.delegate = self
         
         return cell
     }
  }
+
+ extension SearchVC : PeopleTableViewCellDelegate{
+    func goToProfileVC(userId: String) {
+        print("goToProfileVC from SearchVC")
+        self.performSegue(withIdentifier: "SearchToProfileSegue", sender: userId)
+    }
+ }
+
+ extension SearchVC : HeaderProfileCollectionReusableViewDelegate{
+    func updateFollowButton(forUser user: User) {
+        print("update Follow Button for \(String(describing: user.id))")
+        for u in users{
+            if u.id == user.id {
+                u.isFollowing = user.isFollowing
+                self.tableView.reloadData()
+                break
+            }
+        }
+    }
+ }
+ 
 

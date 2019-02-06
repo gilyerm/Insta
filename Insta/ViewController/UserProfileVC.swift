@@ -64,7 +64,7 @@ extension UserProfileVC: UICollectionViewDataSource  //for collection view data 
         if let user = self.user {
             headerViewCell.user = user
         }
-        headerViewCell.postCount = (String)(self.posts.count)
+        //headerViewCell.postCount = (String)(self.posts.count)
            // headerViewCell.updateView()
         return headerViewCell
     }

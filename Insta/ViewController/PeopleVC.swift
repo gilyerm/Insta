@@ -16,13 +16,18 @@ class PeopleVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        //loadUsers()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         loadUsers()
     }
     
     
     func loadUsers(){
+        self.users.removeAll()
+        self.tableView.reloadData()
         Api.User.observeUsers { (user: User) in
             if Api.User.CURRENT_USER!.uid != user.id{
                 self.isFollowing(userId: user.id!, completed: { (isfollowing:Bool) in
@@ -43,6 +48,7 @@ class PeopleVC: UIViewController {
             let visitVC = segue.destination as! VisitProfileVC
             let uid = sender as! String
             visitVC.uid = uid
+            visitVC.delegate = self
         }
     }
     
@@ -57,7 +63,30 @@ extension PeopleVC : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! PeopleTableViewCell
  
         cell.user = users[indexPath.row]
-        cell.peopleVC = self
+        cell.delegate = self
         return cell
     }
 }
+
+extension PeopleVC : PeopleTableViewCellDelegate {
+    func goToProfileVC(userId: String) {
+        self.performSegue(withIdentifier: "ProfileSegue", sender: userId)
+    }
+    
+    
+}
+
+
+extension PeopleVC : HeaderProfileCollectionReusableViewDelegate{
+    func updateFollowButton(forUser user: User) {
+        print("update Follow Button for \(String(describing: user.id))")
+        for u in users{
+            if u.id == user.id {
+                u.isFollowing = user.isFollowing
+                self.tableView.reloadData()
+                break
+            }
+        }
+    }
+}
+

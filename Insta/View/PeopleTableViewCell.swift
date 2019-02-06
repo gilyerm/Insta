@@ -8,14 +8,18 @@
 
 import UIKit
 
+
+protocol PeopleTableViewCellDelegate {
+    func goToProfileVC(userId:String)
+}
+
 class PeopleTableViewCell: UITableViewCell {
 
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     
-    var peopleVC: PeopleVC?
-    
+    var delegate : PeopleTableViewCellDelegate?
     
     var user: User?{
         didSet{
@@ -80,15 +84,13 @@ class PeopleTableViewCell: UITableViewCell {
     
     @objc func nameLabelAction(){
         if let id = user?.id{
-            peopleVC?.performSegue(withIdentifier: "ProfileSegue", sender: id)
+            delegate?.goToProfileVC(userId: id)
         }
     }
     
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

@@ -8,6 +8,16 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--VisitProfileVC-->
+        <scene sceneID="xGd-GO-gkN">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Profile" referencedIdentifier="VisitProfileVC" id="J5O-hM-IiQ" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="Boa-HF-KO0"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fL4-eC-l8y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-499" y="2853"/>
+        </scene>
         <!--Feed-->
         <scene sceneID="9vN-AV-8cB">
             <objects>
@@ -173,6 +183,7 @@
                         <outlet property="activityIndicatorView" destination="taa-J4-7Vb" id="kvb-KB-woP"/>
                         <outlet property="tableView" destination="eKa-am-hEv" id="BbD-N8-22i"/>
                         <segue destination="tYC-iz-AXS" kind="push" identifier="commentSeque" id="Slg-sl-crh"/>
+                        <segue destination="J5O-hM-IiQ" kind="push" identifier="HomeToProfileSegue" id="seC-Nu-T8S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J68-TK-TIJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -309,6 +320,7 @@
                         <outlet property="constraintToButton" destination="2oQ-JP-nWb" id="goM-qv-KO2"/>
                         <outlet property="sendButton" destination="Sgs-e5-vnb" id="xrY-py-l1C"/>
                         <outlet property="tableView" destination="vaG-FQ-sZy" id="q4s-xe-kUn"/>
+                        <segue destination="J5O-hM-IiQ" kind="push" identifier="CommentToProfileSegue" id="6Dg-Cn-vfy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mik-ga-UxK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -340,4 +352,7 @@
         <image name="home_unselected" width="22" height="22"/>
         <image name="like_unselected" width="46" height="41"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="6Dg-Cn-vfy"/>
+    </inferredMetricsTieBreakers>
 </document>
