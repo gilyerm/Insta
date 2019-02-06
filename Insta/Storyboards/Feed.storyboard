@@ -169,16 +169,7 @@
                             <constraint firstItem="taa-J4-7Vb" firstAttribute="centerY" secondItem="NdZ-nA-mXH" secondAttribute="centerY" id="lQd-u2-rxU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Feed" id="ror-xq-kjP">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="Z2Q-Ir-IFy">
-                            <connections>
-                                <action selector="handleLogout:" destination="9Vo-ZB-549" id="xno-jC-aH4"/>
-                            </connections>
-                        </barButtonItem>
-                        <connections>
-                            <outlet property="leftBarButtonItem" destination="Z2Q-Ir-IFy" id="qIS-9y-bDX"/>
-                        </connections>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Feed" id="ror-xq-kjP"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="taa-J4-7Vb" id="kvb-KB-woP"/>
                         <outlet property="tableView" destination="eKa-am-hEv" id="BbD-N8-22i"/>
@@ -190,10 +181,10 @@
             </objects>
             <point key="canvasLocation" x="-887.20000000000005" y="2379.7601199400301"/>
         </scene>
-        <!--Comment-->
+        <!--CommentVC-->
         <scene sceneID="nU9-sq-QvC">
             <objects>
-                <viewController id="tYC-iz-AXS" customClass="CommentVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CommentVC" title="CommentVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tYC-iz-AXS" customClass="CommentVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="raX-Rp-YTn"/>
                         <viewControllerLayoutGuide type="bottom" id="9Pu-pf-C7s"/>

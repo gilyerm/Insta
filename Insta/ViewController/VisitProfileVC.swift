@@ -53,6 +53,19 @@ class VisitProfileVC: UIViewController {
     func isFollowing(userId : String , completed : @escaping (Bool)->Void){
         Api.Follow.isFollowing(userId: userId, completed: completed)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("segue.identifier =\(String(describing: segue.identifier))")
+        if segue.identifier == "ProfileToSettingSegue"{
+            let settingsTableVC = segue.destination as! SettingsTableVC
+            settingsTableVC.delegate = self
+        }
+        if segue.identifier == "VisitProfileToDetailSegue"{
+            let detailVC = segue.destination as! DetailVC
+            let postId = sender as! String
+            detailVC.postId = postId
+        }
+    }
 
 }
 
@@ -66,6 +79,7 @@ extension VisitProfileVC: UICollectionViewDataSource  //for collection view data
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         let post = posts[indexPath.row]
         cell.post = post
+        cell.delegate = self
         return cell
     }
     
@@ -100,5 +114,16 @@ extension VisitProfileVC : UICollectionViewDelegateFlowLayout {
 extension VisitProfileVC : HeaderProfileCollectionReusableViewDelegateSwitchSettingVC{
     func goToSettingVC() {
         performSegue(withIdentifier: "VisitProfileToSettingSegue", sender: nil)
+    }
+}
+
+extension VisitProfileVC : SettingsTableVCDelegate{
+    func updateUserInfo() {
+        self.fetchUser()
+    }
+}
+extension VisitProfileVC : PhotoCollectionViewCellDelegate{
+    func goToDetailVC(postId: String) {
+        performSegue(withIdentifier: "VisitProfileToDetailSegue", sender: postId)
     }
 }

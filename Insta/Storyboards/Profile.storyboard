@@ -209,11 +209,22 @@
                     <connections>
                         <outlet property="collectionView" destination="CtQ-aj-QHt" id="YGr-v0-ClQ"/>
                         <segue destination="yug-lB-yfw" kind="push" identifier="ProfileToSettingSegue" id="hfv-4Y-mZ9"/>
+                        <segue destination="okH-xf-RKB" kind="push" identifier="ProfileToDetailSegue" id="mxg-oT-mce"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPS-ex-7EC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2628" y="2365.3673163418293"/>
+        </scene>
+        <!--DetailVC-->
+        <scene sceneID="pOk-Hv-YWt">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Search" referencedIdentifier="DetailVC" id="okH-xf-RKB" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="2iO-jW-G6n"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j7s-ty-Qap" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3417" y="4069"/>
         </scene>
         <!--PeopleVC-->
         <scene sceneID="LoN-oN-h6l">
@@ -319,7 +330,7 @@
         <scene sceneID="r3c-ad-DF7">
             <objects>
                 <tableViewController title="SettingsTableVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yug-lB-yfw" customClass="SettingsTableVC" customModule="Insta" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="HjZ-dC-fhP">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="HjZ-dC-fhP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -345,6 +356,9 @@
                                         <constraint firstAttribute="width" constant="146" id="NYV-jh-7mV"/>
                                     </constraints>
                                     <state key="normal" title="Change Profile Photo"/>
+                                    <connections>
+                                        <action selector="changeProfilePhotoAction:" destination="yug-lB-yfw" eventType="touchUpInside" id="o4c-YS-JhT"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -405,7 +419,7 @@
                                                     <rect key="frame" x="106" y="7" width="254" height="30"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -704,6 +718,7 @@
                     <connections>
                         <outlet property="collectionView" destination="Uts-LW-KWn" id="saC-6r-A6J"/>
                         <segue destination="yug-lB-yfw" kind="push" identifier="VisitProfileToSettingSegue" id="4vg-XZ-xZR"/>
+                        <segue destination="okH-xf-RKB" kind="push" identifier="VisitProfileToDetailSegue" id="ahk-Zm-jS6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rTf-iE-EXC" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -718,6 +733,7 @@
         <image name="profile_unselected" width="22" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="hfv-4Y-mZ9"/>
+        <segue reference="4vg-XZ-xZR"/>
+        <segue reference="ahk-Zm-jS6"/>
     </inferredMetricsTieBreakers>
 </document>

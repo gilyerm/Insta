@@ -41,6 +41,21 @@ class UserProfileVC: UIViewController {
             self.collectionView.reloadData()
           }
     }
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("segue.identifier =\(String(describing: segue.identifier))")
+        if segue.identifier == "ProfileToSettingSegue"{
+            let settingsTableVC = segue.destination as! SettingsTableVC
+            settingsTableVC.delegate = self
+        }
+        if segue.identifier == "ProfileToDetailSegue"{
+            let detailVC = segue.destination as! DetailVC
+            let postId = sender as! String
+            detailVC.postId = postId
+        }
+    }
+    
 }
 
 
@@ -56,6 +71,7 @@ extension UserProfileVC: UICollectionViewDataSource  //for collection view data 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCollectionViewCell", for: indexPath) as! PhotoCollectionViewCell
         let post = posts[indexPath.row]
         cell.post = post
+        cell.delegate = self
         return cell
     }
     
@@ -90,5 +106,17 @@ extension UserProfileVC : UICollectionViewDelegateFlowLayout {
 extension UserProfileVC : HeaderProfileCollectionReusableViewDelegateSwitchSettingVC{
     func goToSettingVC() {
         performSegue(withIdentifier: "ProfileToSettingSegue", sender: nil)
+    }
+}
+
+extension UserProfileVC : SettingsTableVCDelegate{
+    func updateUserInfo() {
+        self.fetchUser()
+    }
+}
+
+extension UserProfileVC : PhotoCollectionViewCellDelegate{
+    func goToDetailVC(postId: String) {
+        performSegue(withIdentifier: "ProfileToDetailSegue", sender: postId)
     }
 }

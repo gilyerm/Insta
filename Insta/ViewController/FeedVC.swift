@@ -63,29 +63,6 @@ class FeedVC: UIViewController {
         }
     }
     
-    @IBAction func handleLogout(_ sender: Any) {
-        print("handle Logout here...")
-        // declare alert controller
-        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        // add alert log out  action
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
-            // attempt sign out
-            AuthService.logout(onSuccess: {
-                // present login controller
-                let storyboard = UIStoryboard(name: "Log", bundle: nil)
-                let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")
-                self.present(signInVC, animated: true, completion: nil)
-                
-                print("Successfull logged out")
-            }, onError: { (errorMsg) in
-                ProgressHUD.showError(errorMsg)
-            })
-        }))
-        // add cancel action
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        self.present(alertController, animated: true, completion: nil)
-        
-    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         print("segue.identifier =\(String(describing: segue.identifier))")

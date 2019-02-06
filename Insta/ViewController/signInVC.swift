@@ -38,6 +38,9 @@ class signInVC: UIViewController,SignUpDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("at signInVC")
+        
+        emailTxt.delegate = self
+        passwordTxt.delegate = self
 
     }
     @IBAction func signInBtn_click(_ sender: Any) {
@@ -93,5 +96,12 @@ class signInVC: UIViewController,SignUpDelegate {
             let vc:signUpVC = segue.destination as! signUpVC
             vc.delegate = self;
         }
+    }
+}
+
+extension signInVC : UITextFieldDelegate{
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
