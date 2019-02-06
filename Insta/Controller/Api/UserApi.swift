@@ -23,6 +23,19 @@ class UserApi{
     }
     
     
+    func queryUser(withText text:String,completion : @escaping (User) -> Void){
+        REF_USERS.queryOrdered(byChild: "username_lowercase").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").queryLimited(toFirst: 10).observeSingleEvent(of: .value) { (snapshot: DataSnapshot) in
+            snapshot.children.forEach({ (s) in
+                let child = s as! DataSnapshot
+                if let dict = child.value as? [String:Any] {
+                    let user : User = User.transformUserFromJson(json: dict, key: snapshot.key)
+                    completion(user)
+                }
+            })
+        }
+    }
+    
+    
     var CURRENT_USER : Firebase.User?{
         if let currentUser = Auth.auth().currentUser {
             return currentUser

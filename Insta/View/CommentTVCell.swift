@@ -33,7 +33,7 @@ class CommentTVCell: UITableViewCell {
     
     func setupUserInfo(){
         self.nameLabel.text = user!.username
-        if let photoUrlString = user!.photoImageUrl{
+        if let photoUrlString = user!.profileImageUrl{
             let photoUrl = URL(string: photoUrlString)
             self.profileImgView.sd_setImage(with: photoUrl, completed: nil)
         }

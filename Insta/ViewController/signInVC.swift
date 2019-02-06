@@ -41,7 +41,7 @@ class signInVC: UIViewController,SignUpDelegate {
 
     }
     @IBAction func signInBtn_click(_ sender: Any) {
-        print("sign in pressed")
+        //print("sign in pressed")
         
         ProgressHUD.show("Waiting...",interaction: false)
         
@@ -67,11 +67,11 @@ class signInVC: UIViewController,SignUpDelegate {
     }
     
     @IBAction func signUpBtn_click(_ sender: Any) {
-        print("sign up pressed")
+        //print("sign up pressed")
     }
 
     @IBAction func formValidation(_ sender: Any) {
-        print("Editing did change")
+        //print("Editing did change")
         
         // ensures that email and password text fields have text
         guard

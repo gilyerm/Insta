@@ -14,6 +14,8 @@ class PeopleTableViewCell: UITableViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var followButton: UIButton!
     
+    var peopleVC: PeopleVC?
+    
     
     var user: User?{
         didSet{
@@ -23,7 +25,7 @@ class PeopleTableViewCell: UITableViewCell {
     
     func updateView(){
         nameLabel.text = user?.username
-        if let photoImageUrl = user?.photoImageUrl{
+        if let photoImageUrl = user?.profileImageUrl{
             let photoUrl = URL(string: photoImageUrl)
             self.profileImage.sd_setImage(with: photoUrl, completed: nil)
         }
@@ -70,7 +72,18 @@ class PeopleTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.nameLabelAction))
+        nameLabel.addGestureRecognizer(tapGesture)
+        nameLabel.isUserInteractionEnabled = true
     }
+    
+    @objc func nameLabelAction(){
+        if let id = user?.id{
+            peopleVC?.performSegue(withIdentifier: "ProfileSegue", sender: id)
+        }
+    }
+    
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)

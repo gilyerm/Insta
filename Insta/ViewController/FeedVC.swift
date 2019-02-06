@@ -30,9 +30,9 @@ class FeedVC: UIViewController {
     }
     
     func loadPosts(){
+        guard let currentUser = Api.User.CURRENT_USER else {return}
         activityIndicatorView.startAnimating()
-        
-        Api.Feed.observeFeed(withId: Api.User.CURRENT_USER!.uid) { (post :Post) in
+        Api.Feed.observeFeed(withId: currentUser.uid) { (post :Post) in
             guard let uid = post.uid else {
                 return
             }

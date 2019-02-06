@@ -37,6 +37,7 @@
 		848AE054220A151900F1B0FC /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AE053220A151900F1B0FC /* FollowApi.swift */; };
 		848AE056220A30F100F1B0FC /* FeedApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AE055220A30F100F1B0FC /* FeedApi.swift */; };
 		848AE058220A393900F1B0FC /* DiscoverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848AE057220A393900F1B0FC /* DiscoverVC.swift */; };
+		84A0BC08220B0F87009C431D /* VisitProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A0BC07220B0F87009C431D /* VisitProfileVC.swift */; };
 		84B01D3C2209ED3C007681EB /* HelperService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B01D3B2209ED3C007681EB /* HelperService.swift */; };
 		84BCA68D22007DF100525C17 /* signInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCA68C22007DF100525C17 /* signInVC.swift */; };
 		84BCA68F22007E3600525C17 /* signUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BCA68E22007E3600525C17 /* signUpVC.swift */; };
@@ -110,6 +111,7 @@
 		848AE053220A151900F1B0FC /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
 		848AE055220A30F100F1B0FC /* FeedApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedApi.swift; sourceTree = "<group>"; };
 		848AE057220A393900F1B0FC /* DiscoverVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscoverVC.swift; sourceTree = "<group>"; };
+		84A0BC07220B0F87009C431D /* VisitProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitProfileVC.swift; sourceTree = "<group>"; };
 		84B01D3B2209ED3C007681EB /* HelperService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperService.swift; sourceTree = "<group>"; };
 		84BCA68C22007DF100525C17 /* signInVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signInVC.swift; sourceTree = "<group>"; };
 		84BCA68E22007E3600525C17 /* signUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = signUpVC.swift; sourceTree = "<group>"; };
@@ -164,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				46DD880F220708E60068B68D /* CommentVC.swift */,
+				848AE057220A393900F1B0FC /* DiscoverVC.swift */,
 				46302B8122033F1A0051714F /* FeedVC.swift */,
 				46302B7F22033A610051714F /* MainTabVC.swift */,
 				46302B8722033FBA0051714F /* NotificaitonsVC.swift */,
@@ -173,7 +176,7 @@
 				84BCA68E22007E3600525C17 /* signUpVC.swift */,
 				46302B8522033F830051714F /* UploadPostVC.swift */,
 				46DD88202208A6940068B68D /* UserProfileVC.swift */,
-				848AE057220A393900F1B0FC /* DiscoverVC.swift */,
+				84A0BC07220B0F87009C431D /* VisitProfileVC.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -274,13 +277,13 @@
 		84B01D402209FCAF007681EB /* Api */ = {
 			isa = PBXGroup;
 			children = (
-				46DD8817220776080068B68D /* UserApi.swift */,
 				46DD881B2207784A0068B68D /* CommentApi.swift */,
-				46DD881D22077C590068B68D /* Post_CommentApi.swift */,
-				84554C3B2209AD9900158367 /* UserPostsApi.swift */,
-				46DD8815220773C10068B68D /* PostApi.swift */,
-				848AE053220A151900F1B0FC /* FollowApi.swift */,
 				848AE055220A30F100F1B0FC /* FeedApi.swift */,
+				848AE053220A151900F1B0FC /* FollowApi.swift */,
+				46DD881D22077C590068B68D /* Post_CommentApi.swift */,
+				46DD8815220773C10068B68D /* PostApi.swift */,
+				46DD8817220776080068B68D /* UserApi.swift */,
+				84554C3B2209AD9900158367 /* UserPostsApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -617,6 +620,7 @@
 				46DD881C2207784A0068B68D /* CommentApi.swift in Sources */,
 				46302B8822033FBA0051714F /* NotificaitonsVC.swift in Sources */,
 				46DD881E22077C590068B68D /* Post_CommentApi.swift in Sources */,
+				84A0BC08220B0F87009C431D /* VisitProfileVC.swift in Sources */,
 				46DD8810220708E60068B68D /* CommentVC.swift in Sources */,
 				84CEE0A022063868003D1B73 /* User.swift in Sources */,
 				84554C412209DF0C00158367 /* AuthService.swift in Sources */,

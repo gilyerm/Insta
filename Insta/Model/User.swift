@@ -10,7 +10,7 @@ import Foundation
 
 class User {
     var email : String?
-    var photoImageUrl : String?
+    var profileImageUrl : String?
     var username : String?
     var id : String?
     var isFollowing: Bool?
@@ -18,20 +18,14 @@ class User {
     
     init() {
         
-    }
-    init(email : String , photoImageUrl : String , username : String) {
-        self.username = username
-        self.photoImageUrl = photoImageUrl
-        self.email = email
-    }
-    
+    } 
 }
 extension User{
     
     static func transformUserFromJson(json : [String : Any] , key : String) -> User{
         let user : User = User()
         user.email = json["email"] as? String
-        user.photoImageUrl = json["photoImageUrl"] as? String
+        user.profileImageUrl = json["profileImageUrl"] as? String
         user.username = json["username"] as? String
         user.id = key
         return user
@@ -40,9 +34,10 @@ extension User{
     
     static func transformUserToJson(user : User) -> [String : Any]{
         var json = [String: Any]()
-        json["email"]           = user.email
-        json["photoImageUrl"]   = user.photoImageUrl
-        json["username"]        = user.username
+        json["email"]               = user.email
+        json["profileImageUrl"]     = user.profileImageUrl
+        json["username"]            = user.username
+        json["username_lowercase"]  = user.username?.lowercased()
         return json
     }
     

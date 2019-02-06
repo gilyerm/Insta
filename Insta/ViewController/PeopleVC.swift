@@ -38,6 +38,14 @@ class PeopleVC: UIViewController {
         Api.Follow.isFollowing(userId: userId, completed: completed)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ProfileSegue"{
+            let visitVC = segue.destination as! VisitProfileVC
+            let uid = sender as! String
+            visitVC.uid = uid
+        }
+    }
+    
 }
 
 extension PeopleVC : UITableViewDataSource {
@@ -49,9 +57,7 @@ extension PeopleVC : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "PeopleTableViewCell", for: indexPath) as! PeopleTableViewCell
  
         cell.user = users[indexPath.row]
-        
+        cell.peopleVC = self
         return cell
     }
-    
-    
 }

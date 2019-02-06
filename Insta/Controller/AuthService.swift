@@ -52,7 +52,11 @@ class AuthService {
         let ref = Database.database().reference()
         let usersReference = ref.child("users")
         let newUserReference = usersReference.child(uid)
-        newUserReference.setValue(["username": username, "email": email, "profileImageUrl": profileImageUrl])
+        let user: User = User()
+        user.username = username
+        user.email = email
+        user.profileImageUrl = profileImageUrl
+        newUserReference.setValue(User.transformUserToJson(user: user))
         onSuccess()
     }
     

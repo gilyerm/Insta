@@ -85,6 +85,9 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="DMT-ZC-U4Q" id="wu6-Oi-zcN"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -96,6 +99,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="lik-R3-o0Q"/>
+                    <connections>
+                        <outlet property="tableView" destination="H0o-UC-qAA" id="3vh-xI-q5w"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="obE-Jg-L31" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -112,15 +118,69 @@
                     <view key="view" contentMode="scaleToFill" id="GRu-ek-GaG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="p9B-tv-RrO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="2J3-Hi-XfS">
+                                    <size key="itemSize" width="131" height="119"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="PhotoCollectionViewCell" reuseIdentifier="DiscoverCollectionViewCell" id="T1r-ej-80O" customClass="PhotoCollectionViewCell" customModule="Insta" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="131" height="119"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="131" height="119"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="CwK-O1-NS9">
+                                                    <rect key="frame" x="0.0" y="0.0" width="131" height="119"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="CwK-O1-NS9" secondAttribute="bottom" id="8V0-3Q-lKf"/>
+                                            <constraint firstItem="CwK-O1-NS9" firstAttribute="top" secondItem="T1r-ej-80O" secondAttribute="top" id="TeZ-O0-u05"/>
+                                            <constraint firstItem="CwK-O1-NS9" firstAttribute="leading" secondItem="T1r-ej-80O" secondAttribute="leading" id="nx0-SL-geu"/>
+                                            <constraint firstAttribute="trailing" secondItem="CwK-O1-NS9" secondAttribute="trailing" id="zh2-ve-jB6"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="photo" destination="CwK-O1-NS9" id="LPA-Nh-8O8"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="P8j-5P-XDO" id="qDQ-9z-3dO"/>
+                                    <outlet property="delegate" destination="P8j-5P-XDO" id="fYL-qG-MFG"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="p9B-tv-RrO" firstAttribute="leading" secondItem="GRu-ek-GaG" secondAttribute="leading" id="5Jz-Hi-gS0"/>
+                            <constraint firstItem="p9B-tv-RrO" firstAttribute="top" secondItem="GRu-ek-GaG" secondAttribute="top" id="K6O-iZ-PSK"/>
+                            <constraint firstAttribute="trailing" secondItem="p9B-tv-RrO" secondAttribute="trailing" id="owR-aa-65V"/>
+                            <constraint firstAttribute="bottom" secondItem="p9B-tv-RrO" secondAttribute="bottom" id="sf8-R4-Abf"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Discover" id="M9O-wA-7i4">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="K79-R4-jYd">
+                            <connections>
+                                <action selector="refreshTopPosts:" destination="P8j-5P-XDO" id="oeK-rQ-u97"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="ZUX-oH-JjB">
                             <connections>
                                 <segue destination="DMT-ZC-U4Q" kind="push" id="Ikz-vR-Ejx"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="p9B-tv-RrO" id="EYM-lS-LCx"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Kxx-1o-7xT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -129,10 +129,6 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
             // alert message "fill all fields"
             ProgressHUD.showError("PLEASE fill all fields")
-//            let alert = UIAlertController(title: "PLEASE", message: "", preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//            alert.addAction(ok)
-//            self.present(alert, animated: true, completion: nil)
             return
         }
         
@@ -140,10 +136,6 @@ class signUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         if passwordTxt.text != repeatpasswordTxt.text{
             //alert message
             ProgressHUD.showError("PASSWORD do not match")
-//            let alert = UIAlertController(title: "PASSWORD", message: "do not match", preferredStyle: .alert)
-//            let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//            alert.addAction(ok)
-//            self.present(alert, animated: true, completion: nil)
             return
         }
         //values for sign

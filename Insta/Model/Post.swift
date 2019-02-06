@@ -49,7 +49,7 @@ extension Post{
         json["uid"] = post.uid
         json["caption"] = post.caption
         json["photoUrl"] = post.photoUrl
-        json["likeCount"] = post.likeCount
+        json["likeCount"] = post.likeCount ?? 0
         json["likes"] = post.likes
         return json
     }
