@@ -39,11 +39,13 @@ class SearchVC: UIViewController {
             self.users.removeAll()
             self.tableView.reloadData()
             Api.User.queryUser(withText: searchText) { (user:User) in
-                self.isFollowing(userId: user.id!, completed: { (isfollowing:Bool) in
-                    user.isFollowing = isfollowing
-                    self.users.append(user)
-                    self.tableView.reloadData()
-                })
+                if Api.User.CURRENT_USER!.uid != user.id{
+                    self.isFollowing(userId: user.id!, completed: { (isfollowing:Bool) in
+                        user.isFollowing = isfollowing
+                        self.users.append(user)
+                        self.tableView.reloadData()
+                    })
+                }
             }
         }
     }
