@@ -44,9 +44,10 @@ class FeedCellVC: UITableViewCell {
     
     func updateView(){
         self.captionLabel.text = post?.caption
-        if let photoUrlString = post?.photoUrl{
-            let photoUrl = URL(string: photoUrlString)
-            self.postImgView.sd_setImage(with: photoUrl, completed: nil)
+        if let photoUrlString = post!.photoUrl{
+            Model.instance.getImage(url: photoUrlString) { (uiimage : UIImage?) in
+                self.postImgView.image = uiimage
+            }
         }
        
         self.updateLike(post: self.post!)
@@ -82,8 +83,9 @@ class FeedCellVC: UITableViewCell {
     func setupUserInfo(){
         self.nameLabel.text = user!.username
         if let photoUrlString = user!.profileImageUrl{
-            let photoUrl = URL(string: photoUrlString)
-            self.profileImgView.sd_setImage(with: photoUrl, completed: nil)
+            Model.instance.getImage(url: photoUrlString) { (uiimage : UIImage?) in
+                self.profileImgView.image = uiimage
+            }
         }
     }
     

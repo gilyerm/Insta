@@ -46,6 +46,7 @@ class HelperService {
         post.caption = caption
         let timestamp = Int(Date().timeIntervalSince1970)
         post.createAt = timestamp
+        post.lastUpdate = Double(timestamp)
         newPostReference.setValue(Post.transformPostToJson(post: post), withCompletionBlock: {
             (error, ref) in
             if error != nil {
@@ -66,5 +67,17 @@ class HelperService {
             ProgressHUD.showSuccess("Success")
             onSuccess()
         })
+    }
+    
+    static func getImage(url:String, callback:@escaping (UIImage?)->Void){
+        let ref = Storage.storage().reference(forURL: url)
+        ref.getData(maxSize: 10 * 1024 * 1024) { data, error in
+            if error != nil {
+                callback(nil)
+            } else {
+                let image = UIImage(data: data!)
+                callback(image)
+            }
+        }
     }
 }

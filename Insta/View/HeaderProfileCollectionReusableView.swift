@@ -40,8 +40,11 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     func updateView(){
         self.nameLable.text = user!.username
         if let photoUrlString = user!.profileImageUrl{
-            let photoUrl = URL(string: photoUrlString)
-            self.profileImage.sd_setImage(with: photoUrl, completed: nil) //to display the photo downloaded from this URL
+//            let photoUrl = URL(string: photoUrlString)
+//            self.profileImage.sd_setImage(with: photoUrl, completed: nil) //to display the photo downloaded from this URL
+            Model.instance.getImage(url: photoUrlString) { (uiimage : UIImage?) in
+                self.profileImage.image = uiimage
+            }
         }
         
         Api.UserPosts.fechCountUserPosts(userId: user!.id!) { (count:Int) in

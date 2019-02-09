@@ -28,6 +28,8 @@ class Post :  Hashable {
     
     var createAt :Int?
     
+    var lastUpdate : Double?
+    
     
 }
 
@@ -52,6 +54,7 @@ extension Post{
         }
         
         post.createAt = json["createAt"] as? Int ?? 0
+        post.lastUpdate = json["lastUpdate"] as? Double ?? json["createAt"] as? Double ?? 0
         return post
     }
     
@@ -64,6 +67,7 @@ extension Post{
         json["likeCount"] = post.likeCount ?? 0
         json["likes"] = post.likes
         json["createAt"] = post.createAt ?? 0
+        json["lastUpdate"] = post.lastUpdate ?? post.createAt ?? 0
         return json
     }
     

@@ -11,27 +11,74 @@ class Model {
 
 
     var modelSql = ModelSql();
-    var modelFirebase = ModelFirebase();
+    //var modelFirebase = ModelFirebase();
 
     private init(){
     }
 
 
 
-    func getAllUsers() {
+    func getAllPostsUsers(currentUserid : String) {
+        print("getAllPostsUsers")
+        
         //1. read local users last update date
-        var lastUpdated = User.getLastUpdateDate(database: modelSql.database)
-        lastUpdated += 1;
+        var lastUpdated = Post.getLastUpdateDate(database: modelSql.database)
+        //lastUpdated += 1;
         
         //2. get updates from firebase and observe
-        modelFirebase.getAllUsersAndObserve(from:lastUpdated){ (data:[User]) in
+        
+        Api.Feed.observeFeeds(withId: currentUserid) { (posts: [Post]) in
             //3. write new records to the local DB
-            for us in data{
-                User.addNew(database: self.modelSql.database, data: us)
-                if (us.lastUpdate != nil && us.lastUpdate! > lastUpdated){
-                    lastUpdated = us.lastUpdate!
+            print("posts: \(posts)")
+            for post in posts {
+                Post.addNew(database: self.modelSql.database, data: post)
+                if (post.lastUpdate != nil && Double(post.lastUpdate!) > lastUpdated){
+                    lastUpdated = Double(post.lastUpdate!)
                 }
             }
+            
+            //4. update the local users last update date
+            Post.setLastUpdateDate(database: self.modelSql.database, date: lastUpdated)
+            
+            //5. get the full data
+            let stFullData = Post.getAll(database: self.modelSql.database)
+
+            var postUsers : [Post:User] = [Post:User]()
+            
+            self.getAllUsers(posts: stFullData ,callback: { (users : [User]) in
+                for p in stFullData {
+                    let user = users.first(where: { (user:User) -> Bool in
+                        return p.uid == user.id
+                    })
+                    postUsers.updateValue(user!, forKey: p)
+                }
+                //6. notify observers with full data
+                ModelNotification.userPostsListNotification.notify(data: postUsers)
+            })
+        }
+    }
+
+    func getAllUsers(posts :[Post],callback:@escaping ([User])->Void){
+        
+        //1. read local users last update date
+        var lastUpdated = User.getLastUpdateDate(database: modelSql.database)
+        //lastUpdated += 1;
+        
+        //2. get updates from firebase and observe
+        
+        Api.User.observeUsers { (users : [User]) in
+            let users = users.filter({ (user:User) -> Bool in
+                return posts.contains(where: { (post:Post) -> Bool in
+                    return post.uid == user.id
+                })
+            })
+            //3. write new records to the local DB
+            users.forEach({ (user: User) in
+                User.addNew(database: self.modelSql.database, data: user)
+                if (user.lastUpdate != nil && Double(user.lastUpdate!) > lastUpdated) {
+                    lastUpdated = user.lastUpdate!
+                }
+            })
             
             //4. update the local users last update date
             User.setLastUpdateDate(database: self.modelSql.database, date: lastUpdated)
@@ -39,38 +86,13 @@ class Model {
             //5. get the full data
             let stFullData = User.getAll(database: self.modelSql.database)
             
-            //6. notify observers with full data
-            ModelNotification.userListNotification.notify(data: stFullData)
+            callback(stFullData)
         }
     }
-
-    func getAllUsers(callback:@escaping ([User])->Void){
-        modelFirebase.getAllUsers(callback: callback);
-        //return Student.getAll(database: modelSql!.database);
-    }
-
-    func addNewUser(user:User){
-        modelFirebase.addNewUser(user: user);
-        //Student.addNew(database: modelSql!.database, student: student)
-    }
-
-    func getUser(byId:String,callback:@escaping (User?)->Void){
-        callback(self.getUser(byId: byId));
-    }
     
-    func getUser(byId:String)->User?{
-        return User.get(database: self.modelSql.database, byId: byId);
-    }
-
-
-
-    func saveImage(image:UIImage, name:(String),callback:@escaping (String?)->Void){
-        modelFirebase.saveImage(image: image, name: name, callback: callback)
-    }
-
+    
+    
     func getImage(url:String, callback:@escaping (UIImage?)->Void){
-        //modelFirebase.getImage(url: url, callback: callback)
-        
         //1. try to get the image from local store
         let _url = URL(string: url)
         let localImageName = _url!.lastPathComponent
@@ -79,7 +101,7 @@ class Model {
             print("got image from cache \(localImageName)")
         }else{
             //2. get the image from Firebase
-            modelFirebase.getImage(url: url){(image:UIImage?) in
+            HelperService.getImage(url: url){(image:UIImage?) in
                 if (image != nil){
                     //3. save the image localy
                     self.saveImageToFile(image: image!, name: localImageName)
@@ -91,10 +113,9 @@ class Model {
         }
     }
     
+    
     /// File handling
     func saveImageToFile(image:UIImage, name:String){
-        
-//        if let data = UIImageJPEGRepresentation(image, 0.8) {
         if let data = image.jpegData(compressionQuality: 0.8) {
             let filename = getDocumentsDirectory().appendingPathComponent(name)
             try? data.write(to: filename)

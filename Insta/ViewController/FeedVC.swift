@@ -17,6 +17,8 @@ class FeedVC: UIViewController {
     
     var postsUsers : [Post: User] = [Post: User]()
     
+    var userPostsListener:NSObjectProtocol?
+    
     @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -24,6 +26,9 @@ class FeedVC: UIViewController {
         tableView.estimatedRowHeight = 521
         tableView.rowHeight = UITableView.automaticDimension
         tableView.dataSource = self
+        activityIndicatorView.startAnimating()
+        
+        
         
         loadPosts()
     }
@@ -31,18 +36,31 @@ class FeedVC: UIViewController {
     func loadPosts(){
         guard let currentUser = Api.User.CURRENT_USER else {return}
         activityIndicatorView.startAnimating()
-        Api.Feed.observeFeed(withId: currentUser.uid) { (post :Post) in
-            guard let uid = post.uid else {
-                return
-            }
-            self.fetchUser(uid: uid
-                , completed: { user in
-                    self.postsUsers.updateValue(user, forKey: post)
-
-                    self.activityIndicatorView.stopAnimating()
-                    self.tableView.reloadData()
-            })
+        
+        
+        
+        userPostsListener = ModelNotification.userPostsListNotification.observe { // cb
+            (data:Any) in
+            print("data get")
+            self.postsUsers = data as! [Post : User]
+            self.activityIndicatorView.stopAnimating()
+            self.tableView.reloadData()
         }
+        
+        Model.instance.getAllPostsUsers(currentUserid: currentUser.uid)
+        
+//        Api.Feed.observeFeed(withId: currentUser.uid) { (post :Post) in
+//            guard let uid = post.uid else {
+//                return
+//            }
+//            self.fetchUser(uid: uid
+//                , completed: { user in
+//                    self.postsUsers.updateValue(user, forKey: post)
+//
+//                    self.activityIndicatorView.stopAnimating()
+//                    self.tableView.reloadData()
+//            })
+//        }
         
         Api.Feed.observeFeedRemove(withId: Api.User.CURRENT_USER!.uid) { (post : Post) in
     
@@ -59,6 +77,13 @@ class FeedVC: UIViewController {
         }
        
     }
+    
+    deinit{
+        if userPostsListener != nil{
+            ModelNotification.userPostsListNotification.remove(observer: userPostsListener!)
+        }
+    }
+    
     
     func fetchUser(uid: String , completed : @escaping (User) -> Void){
         Api.User.observeUser(withId: uid) { (user) in

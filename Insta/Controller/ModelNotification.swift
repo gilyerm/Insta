@@ -7,6 +7,8 @@ import Foundation
 
 class ModelNotification {
     static let userListNotification = MyNotification<[User]>("com.insta.userlist")
+    
+    static let userPostsListNotification = MyNotification<[Post:User]>("com.insta.userPostsList")
 
     class MyNotification<T> {
         let name:String

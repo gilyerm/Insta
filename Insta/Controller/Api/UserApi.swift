@@ -69,4 +69,19 @@ class UserApi{
             }
         }
     }
+    
+    func observeUsers(completion: @escaping ([User])-> Void){
+        REF_USERS.observeSingleEvent(of: .value) { (snapshot: DataSnapshot) in
+            print("snapshot: \(snapshot)")
+            let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot])
+            var users = [User]()
+            arrSnapshot.forEach({ (child :DataSnapshot) in
+                if let dict = child.value as? [String: Any]{
+                    let user = User.transformUserFromJson(json: dict, key: child.key)
+                    users.append(user)
+                }
+            })
+            completion(users)
+        }
+    }
 }

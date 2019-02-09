@@ -13,16 +13,16 @@ extension User : SQLiteProtocol{
     
     static var TableName: String = "Users";
     
-    static let USER_ID = "User_ID"; //TEXT PRIMARY KEY
-    static let USER_USERNAME = "User_Username"; //TEXT
-    static let USER_EMAIL = "User_Email"; //TEXT
-    static let USER_PROFILEPIC = "User_ProfilePic"; //TEXT
-    static let USERS_DETAILS = "User_Details"; //TEXT //ARRAY
+    static let user_id = "user_id"
+    static let user_username = "user_username"
+    static let user_email = "user_email"
+    static let user_profileImageUrl = "user_profileImageUrl"
+    static let user_isFollowing = "user_isFollowing"
     
     
     static func createTable(database: OpaquePointer?)  {
         var errormsg: UnsafeMutablePointer<Int8>? = nil
-        let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS \(TableName) (\(USER_ID) TEXT PRIMARY KEY, \(USER_USERNAME) TEXT, \(USER_EMAIL) TEXT, \(USER_PROFILEPIC) TEXT, \(USERS_DETAILS) TEXT)", nil, nil, &errormsg);
+        let res = sqlite3_exec(database, "CREATE TABLE IF NOT EXISTS \(TableName) (\(user_id) TEXT PRIMARY KEY, \(user_username) TEXT, \(user_email) TEXT, \(user_profileImageUrl) TEXT, \(user_isFollowing) TEXT)", nil, nil, &errormsg);
         if(res != 0){
             print("error creating table");
             return
@@ -31,19 +31,18 @@ extension User : SQLiteProtocol{
     
     static func addNew(database: OpaquePointer?, data user:User){
         var sqlite3_stmt: OpaquePointer? = nil
-        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(USER_ID), \(USER_USERNAME), \(USER_EMAIL), \(USER_PROFILEPIC), \(USERS_DETAILS)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
-            let userID = user.userID.cString(using: .utf8)
-            let username = user.username.cString(using: .utf8)
-            let email = user.email.cString(using: .utf8)
-            let profilepic = user.profilepic.cString(using: .utf8)
-            
-            let details = String(data: (try? JSONSerialization.data(withJSONObject: user.details, options: []))!, encoding: .utf8)
+        if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(user_id), \(user_username), \(user_email), \(user_profileImageUrl), \(user_isFollowing)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            let userID = user.id?.cString(using: .utf8)
+            let username = user.username?.cString(using: .utf8)
+            let email = user.email?.cString(using: .utf8)
+            let profilepic = user.profileImageUrl?.cString(using: .utf8)
+            let isFollowing = String(user.isFollowing ?? false).cString(using: .utf8)
             
             sqlite3_bind_text(sqlite3_stmt, 1, userID,-1,nil);
             sqlite3_bind_text(sqlite3_stmt, 2, username,-1,nil);
             sqlite3_bind_text(sqlite3_stmt, 3, email,-1,nil);
             sqlite3_bind_text(sqlite3_stmt, 4, profilepic,-1,nil);
-            sqlite3_bind_text(sqlite3_stmt, 5, details,-1,nil);
+            sqlite3_bind_text (sqlite3_stmt, 5, isFollowing,-1,nil);
             if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
                 print("Successfully inserted row.")
             } else {
@@ -58,7 +57,7 @@ extension User : SQLiteProtocol{
     static func get(database: OpaquePointer?, byId:String)->User?{
         var sqlite3_stmt: OpaquePointer? = nil
         var data :User? = nil
-        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName) WHERE \(USER_ID) = ?;",-1,&sqlite3_stmt,nil)
+        if (sqlite3_prepare_v2(database,"SELECT * from \(TableName) WHERE \(user_id) = ?;",-1,&sqlite3_stmt,nil)
             == SQLITE_OK){
             
             guard sqlite3_bind_text(sqlite3_stmt, 1, byId,-1,nil) == SQLITE_OK else {
@@ -73,14 +72,13 @@ extension User : SQLiteProtocol{
     
     
     static func getTypeByStmt(sqlite3_stmt: OpaquePointer?)->User{
-        let userID = String(cString:sqlite3_column_text(sqlite3_stmt,0)!)
-        let username = String(cString:sqlite3_column_text(sqlite3_stmt,1)!)
-        let email = String(cString:sqlite3_column_text(sqlite3_stmt,2)!)
-        let profilepic = String(cString:sqlite3_column_text(sqlite3_stmt,3)!)
-        let details : String = String(cString:sqlite3_column_text(sqlite3_stmt,4)!)
-        
-        let deailsstst = try? JSONSerialization.jsonObject(with: details.data(using: .utf8)!, options: .mutableLeaves)
+        let user: User = User()
+        user.id = String(cString:sqlite3_column_text(sqlite3_stmt,0)!)
+        user.username = String(cString:sqlite3_column_text(sqlite3_stmt,1)!)
+        user.email = String(cString:sqlite3_column_text(sqlite3_stmt,2)!)
+        user.profileImageUrl = String(cString:sqlite3_column_text(sqlite3_stmt,3)!)
+        user.isFollowing = String(cString:sqlite3_column_text(sqlite3_stmt,4)!) != String(false)
     
-        return User(userID: userID, username: username, email: email, profilepic: profilepic, details: deailsstst as! [String : String])
+        return user
     }
 }

@@ -59,6 +59,9 @@ class PostApi{
                 post["likeCount"] = likeCount  as AnyObject?
                 post["likes"] = likes as AnyObject?
                 
+                
+                post["lastUpdate"] = Int(Date().timeIntervalSince1970) as AnyObject
+                
                 // Set value and report transaction success
                 currentData.value = post
                 
@@ -77,7 +80,6 @@ class PostApi{
     }
     
     func observeTopPosts(completion: @escaping (Post) -> Void){
-        
         REF_POSTS.queryOrdered(byChild: "likeCount").observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
             let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot]).reversed()
             arrSnapshot.forEach({ (child :DataSnapshot) in
@@ -86,6 +88,20 @@ class PostApi{
                     completion(post)
                 }
             })
+        }
+    }
+    
+    func observePosts(completion: @escaping ([Post]) -> Void){
+        REF_POSTS.observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
+            let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot])
+            var posts = [Post]()
+            arrSnapshot.forEach({ (child :DataSnapshot) in
+                if let dict = child.value as? [String: Any]{
+                    let post = Post.transformPostFromJson(json: dict, key: child.key)
+                    posts.append(post)
+                }
+            })
+            completion(posts)
         }
     }
     

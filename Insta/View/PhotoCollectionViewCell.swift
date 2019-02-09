@@ -26,8 +26,11 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     
     func updateView(){
         if let photoUrlString = post?.photoUrl{
-            let photoUrl = URL(string: photoUrlString)
-            self.photo.sd_setImage(with: photoUrl, completed: nil)
+            //let photoUrl = URL(string: photoUrlString)
+            Model.instance.getImage(url: photoUrlString) { (uiimage : UIImage?) in
+                self.photo.image = uiimage
+            }
+            //self.photo.sd_setImage(with: photoUrl, completed: nil)
         }
         
         let tapGestureForPhoto = UITapGestureRecognizer(target: self, action: #selector(self.photoTouchUp))

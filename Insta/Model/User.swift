@@ -15,6 +15,8 @@ class User {
     var id : String?
     var isFollowing: Bool?
     
+    var lastUpdate : Double?
+    
 }
 extension User{
     
@@ -23,6 +25,7 @@ extension User{
         user.email = json["email"] as? String
         user.profileImageUrl = json["profileImageUrl"] as? String
         user.username = json["username"] as? String
+        user.lastUpdate = json["lastUpdate"] as? Double
         user.id = key
         return user
     }
@@ -34,6 +37,7 @@ extension User{
         json["profileImageUrl"]     = user.profileImageUrl
         json["username"]            = user.username
         json["username_lowercase"]  = user.username?.lowercased()
+        json["lastUpdate"]          = user.lastUpdate
         return json
     }
     

@@ -37,8 +37,11 @@ class SettingsTableVC: UITableViewController {
             self.usernameTextField.text = user.username
             self.emailTextField.text = user.email
             if let photoUrlString = user.profileImageUrl{
-                let photoUrl = URL(string: photoUrlString)
-                self.profileImage.sd_setImage(with: photoUrl, completed: nil)
+                //let photoUrl = URL(string: photoUrlString)
+                //self.profileImage.sd_setImage(with: photoUrl, completed: nil)
+                Model.instance.getImage(url: photoUrlString) { (uiimage : UIImage?) in
+                    self.profileImage.image = uiimage
+                }
             }
         }
     }

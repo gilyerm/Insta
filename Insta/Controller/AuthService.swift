@@ -54,6 +54,7 @@ class AuthService {
         user.username = username
         user.email = email
         user.profileImageUrl = profileImageUrl
+        user.lastUpdate = Double(Date().timeIntervalSince1970)
         newUserReference.setValue(User.transformUserToJson(user: user))
         onSuccess()
     }
@@ -91,6 +92,7 @@ class AuthService {
         user.username = username
         user.email = email
         user.profileImageUrl = profileImageUrl
+        user.lastUpdate = Double(Date().timeIntervalSince1970)
         Api.User.RefCurrentUser?.updateChildValues(User.transformUserToJson(user: user), withCompletionBlock: { (error, ref) in
             if error != nil {
                 onError(error!.localizedDescription)

@@ -30,8 +30,11 @@ class PeopleTableViewCell: UITableViewCell {
     func updateView(){
         nameLabel.text = user?.username
         if let photoImageUrl = user?.profileImageUrl{
-            let photoUrl = URL(string: photoImageUrl)
-            self.profileImage.sd_setImage(with: photoUrl, completed: nil)
+//            let photoUrl = URL(string: photoImageUrl)
+//            self.profileImage.sd_setImage(with: photoUrl, completed: nil)
+            Model.instance.getImage(url: photoImageUrl) { (uiimage : UIImage?) in
+                self.profileImage.image = uiimage
+            }
         }
         if user!.isFollowing == false {
             configureFollowButton()
