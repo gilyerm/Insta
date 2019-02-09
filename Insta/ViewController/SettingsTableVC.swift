@@ -67,6 +67,12 @@ class SettingsTableVC: UITableViewController {
         alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { (_) in
             // attempt sign out
             AuthService.logout(onSuccess: {
+                
+                Model.instance.clearCache()
+                
+                Model.instance.modelSql.dropTables()
+                Model.instance.modelSql.createTables()
+                
                 // present login controller
                 let storyboard = UIStoryboard(name: "Log", bundle: nil)
                 let signInVC = storyboard.instantiateViewController(withIdentifier: "signInVC")

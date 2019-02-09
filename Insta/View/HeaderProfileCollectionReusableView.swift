@@ -111,7 +111,8 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @objc func followAction(){
         if user!.isFollowing == false {
-            Api.Follow.followAction(withUser: user!.id!)
+            Model.instance.followUser(user: user!)
+            //Api.Follow.followAction(withUser: user!.id!)
             configureUnFollowButton()
             user!.isFollowing = !(user!.isFollowing!)
             self.delegate?.updateFollowButton(forUser: user!)
@@ -120,7 +121,8 @@ class HeaderProfileCollectionReusableView: UICollectionReusableView {
     
     @objc func unFollowAction(){
         if user!.isFollowing == true {
-            Api.Follow.unFollowAction(withUser: user!.id!)
+            Model.instance.unfollowUser(user: user!)
+            //Api.Follow.unFollowAction(withUser: user!.id!)
             configureFollowButton()
             user!.isFollowing = !(user!.isFollowing!)
             self.delegate?.updateFollowButton(forUser: user!)

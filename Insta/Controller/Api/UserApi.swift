@@ -72,7 +72,7 @@ class UserApi{
     
     func observeUsers(completion: @escaping ([User])-> Void){
         REF_USERS.observeSingleEvent(of: .value) { (snapshot: DataSnapshot) in
-            print("snapshot: \(snapshot)")
+            //print("snapshot: \(snapshot)")
             let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot])
             var users = [User]()
             arrSnapshot.forEach({ (child :DataSnapshot) in

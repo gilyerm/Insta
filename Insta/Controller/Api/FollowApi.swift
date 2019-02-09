@@ -61,4 +61,27 @@ class FollowApi {
         }
     }
     
+    
+    
+    func getAllFollowings(userId : String, completion : @escaping ([User])->Void){
+        REF_FOLLOWING.child(userId).observeSingleEvent(of: .value) { (snapshot:DataSnapshot) in
+            let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot])
+            var userssids = [String]()
+            arrSnapshot.forEach({ (child :DataSnapshot) in
+                let userid =  child.key
+                userssids.append(userid)
+            })
+            Api.User.observeUsers(completion: { (users:[User]) in
+                let users = users.filter({ (user: User) -> Bool in
+                    return userssids.contains(where: { (uid : String) -> Bool in
+                        return user.id == uid
+                    })
+                })
+                completion(users)
+            })
+            
+            
+        }
+    }
+    
 }

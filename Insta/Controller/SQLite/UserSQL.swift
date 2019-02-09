@@ -32,6 +32,7 @@ extension User : SQLiteProtocol{
     static func addNew(database: OpaquePointer?, data user:User){
         var sqlite3_stmt: OpaquePointer? = nil
         if (sqlite3_prepare_v2(database,"INSERT OR REPLACE INTO \(TableName)(\(user_id), \(user_username), \(user_email), \(user_profileImageUrl), \(user_isFollowing)) VALUES (?,?,?,?,?);",-1, &sqlite3_stmt,nil) == SQLITE_OK){
+            print("user \(user)")
             let userID = user.id?.cString(using: .utf8)
             let username = user.username?.cString(using: .utf8)
             let email = user.email?.cString(using: .utf8)
@@ -54,6 +55,7 @@ extension User : SQLiteProtocol{
         sqlite3_finalize(sqlite3_stmt)
     }
     
+    
     static func get(database: OpaquePointer?, byId:String)->User?{
         var sqlite3_stmt: OpaquePointer? = nil
         var data :User? = nil
@@ -68,6 +70,25 @@ extension User : SQLiteProtocol{
             }
         }
         return data;
+    }
+    
+    static func delete(database: OpaquePointer?, byId:String)->Void{
+        var sqlite3_stmt: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(database,"DELETE from \(TableName) WHERE \(user_id) = ?;",-1,&sqlite3_stmt,nil)
+            == SQLITE_OK){
+            
+            guard sqlite3_bind_text(sqlite3_stmt, 1, byId,-1,nil) == SQLITE_OK else {
+                return
+            }
+            if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
+                print("Successfully deleted row.")
+                return
+            } else {
+                print("could not delete row.")
+                return
+            }
+        }
+        print("Delete stattement could not be prepared.")
     }
     
     

@@ -23,13 +23,12 @@ class Model {
         
         //1. read local users last update date
         var lastUpdated = Post.getLastUpdateDate(database: modelSql.database)
-        //lastUpdated += 1;
+        lastUpdated += 1;
         
         //2. get updates from firebase and observe
         
         Api.Feed.observeFeeds(withId: currentUserid) { (posts: [Post]) in
             //3. write new records to the local DB
-            print("posts: \(posts)")
             for post in posts {
                 Post.addNew(database: self.modelSql.database, data: post)
                 if (post.lastUpdate != nil && Double(post.lastUpdate!) > lastUpdated){
@@ -45,7 +44,8 @@ class Model {
 
             var postUsers : [Post:User] = [Post:User]()
             
-            self.getAllUsers(posts: stFullData ,callback: { (users : [User]) in
+            self.getAllUsers(callback: { (users : [User]) in
+                print("users \(users)")
                 for p in stFullData {
                     let user = users.first(where: { (user:User) -> Bool in
                         return p.uid == user.id
@@ -58,35 +58,58 @@ class Model {
         }
     }
 
-    func getAllUsers(posts :[Post],callback:@escaping ([User])->Void){
+    func getAllUsers(callback:@escaping ([User])->Void){
         
         //1. read local users last update date
         var lastUpdated = User.getLastUpdateDate(database: modelSql.database)
         //lastUpdated += 1;
         
         //2. get updates from firebase and observe
-        
-        Api.User.observeUsers { (users : [User]) in
-            let users = users.filter({ (user:User) -> Bool in
-                return posts.contains(where: { (post:Post) -> Bool in
-                    return post.uid == user.id
+        Api.User.observeCurrentUser { (curUser: User) in
+            Api.Follow.getAllFollowings(userId: curUser.id!) { (users: [User]) in
+                var users1 = users
+                users1.append(curUser)
+                //3. write new records to the local DB
+                print("users1 \(users1)")
+                users1.forEach({ (user: User) in
+                    User.addNew(database: self.modelSql.database, data: user)
+                    if (user.lastUpdate != nil && Double(user.lastUpdate!) > lastUpdated) {
+                        lastUpdated = user.lastUpdate!
+                    }
                 })
+                
+                //4. update the local users last update date
+                User.setLastUpdateDate(database: self.modelSql.database, date: lastUpdated)
+                
+                //5. get the full data
+                let stFullData = User.getAll(database: self.modelSql.database)
+                
+                callback(stFullData)
+            }
+        }
+        
+    }
+    
+    
+    func followUser(user : User){
+        Api.Follow.followAction(withUser: user.id!)
+        User.addNew(database: modelSql.database, data: user)
+        
+        Api.UserPosts.fechUserPosts(userId: user.id!) { (postId: String) in
+            Api.Post.observePost(withId: postId, completion: { (post:Post) in
+                Post.addNew(database: self.modelSql.database, data: post)
             })
-            //3. write new records to the local DB
-            users.forEach({ (user: User) in
-                User.addNew(database: self.modelSql.database, data: user)
-                if (user.lastUpdate != nil && Double(user.lastUpdate!) > lastUpdated) {
-                    lastUpdated = user.lastUpdate!
-                }
+        }
+        
+    }
+    func unfollowUser(user : User){
+        Api.Follow.unFollowAction(withUser: user.id!)
+        User.delete(database: modelSql.database, byId: user.id!)
+        
+        Api.UserPosts.fechUserPosts(userId: user.id!) { (postId: String) in
+            Api.Post.observePost(withId: postId, completion: { (post:Post) in
+                Post.delete(database: self.modelSql.database, byId: post.id!)
             })
-            
-            //4. update the local users last update date
-            User.setLastUpdateDate(database: self.modelSql.database, date: lastUpdated)
-            
-            //5. get the full data
-            let stFullData = User.getAll(database: self.modelSql.database)
-            
-            callback(stFullData)
         }
     }
     
@@ -131,5 +154,11 @@ class Model {
     func getImageFromFile(name:String)->UIImage?{
         let filename = getDocumentsDirectory().appendingPathComponent(name)
         return UIImage(contentsOfFile:filename.path)
+    }
+    
+    
+    func clearCache(){
+        var url = getDocumentsDirectory()
+        url.removeAllCachedResourceValues()
     }
 }

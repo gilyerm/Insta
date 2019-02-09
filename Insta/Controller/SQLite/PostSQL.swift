@@ -87,6 +87,26 @@ extension Post : SQLiteProtocol{
         return data;
     }
     
+    
+    static func delete(database: OpaquePointer?, byId:String)->Void{
+        var sqlite3_stmt: OpaquePointer? = nil
+        if (sqlite3_prepare_v2(database,"DELETE from \(TableName) WHERE \(post_id) = ?;",-1,&sqlite3_stmt,nil)
+            == SQLITE_OK){
+            
+            guard sqlite3_bind_text(sqlite3_stmt, 1, byId,-1,nil) == SQLITE_OK else {
+                return
+            }
+            if(sqlite3_step(sqlite3_stmt) == SQLITE_DONE){
+                print("Successfully deleted row.")
+                return
+            } else {
+                print("could not delete row.")
+                return
+            }
+        }
+        print("Delete stattement could not be prepared.")
+    }
+    
     static func getTypeByStmt(sqlite3_stmt: OpaquePointer?)->Post{
         let post :Post = Post()
 

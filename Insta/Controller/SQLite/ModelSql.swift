@@ -39,5 +39,4 @@ class ModelSql {
         LastUpdateDates.drop(database: database)
     }
     
-    
 }
