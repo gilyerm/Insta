@@ -15,10 +15,6 @@ class User {
     var id : String?
     var isFollowing: Bool?
     
-    
-    init() {
-        
-    } 
 }
 extension User{
     

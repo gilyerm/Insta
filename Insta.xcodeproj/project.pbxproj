@@ -18,6 +18,13 @@
 		463EFFD2219EE69A00E13CB0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 463EFFD0219EE69A00E13CB0 /* LaunchScreen.storyboard */; };
 		463EFFDD219EE69A00E13CB0 /* InstaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFDC219EE69A00E13CB0 /* InstaTests.swift */; };
 		463EFFE8219EE69B00E13CB0 /* InstaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */; };
+		4645ED9A220CA353009F6F43 /* UserSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4645ED98220CA353009F6F43 /* UserSQL.swift */; };
+		4645ED9B220CA353009F6F43 /* PostSQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4645ED99220CA353009F6F43 /* PostSQL.swift */; };
+		466C202F220C70BF008519B0 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C202E220C70BF008519B0 /* Model.swift */; };
+		466C203A220C973E008519B0 /* ModelSql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C2037220C973E008519B0 /* ModelSql.swift */; };
+		466C203B220C973E008519B0 /* LastUpdateDates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C2038220C973E008519B0 /* LastUpdateDates.swift */; };
+		466C203E220C9751008519B0 /* ModelNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C203D220C9750008519B0 /* ModelNotification.swift */; };
+		466C2040220C98DE008519B0 /* SQLiteProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 466C203F220C98DE008519B0 /* SQLiteProtocol.swift */; };
 		46DD8810220708E60068B68D /* CommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD880F220708E60068B68D /* CommentVC.swift */; };
 		46DD8812220709250068B68D /* CommentTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8811220709250068B68D /* CommentTVCell.swift */; };
 		46DD8814220731070068B68D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46DD8813220731070068B68D /* Comment.swift */; };
@@ -94,6 +101,13 @@
 		463EFFE3219EE69B00E13CB0 /* InstaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		463EFFE7219EE69B00E13CB0 /* InstaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaUITests.swift; sourceTree = "<group>"; };
 		463EFFE9219EE69B00E13CB0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4645ED98220CA353009F6F43 /* UserSQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSQL.swift; sourceTree = "<group>"; };
+		4645ED99220CA353009F6F43 /* PostSQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSQL.swift; sourceTree = "<group>"; };
+		466C202E220C70BF008519B0 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		466C2037220C973E008519B0 /* ModelSql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelSql.swift; sourceTree = "<group>"; };
+		466C2038220C973E008519B0 /* LastUpdateDates.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LastUpdateDates.swift; sourceTree = "<group>"; };
+		466C203D220C9750008519B0 /* ModelNotification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelNotification.swift; sourceTree = "<group>"; };
+		466C203F220C98DE008519B0 /* SQLiteProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteProtocol.swift; sourceTree = "<group>"; };
 		46DD880F220708E60068B68D /* CommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentVC.swift; sourceTree = "<group>"; };
 		46DD8811220709250068B68D /* CommentTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTVCell.swift; sourceTree = "<group>"; };
 		46DD8813220731070068B68D /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -244,6 +258,18 @@
 			path = InstaUITests;
 			sourceTree = "<group>";
 		};
+		466C2030220C71FE008519B0 /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				4645ED99220CA353009F6F43 /* PostSQL.swift */,
+				4645ED98220CA353009F6F43 /* UserSQL.swift */,
+				466C203F220C98DE008519B0 /* SQLiteProtocol.swift */,
+				466C2038220C973E008519B0 /* LastUpdateDates.swift */,
+				466C2037220C973E008519B0 /* ModelSql.swift */,
+			);
+			path = SQLite;
+			sourceTree = "<group>";
+		};
 		4BE852310A9F00FCEF54159E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -272,10 +298,13 @@
 		84B01D3F2209FB9D007681EB /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				466C2030220C71FE008519B0 /* SQLite */,
 				84B01D402209FCAF007681EB /* Api */,
 				46DD8819220777A40068B68D /* Api.swift */,
 				84554C402209DF0B00158367 /* AuthService.swift */,
 				84B01D3B2209ED3C007681EB /* HelperService.swift */,
+				466C202E220C70BF008519B0 /* Model.swift */,
+				466C203D220C9750008519B0 /* ModelNotification.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -610,10 +639,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466C202F220C70BF008519B0 /* Model.swift in Sources */,
 				46302B8022033A610051714F /* MainTabVC.swift in Sources */,
+				466C203E220C9751008519B0 /* ModelNotification.swift in Sources */,
 				84BCA68D22007DF100525C17 /* signInVC.swift in Sources */,
 				84A0BC0C220B567E009C431D /* DetailVC.swift in Sources */,
 				84A0BC0A220B3D11009C431D /* SettingsTableVC.swift in Sources */,
+				4645ED9B220CA353009F6F43 /* PostSQL.swift in Sources */,
 				848AE052220A0CFE00F1B0FC /* PeopleTableViewCell.swift in Sources */,
 				46302B8422033F580051714F /* SearchVC.swift in Sources */,
 				84CEE0A22208D881003D1B73 /* HeaderProfileCollectionReusableView.swift in Sources */,
@@ -630,11 +662,15 @@
 				46DD881E22077C590068B68D /* Post_CommentApi.swift in Sources */,
 				84A0BC08220B0F87009C431D /* VisitProfileVC.swift in Sources */,
 				46DD8810220708E60068B68D /* CommentVC.swift in Sources */,
+				466C203A220C973E008519B0 /* ModelSql.swift in Sources */,
+				466C2040220C98DE008519B0 /* SQLiteProtocol.swift in Sources */,
 				84CEE0A022063868003D1B73 /* User.swift in Sources */,
 				84554C412209DF0C00158367 /* AuthService.swift in Sources */,
+				4645ED9A220CA353009F6F43 /* UserSQL.swift in Sources */,
 				84CEE09222060768003D1B73 /* Post.swift in Sources */,
 				84BCA68F22007E3600525C17 /* signUpVC.swift in Sources */,
 				848AE054220A151900F1B0FC /* FollowApi.swift in Sources */,
+				466C203B220C973E008519B0 /* LastUpdateDates.swift in Sources */,
 				46DD8812220709250068B68D /* CommentTVCell.swift in Sources */,
 				46302B8222033F1A0051714F /* FeedVC.swift in Sources */,
 				463EFFC8219EE69A00E13CB0 /* AppDelegate.swift in Sources */,
