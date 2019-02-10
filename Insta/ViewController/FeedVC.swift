@@ -28,8 +28,6 @@ class FeedVC: UIViewController {
         tableView.dataSource = self
         activityIndicatorView.startAnimating()
         
-        
-        
         loadPosts()
     }
     

@@ -62,7 +62,7 @@ class Model {
         
         //1. read local users last update date
         var lastUpdated = User.getLastUpdateDate(database: modelSql.database)
-        //lastUpdated += 1;
+        lastUpdated += 1;
         
         //2. get updates from firebase and observe
         Api.User.observeCurrentUser { (curUser: User) in

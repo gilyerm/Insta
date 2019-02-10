@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
 
@@ -22,6 +23,14 @@ class MainTabVC: UITabBarController , UITabBarControllerDelegate  {
         self.delegate = self
         
        
+        let connectedRef = Database.database().reference(withPath: ".info/connected")
+        connectedRef.observe(.value, with: { snapshot in
+            if snapshot.value as? Bool ?? false {
+                print("Connected")
+            } else {
+                print("Not connected")
+            }
+        })
         
      }
 
