@@ -25,7 +25,7 @@ class FeedApi {
     
     func observeFeeds(withId id:String , completion : @escaping ([Post]) -> Void){
         REF_FEED.child(id).queryOrdered(byChild: "createAt").observe(.value) { (snapshot: DataSnapshot) in
-            //print("snapshot: \(snapshot)")
+            print("snapshot: \(snapshot)")
             let arrSnapshot = (snapshot.children.allObjects as! [DataSnapshot])
             Api.Post.observePosts(completion: { (posts: [Post]) in
                 var postsids = [String]()
@@ -40,8 +40,6 @@ class FeedApi {
                 })
                 completion(posts)
             })
-            
-            
         }
     }
     

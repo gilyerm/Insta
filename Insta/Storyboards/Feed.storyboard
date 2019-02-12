@@ -169,7 +169,13 @@
                             <constraint firstItem="taa-J4-7Vb" firstAttribute="centerY" secondItem="NdZ-nA-mXH" secondAttribute="centerY" id="lQd-u2-rxU"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Feed" id="ror-xq-kjP"/>
+                    <navigationItem key="navigationItem" title="Feed" id="ror-xq-kjP">
+                        <barButtonItem key="leftBarButtonItem" systemItem="refresh" id="JFn-dE-zgy">
+                            <connections>
+                                <action selector="refreshPosts:" destination="9Vo-ZB-549" id="O4T-Ty-2XX"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorView" destination="taa-J4-7Vb" id="kvb-KB-woP"/>
                         <outlet property="tableView" destination="eKa-am-hEv" id="BbD-N8-22i"/>
@@ -344,6 +350,6 @@
         <image name="like_unselected" width="46" height="41"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="6Dg-Cn-vfy"/>
+        <segue reference="seC-Nu-T8S"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -107,6 +107,13 @@ class FeedVC: UIViewController {
             
         }
     }
+    
+    
+    @IBAction func refreshPosts(_ sender: Any) {
+        guard let currentUser = Api.User.CURRENT_USER else {return}
+        Model.instance.getAllPostsUsers(currentUserid: currentUser.uid)
+    }
+    
 }
 
 extension FeedVC : UITableViewDataSource {

@@ -29,6 +29,7 @@ class Model {
         
         Api.Feed.observeFeeds(withId: currentUserid) { (posts: [Post]) in
             //3. write new records to the local DB
+            print("posts \(posts)")
             for post in posts {
                 Post.addNew(database: self.modelSql.database, data: post)
                 if (post.lastUpdate != nil && Double(post.lastUpdate!) > lastUpdated){
